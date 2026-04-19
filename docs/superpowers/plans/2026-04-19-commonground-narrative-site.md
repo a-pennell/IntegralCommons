@@ -53,8 +53,7 @@ Files created / modified, grouped by responsibility.
 - `site/tests/smoke/` (Playwright) — key pages load, reduced-motion works
 
 ### Fonts
-- `site/public/fonts/SourceSerif4-Variable.woff2`
-- `site/public/fonts/SourceSerif4-SmText-Variable.woff2`
+- `site/public/fonts/SourceSerif4-Variable.woff2` (Roman variable — covers both display and body)
 - `site/public/fonts/IBMPlexMono-Regular.woff2`
 
 ### Deploy
@@ -198,9 +197,10 @@ git commit -m "chore: add gsap, lenis, vitest, playwright"
 
 ## Task 3: Add self-hosted fonts
 
+**Note (post-execution):** Adobe's Source Serif 4 variable WOFF2 release only ships the Roman optical (no SmText variable exists). We use the single variable family for both display and body. The SmText declaration was removed from fonts.css accordingly.
+
 **Files:**
 - Create: `site/public/fonts/SourceSerif4-Variable.woff2`
-- Create: `site/public/fonts/SourceSerif4-SmText-Variable.woff2`
 - Create: `site/public/fonts/IBMPlexMono-Regular.woff2`
 - Create: `site/src/styles/fonts.css`
 
@@ -283,8 +283,10 @@ git commit -m "feat(site): add self-hosted fonts (Source Serif 4, IBM Plex Mono)
   --accent: #B8341F;
 
   /* type */
+  /* Note: Source Serif 4 SmText optical is not available as a variable WOFF2,
+     so we use the single variable Source Serif 4 family for both display and body. */
   --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-body: 'Source Serif 4 SmText', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* type scale */
@@ -500,7 +502,6 @@ import '../styles/global.css';
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title} — CommonGround</title>
   <link rel="preload" href="/fonts/SourceSerif4-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/SourceSerif4-SmText-Variable.woff2" as="font" type="font/woff2" crossorigin />
 </head>
 <body>
   <header class="site-header">
@@ -672,12 +673,14 @@ const { Content } = await render(entry);
 
 - [ ] **Step 5: Write `site/src/pages/overview.astro` (diagram added later in Task 12)**
 
+Note: Astro 6's glob loader lowercases IDs, so `ICOS_Overview.md` → id `icos_overview`.
+
 ```astro
 ---
 import { getEntry, render } from 'astro:content';
 import Article from '../layouts/Article.astro';
-const entry = await getEntry('source', 'ICOS_Overview');
-if (!entry) throw new Error('ICOS_Overview.md not found');
+const entry = await getEntry('source', 'icos_overview');
+if (!entry) throw new Error('icos_overview (ICOS_Overview.md) not found');
 const { Content } = await render(entry);
 ---
 <Article title="ICOS Overview" sectionLabel="§ Integral Commons OS">
@@ -976,7 +979,6 @@ import '../styles/global.css';
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
   <link rel="preload" href="/fonts/SourceSerif4-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/SourceSerif4-SmText-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <meta name="description" content="CommonGround — a premise, three commitments, one operating system." />
 </head>
 <body class="narrative-body">
@@ -1157,8 +1159,8 @@ Modify `site/src/pages/overview.astro` to append the diagram after the content:
 import { getEntry, render } from 'astro:content';
 import Article from '../layouts/Article.astro';
 import LayerDiagram from '../components/LayerDiagram.astro';
-const entry = await getEntry('source', 'ICOS_Overview');
-if (!entry) throw new Error('ICOS_Overview.md not found');
+const entry = await getEntry('source', 'icos_overview');
+if (!entry) throw new Error('icos_overview (ICOS_Overview.md) not found');
 const { Content } = await render(entry);
 ---
 <Article title="ICOS Overview" sectionLabel="§ Integral Commons OS">
