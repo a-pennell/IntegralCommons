@@ -1,10 +1,14 @@
 ---
 import { getEntry, render } from 'astro:content';
 import Article from '../layouts/Article.astro';
+import LayerDiagram from '../components/LayerDiagram.astro';
 const entry = await getEntry('source', 'icos_overview');
 if (!entry) throw new Error('icos_overview (ICOS_Overview.md) not found');
 const { Content } = await render(entry);
 ---
 <Article title="ICOS Overview" sectionLabel="§ Integral Commons OS">
   <Content />
+  <hr class="rule" />
+  <h2>The five layers</h2>
+  <LayerDiagram variant="static" />
 </Article>

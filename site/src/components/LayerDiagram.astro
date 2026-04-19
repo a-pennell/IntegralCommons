@@ -1,0 +1,85 @@
+---
+interface Props {
+  variant?: 'static' | 'interactive';
+}
+const { variant = 'static' } = Astro.props;
+
+const layers = [
+  { id: 'L1', name: 'Personal',    tag: 'self-awareness',      motif: 'spiral' },
+  { id: 'L2', name: 'Relational',  tag: 'group coordination',  motif: 'pair' },
+  { id: 'L3', name: 'Collective',  tag: 'governance',          motif: 'hex' },
+  { id: 'L4', name: 'Ecological',  tag: 'stewardship',         motif: 'branch' },
+  { id: 'L5', name: 'AI',          tag: 'sensemaking',         motif: 'stars' },
+];
+---
+<div class={`layer-diagram variant-${variant}`} data-variant={variant}>
+  {layers.map((l, i) => (
+    <div class="layer" data-layer-id={l.id} data-index={i}>
+      <span class="label layer-id">{l.id} · {l.name.toUpperCase()}</span>
+      <span class="layer-tag">{l.tag}</span>
+      <svg class="layer-motif" viewBox="0 0 80 40" aria-hidden="true">
+        {l.motif === 'spiral' && (
+          <path d="M40 20 m-14 0 a14 14 0 1 0 28 0 a10 10 0 0 1 -20 0 a6 6 0 1 1 12 0" fill="none" stroke="currentColor" stroke-width="0.8" />
+        )}
+        {l.motif === 'pair' && (
+          <g fill="none" stroke="currentColor" stroke-width="0.8">
+            <circle cx="28" cy="20" r="10" />
+            <circle cx="52" cy="20" r="10" />
+          </g>
+        )}
+        {l.motif === 'hex' && (
+          <g fill="none" stroke="currentColor" stroke-width="0.8">
+            <polygon points="32,6 48,6 56,20 48,34 32,34 24,20" />
+            <polygon points="16,12 22,12 26,22 22,32 16,32 12,22" opacity="0.6" />
+            <polygon points="58,12 64,12 68,22 64,32 58,32 54,22" opacity="0.6" />
+          </g>
+        )}
+        {l.motif === 'branch' && (
+          <g fill="none" stroke="currentColor" stroke-width="0.8">
+            <path d="M40 36 L40 20 M40 20 L28 10 M40 20 L52 10 M40 28 L30 24 M40 28 L50 24" />
+          </g>
+        )}
+        {l.motif === 'stars' && (
+          <g fill="currentColor">
+            <circle cx="18" cy="14" r="1.2" /><circle cx="32" cy="26" r="1.2" />
+            <circle cx="46" cy="10" r="1.2" /><circle cx="58" cy="22" r="1.2" />
+            <circle cx="68" cy="14" r="1.2" /><circle cx="40" cy="18" r="1.2" />
+            <g stroke="currentColor" stroke-width="0.4" opacity="0.5">
+              <line x1="18" y1="14" x2="32" y2="26" />
+              <line x1="32" y1="26" x2="46" y2="10" />
+              <line x1="46" y1="10" x2="58" y2="22" />
+              <line x1="58" y1="22" x2="68" y2="14" />
+              <line x1="40" y1="18" x2="46" y2="10" />
+            </g>
+          </g>
+        )}
+      </svg>
+    </div>
+  ))}
+</div>
+
+<style>
+  .layer-diagram {
+    display: flex; flex-direction: column;
+    border-top: 0.5px solid var(--rule);
+    color: var(--ink);
+    background: var(--paper);
+  }
+  .layer {
+    display: grid;
+    grid-template-columns: 160px 1fr 80px;
+    align-items: center;
+    gap: 24px;
+    height: 80px;
+    padding: 0 24px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .layer-id { color: var(--muted); }
+  .layer-tag {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 20px;
+  }
+  .layer-motif { width: 80px; height: 40px; color: var(--ink); opacity: 0.7; }
+
+  .variant-interactive .layer { opacity: 0; transform: translateY(24px); }
+</style>
