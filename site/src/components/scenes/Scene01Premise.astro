@@ -1,0 +1,32 @@
+---
+import SectionNumber from '../SectionNumber.astro';
+---
+<section class="scene scene-premise grid" data-scene="premise">
+  <div data-premise-num>
+    <SectionNumber n="01" act="I · Diagnosis" />
+  </div>
+  <div class="col-center premise-stanza" data-premise-stanza>
+    <p class="label" style="margin-bottom:24px;">We believe</p>
+    <p class="premise-line" data-premise-line>Systems ignoring human development create fragmentation.</p>
+    <p class="premise-line" data-premise-line>Centralized power leads to capture.</p>
+    <p class="premise-line" data-premise-line>Democracy without structure becomes noise.</p>
+    <p class="premise-line" data-premise-line>Structure without participation becomes domination.</p>
+  </div>
+</section>
+
+<script>
+  import { mountPremiseAnchor } from '../../lib/anchors/premise';
+  const root = document.querySelector<HTMLElement>('[data-scene="premise"]');
+  if (root) mountPremiseAnchor(root);
+</script>
+
+<style>
+  .scene-premise { min-height: 100vh; align-items: center; }
+  .premise-stanza p {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.25;
+    margin: 0 0 28px;
+  }
+  .premise-stanza .premise-line:last-child { margin-bottom: 0; }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Narrative from '../layouts/Narrative.astro';
 import Scene00Opening from '../components/scenes/Scene00Opening.astro';
+import Scene01Premise from '../components/scenes/Scene01Premise.astro';
 import Scene02Rejection from '../components/scenes/Scene02Rejection.astro';
 import Scene03Affirmations from '../components/scenes/Scene03Affirmations.astro';
 import Scene04Commitments from '../components/scenes/Scene04Commitments.astro';
@@ -12,10 +13,7 @@ import Scene09Invitation from '../components/scenes/Scene09Invitation.astro';
 <Narrative title="CommonGround">
   <Scene00Opening />
 
-  {/* Scene01 (Anchor A) added in Task 16 */}
-  <section class="scene grid" style="min-height:60vh;">
-    <div class="col-center"><p class="label">§ 01 — placeholder until Anchor A</p></div>
-  </section>
+  <Scene01Premise />
 
   <Scene02Rejection />
   <div class="ornament"><span class="dot"></span></div>
