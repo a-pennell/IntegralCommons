@@ -1,0 +1,42 @@
+---
+import SectionNumber from '../SectionNumber.astro';
+---
+<section class="scene scene-rejection grid">
+  <SectionNumber n="02" act="I · Diagnosis" />
+  <div class="col-center reject-head">
+    <h2 class="reject-heading">We reject</h2>
+  </div>
+</section>
+
+<section class="scene scene-reject-plate grid" data-plate="1">
+  <div class="col-wide plate"><span class="plate-num label">01 / 03</span><p>Extractive platforms.</p></div>
+</section>
+
+<section class="scene scene-reject-plate grid" data-plate="2">
+  <div class="col-wide plate"><span class="plate-num label">02 / 03</span><p>Opaque governance.</p></div>
+</section>
+
+<section class="scene scene-reject-plate grid" data-plate="3">
+  <div class="col-wide plate"><span class="plate-num label">03 / 03</span><p>Irreversible power.</p></div>
+</section>
+
+<style>
+  .reject-heading { font-size: var(--fs-h2); margin-bottom: 0; }
+
+  .scene-reject-plate { min-height: 100vh; }
+  .plate {
+    grid-column: 2 / 12;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center;
+    gap: 40px;
+  }
+  .plate p {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 9vw, 128px);
+    line-height: 1.05;
+    color: var(--accent);
+    margin: 0;
+    max-width: 12ch;
+  }
+  .plate-num { color: var(--muted); }
+</style>
