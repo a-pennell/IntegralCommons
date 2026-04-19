@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+import Article from '../layouts/Article.astro';
+
+const entries = await getCollection('source');
+const sorted = entries
+  .map(e => ({ id: e.id, title: e.data.title ?? e.id.replace(/[-_]/g, ' ') }))
+  .sort((a, b) => a.id.localeCompare(b.id));
+---
+<Article title="All source documents" sectionLabel="§ Index">
+  <p>Every document below is the canonical source. The narrative site draws its copy from these files directly.</p>
+  <ul>
+    {sorted.map(e => (
+      <li>
+        <a href={`/docs/${e.id}`}>{e.title}</a>
+        <span class="label" style="margin-left:8px;">{e.id}.md</span>
+      </li>
+    ))}
+  </ul>
+</Article>
