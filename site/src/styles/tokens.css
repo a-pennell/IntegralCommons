@@ -1,0 +1,31 @@
+:root {
+  /* palette */
+  --paper: #FAFAF7;
+  --ink: #1A1A1A;
+  --rule: #D9D6CE;
+  --muted: #6B6B66;
+  --accent: #B8341F;
+
+  /* type */
+  /* Note: Source Serif 4 SmText optical is not available as a variable WOFF2,
+     so we use the single variable Source Serif 4 family for both display and body. */
+  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* type scale */
+  --fs-body: 19px;
+  --fs-body-lh: 1.65;
+  --fs-label: 11px;
+  --fs-label-tracking: 0.15em;
+  --fs-h2: 44px;
+  --fs-h3: 28px;
+
+  /* layout */
+  --content-max: 1200px;
+  --gutter: 32px;
+
+  /* motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --reveal-ms: 800ms;
+}

@@ -1,0 +1,76 @@
+@import './fonts.css';
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--fs-body-lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: var(--ink); }
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--fs-label-tracking);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.measure { max-width: 68ch; }
+
+hr.rule {
+  border: 0;
+  border-top: 0.5px solid var(--rule);
+  margin: 64px auto;
+}
+
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 64px auto;
+  color: var(--rule);
+}
+.ornament::before, .ornament::after {
+  content: '';
+  flex: 0 0 80px;
+  height: 0.5px;
+  background: currentColor;
+}
+.ornament::after { /* symmetric */ }
+.ornament .dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--muted);
+}
+
+/* reduced motion — global escape hatch */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
