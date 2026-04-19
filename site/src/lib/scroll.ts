@@ -43,3 +43,25 @@ export function destroyScroll(): void {
   lenis = null;
   ScrollTrigger.getAll().forEach((t) => t.kill());
 }
+
+export function installBaselineReveal(root: Document | HTMLElement = document): void {
+  if (typeof window === 'undefined') return;
+  const targets = Array.from(root.querySelectorAll<HTMLElement>('[data-reveal]'));
+  if (targets.length === 0) return;
+
+  if (prefersReducedMotion()) {
+    targets.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    return;
+  }
+
+  gsap.set(targets, { opacity: 0, y: 12 });
+  targets.forEach((el) => {
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'cubic-bezier(0.16,1,0.3,1)',
+      scrollTrigger: { trigger: el, start: 'top 80%', once: true },
+    });
+  });
+}
