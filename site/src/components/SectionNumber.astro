@@ -1,0 +1,12 @@
+---
+interface Props { n: string; act?: string; }
+const { n, act } = Astro.props;
+---
+<div class="section-no col-margin">
+  <span class="label">§ {n}</span>
+  {act && <span class="label act-label" style="margin-left:12px;">{act}</span>}
+</div>
+
+<style>
+  .section-no { align-self: flex-start; margin-top: 8px; }
+</style>

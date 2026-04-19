@@ -1,0 +1,11 @@
+---
+interface Props { href: string; }
+const { href } = Astro.props;
+---
+<sup class="footnote"><a href={href}>§</a></sup>
+
+<style>
+  .footnote { font-family: var(--font-mono); font-size: 10px; margin-left: 2px; }
+  .footnote a { color: var(--accent); text-decoration: none; }
+  .footnote a:hover { text-decoration: underline; }
+</style>
