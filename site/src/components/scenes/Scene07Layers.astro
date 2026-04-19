@@ -1,0 +1,60 @@
+---
+import SectionNumber from '../SectionNumber.astro';
+import LayerDiagram from '../LayerDiagram.astro';
+---
+<section class="scene scene-layers" data-scene="layers">
+  <div class="layers-head grid">
+    <SectionNumber n="07" act="III · Architecture" />
+    <h2 class="layers-heading col-center">Five layers. One substrate.</h2>
+  </div>
+
+  <div class="layers-body">
+    <aside class="layers-caption">
+      <p class="label" data-caption-name>L1 · Personal</p>
+      <p class="caption-tag" data-caption-tag>self-awareness</p>
+      <p class="caption-desc" data-caption-desc>The base layer. Presence, reflection, inner coherence — the ground every other layer rests on.</p>
+    </aside>
+    <div class="layers-stack">
+      <LayerDiagram variant="interactive" />
+      <p class="label layers-footer" data-footer-line>Five layers · one substrate · ICOS</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mountLayersAnchor } from '../../lib/anchors/layers';
+  const root = document.querySelector<HTMLElement>('[data-scene="layers"]');
+  if (root) mountLayersAnchor(root);
+</script>
+
+<style>
+  .scene-layers { min-height: 100vh; padding: 80px 0; }
+  .layers-head { margin-bottom: 64px; }
+  .layers-heading { font-size: var(--fs-h2); }
+
+  .layers-body {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: var(--gutter);
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 48px;
+    min-height: 60vh;
+  }
+  .layers-caption {
+    position: sticky; top: 30vh; align-self: start;
+    padding-right: 24px;
+  }
+  .layers-caption .label { color: var(--accent); margin-bottom: 12px; }
+  .caption-tag {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 28px; margin: 0 0 20px;
+  }
+  .caption-desc {
+    font-family: var(--font-body);
+    font-size: 17px; line-height: 1.55; color: var(--ink);
+    max-width: 38ch; margin: 0;
+  }
+  .layers-stack { display: flex; flex-direction: column; }
+  .layers-footer { text-align: right; margin-top: 16px; color: var(--muted); }
+</style>
