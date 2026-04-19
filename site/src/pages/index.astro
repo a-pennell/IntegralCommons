@@ -1,17 +1,35 @@
 ---
-
+import Narrative from '../layouts/Narrative.astro';
+import Scene00Opening from '../components/scenes/Scene00Opening.astro';
+import Scene02Rejection from '../components/scenes/Scene02Rejection.astro';
+import Scene03Affirmations from '../components/scenes/Scene03Affirmations.astro';
+import Scene04Commitments from '../components/scenes/Scene04Commitments.astro';
+import Scene05Understanding from '../components/scenes/Scene05Understanding.astro';
+import Scene06Substrate from '../components/scenes/Scene06Substrate.astro';
+import Scene08DesignGoal from '../components/scenes/Scene08DesignGoal.astro';
+import Scene09Invitation from '../components/scenes/Scene09Invitation.astro';
 ---
+<Narrative title="CommonGround">
+  <Scene00Opening />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  {/* Scene01 (Anchor A) added in Task 16 */}
+  <section class="scene grid" style="min-height:60vh;">
+    <div class="col-center"><p class="label">§ 01 — placeholder until Anchor A</p></div>
+  </section>
+
+  <Scene02Rejection />
+  <div class="ornament"><span class="dot"></span></div>
+  <Scene03Affirmations />
+  <Scene04Commitments />
+  <Scene05Understanding />
+  <hr class="rule" />
+  <Scene06Substrate />
+
+  {/* Scene07 (Anchor B) added in Task 17 */}
+  <section class="scene grid" style="min-height:60vh;">
+    <div class="col-center"><p class="label">§ 07 — placeholder until Anchor B</p></div>
+  </section>
+
+  <Scene08DesignGoal />
+  <Scene09Invitation />
+</Narrative>
