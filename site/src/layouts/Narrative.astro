@@ -1,0 +1,78 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{title}</title>
+  <link rel="preload" href="/fonts/SourceSerif4-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="CommonGround — a premise, three commitments, one operating system." />
+</head>
+<body class="narrative-body">
+  <a class="skip-link" href="#scene-01">Skip to main content</a>
+  <main id="scene-01" class="narrative">
+    <slot />
+  </main>
+
+  <script>
+    import { initScroll } from '../lib/scroll';
+    initScroll();
+  </script>
+</body>
+</html>
+
+<style is:global>
+  .narrative-body { background: var(--paper); }
+  .narrative { display: block; }
+
+  .skip-link {
+    position: absolute; left: -9999px;
+    background: var(--ink); color: var(--paper);
+    padding: 8px 16px; font-family: var(--font-mono); font-size: 12px;
+  }
+  .skip-link:focus { left: 16px; top: 16px; z-index: 100; }
+
+  /* 12-col grid used by scenes */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--gutter);
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .col-center { grid-column: 4 / 10; }
+  .col-margin { grid-column: 1 / 4; }
+  .col-wide   { grid-column: 2 / 12; }
+
+  .scene {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 0;
+    position: relative;
+  }
+  .scene .section-no { color: var(--muted); }
+
+  .stanza p {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.25;
+    margin: 0 0 28px;
+  }
+
+  .act-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: var(--fs-label-tracking);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
