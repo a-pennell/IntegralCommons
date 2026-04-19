@@ -1,0 +1,11 @@
+# site
+site/node_modules/
+site/dist/
+site/.astro/
+site/.wrangler/
+
+# brainstorming
+.superpowers/
+
+# os
+.DS_Store
