@@ -6,6 +6,18 @@ const routes = ['/', '/manifesto', '/constitution', '/protocol', '/overview', '/
 for (const path of routes) {
   test(`a11y scan: ${path}`, async ({ page }) => {
     await page.goto(path);
+    // Let any mount-time animations finish before axe samples computed styles —
+    // otherwise the hero's opacity fade can be sampled mid-interpolation and
+    // trigger a false color-contrast flag.
+    await page.waitForFunction(() =>
+      document
+        .getAnimations()
+        .filter((a) => {
+          const t = a.effect?.getTiming();
+          return t && t.iterations !== Infinity;
+        })
+        .every((a) => a.playState === 'finished' || a.playState === 'idle'),
+    );
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
       .analyze();
