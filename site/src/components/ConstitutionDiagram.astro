@@ -1,0 +1,206 @@
+---
+// ConstitutionDiagram — 11 principles in two tiers.
+// Source: docs/commonground-prd.md §"CommonGround Constitutional Framework (v2)"
+
+const tier1 = [
+  {
+    num: 8,
+    name: 'Removal Due Process',
+    summary: 'Members facing removal may deliberate but not block; process must be transparent and criterion-based.',
+  },
+  {
+    num: 10,
+    name: 'Commons Protection',
+    summary: 'No decision may privatize shared infrastructure or restrict exit rights from identity or data.',
+    supreme: true,
+  },
+  {
+    num: 11,
+    name: 'Forkability',
+    summary: 'Any group may fork the system and its governance, provided interoperability standards are kept.',
+  },
+];
+
+const tier2 = [
+  {
+    num: 1,
+    name: 'Bootstrap',
+    summary: 'The initial governance method is established via consent.',
+  },
+  {
+    num: 2,
+    name: 'Revocability',
+    summary: 'All delegations are revocable; no delegation may be made irrevocable.',
+  },
+  {
+    num: 3,
+    name: 'Bounded Referendum Right',
+    summary: 'Any member may call a referendum if a minimum threshold of affected members supports it.',
+  },
+  {
+    num: 4,
+    name: 'Scope and Subsidiarity',
+    summary: 'Decisions made at the lowest level competent to address them; only the materially affected vote.',
+  },
+  {
+    num: 5,
+    name: 'Temporal Stability',
+    summary: 'Delegations and decisions have defined stability periods protecting them from constant challenge.',
+  },
+  {
+    num: 6,
+    name: 'Rate Limiting',
+    summary: 'Members face limits on how often they can initiate referenda, preventing overload and bad faith.',
+  },
+  {
+    num: 7,
+    name: 'Deliberation First',
+    summary: 'All referenda must include a structured deliberation phase before voting begins.',
+  },
+  {
+    num: 9,
+    name: 'Participation Integrity',
+    summary: 'Decisions require quorum, diversity of participation to avoid capture, and transparent rationale.',
+  },
+];
+
+const pad = (n: number) => n.toString().padStart(2, '0');
+---
+
+<figure class="constitution-diagram" role="img" aria-labelledby="cd-title cd-desc">
+  <p id="cd-title" class="sr-only">CommonGround Constitutional Framework</p>
+  <p id="cd-desc" class="sr-only">
+    Eleven principles in two tiers. Tier one is inviolable, with three principles:
+    §08 Removal Due Process, §10 Commons Protection (supreme), and §11 Forkability.
+    Tier two is deliberable, with eight principles: §01 Bootstrap, §02 Revocability,
+    §03 Bounded Referendum Right, §04 Scope and Subsidiarity, §05 Temporal Stability,
+    §06 Rate Limiting, §07 Deliberation First, and §09 Participation Integrity.
+  </p>
+
+  <section class="tier tier-1" aria-label="Tier 1 — Inviolable">
+    <header class="tier-head">
+      <span class="tier-label label">Tier 1 · Inviolable</span>
+      <span class="tier-note">cannot be overridden</span>
+    </header>
+    <ul class="grid grid-3">
+      {tier1.map((p) => (
+        <li class={`card${p.supreme ? ' card-supreme' : ''}`}>
+          <span class="card-num label">§ {pad(p.num)}</span>
+          <h3 class="card-title">{p.name}</h3>
+          <p class="card-sum">{p.summary}</p>
+          {p.supreme && <span class="card-tag label">Supreme</span>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="tier tier-2" aria-label="Tier 2 — Deliberable">
+    <header class="tier-head">
+      <span class="tier-label label">Tier 2 · Deliberable</span>
+      <span class="tier-note">adjustable through governance</span>
+    </header>
+    <ul class="grid grid-4">
+      {tier2.map((p) => (
+        <li class="card">
+          <span class="card-num label">§ {pad(p.num)}</span>
+          <h3 class="card-title">{p.name}</h3>
+          <p class="card-sum">{p.summary}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</figure>
+
+<style>
+  .constitution-diagram {
+    margin: 0;
+    border: 0.5px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  .tier { padding: 24px; }
+  .tier-1 {
+    border-top: 1px solid var(--ink);
+    background: color-mix(in srgb, var(--ink) 1.5%, var(--paper));
+  }
+  .tier-2 {
+    border-top: 0.5px solid var(--rule);
+  }
+
+  .tier-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .tier-label { color: var(--ink); }
+  .tier-note {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5px;
+    background: var(--rule);
+  }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--paper);
+    padding: 20px 18px 22px;
+    min-height: 150px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .tier-1 .card { background: color-mix(in srgb, var(--ink) 1.5%, var(--paper)); }
+  .card-num {
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+  }
+  .card-sum {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--ink);
+  }
+  .card-supreme .card-num { color: var(--accent); }
+  .card-tag {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    color: var(--accent);
+    font-size: 10px;
+  }
+
+  /* Responsive collapse */
+  @media (max-width: 720px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .grid-4 { grid-template-columns: 1fr; }
+  }
+</style>

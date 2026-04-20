@@ -1,0 +1,212 @@
+---
+// EcosystemStackDiagram — five-product stack with dependency arrows.
+// Source: docs/commonground-ecosystem-overview.md
+
+// SVG geometry (px in viewBox). Kept simple so responsive fallback is trivial.
+const W = 800;
+const H = 440;
+
+// Apex (Synapse)
+const apex = { x: 300, y: 20, w: 200, h: 90, n: 5, name: 'Synapse', sub: 'planning', foot: 'requires data from all below' };
+// Middle (Kindred / Equip / WikiForge)
+const middleY = 175;
+const middleH = 90;
+const middle = [
+  { x: 40,  y: middleY, w: 200, h: middleH, n: 2, name: 'Kindred',   sub: 'credits',  foot: 'absorbs Co-Op OS treasury + reputation' },
+  { x: 300, y: middleY, w: 200, h: middleH, n: 3, name: 'Equip',     sub: 'hardware', foot: '' },
+  { x: 560, y: middleY, w: 200, h: middleH, n: 4, name: 'WikiForge', sub: 'library',  foot: '' },
+];
+// Base (CommonGround)
+const base = { x: 100, y: 330, w: 600, h: 90, n: 1, name: 'CommonGround', sub: 'governance', foot: 'absorbs FlowState + Co-Op OS governance' };
+
+// Line endpoints
+const apexBottom = { x: apex.x + apex.w / 2, y: apex.y + apex.h };
+const midTops = middle.map((m) => ({ x: m.x + m.w / 2, y: m.y }));
+const midBottoms = middle.map((m) => ({ x: m.x + m.w / 2, y: m.y + m.h }));
+const baseTop = { x: base.x + base.w / 2, y: base.y };
+---
+
+<figure class="eco-diagram" role="img" aria-labelledby="eco-title eco-desc">
+  <p id="eco-title" class="sr-only">CommonGround ecosystem stack</p>
+  <p id="eco-desc" class="sr-only">
+    Five products in three tiers. The base tier is CommonGround, the governance primitive
+    (absorbs FlowState and Co-Op OS governance). The middle tier contains Kindred (credits;
+    absorbs Co-Op OS treasury and reputation), Equip (hardware), and WikiForge (library).
+    The apex is Synapse (planning), which requires data from all products below.
+    Hairline lines connect each tier to the next.
+  </p>
+
+  <svg
+    class="eco-svg"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMid meet"
+    aria-hidden="true"
+  >
+    <!-- connecting lines (base -> middle) -->
+    <g fill="none" stroke="var(--rule)" stroke-width="0.75">
+      <line x1={baseTop.x} y1={baseTop.y} x2={baseTop.x} y2={baseTop.y - 20} />
+      <line x1={midBottoms[0].x} y1={baseTop.y - 20} x2={midBottoms[2].x} y2={baseTop.y - 20} />
+      {midBottoms.map((p) => (
+        <line x1={p.x} y1={baseTop.y - 20} x2={p.x} y2={p.y} />
+      ))}
+      <!-- middle -> apex -->
+      <line x1={apexBottom.x} y1={apexBottom.y} x2={apexBottom.x} y2={apexBottom.y + 20} />
+      <line x1={midTops[0].x} y1={apexBottom.y + 20} x2={midTops[2].x} y2={apexBottom.y + 20} />
+      {midTops.map((p) => (
+        <line x1={p.x} y1={apexBottom.y + 20} x2={p.x} y2={p.y} />
+      ))}
+    </g>
+
+    <!-- blocks -->
+    <g>
+      <!-- Apex -->
+      <rect x={apex.x} y={apex.y} width={apex.w} height={apex.h}
+            fill="none" stroke="var(--ink)" stroke-width="0.5" />
+      <text x={apex.x + 12} y={apex.y + 18} class="svg-num">#{apex.n}</text>
+      <text x={apex.x + apex.w / 2} y={apex.y + 48} text-anchor="middle" class="svg-name">{apex.name}</text>
+      <text x={apex.x + apex.w / 2} y={apex.y + 70} text-anchor="middle" class="svg-sub">{apex.sub}</text>
+      <text x={apex.x + apex.w / 2} y={apex.y - 6} text-anchor="middle" class="svg-foot">{apex.foot}</text>
+
+      <!-- Middle -->
+      {middle.map((m) => (
+        <>
+          <rect x={m.x} y={m.y} width={m.w} height={m.h}
+                fill="none" stroke="var(--ink)" stroke-width="0.5" />
+          <text x={m.x + 12} y={m.y + 18} class="svg-num">#{m.n}</text>
+          <text x={m.x + m.w / 2} y={m.y + 48} text-anchor="middle" class="svg-name">{m.name}</text>
+          <text x={m.x + m.w / 2} y={m.y + 70} text-anchor="middle" class="svg-sub">{m.sub}</text>
+          {m.foot && (
+            <text x={m.x + m.w / 2} y={m.y + m.h + 16} text-anchor="middle" class="svg-foot">{m.foot}</text>
+          )}
+        </>
+      ))}
+
+      <!-- Base (CommonGround — thicker border + accent number) -->
+      <rect x={base.x} y={base.y} width={base.w} height={base.h}
+            fill="none" stroke="var(--ink)" stroke-width="0.75" />
+      <text x={base.x + 12} y={base.y + 18} class="svg-num svg-num-accent">#{base.n}</text>
+      <text x={base.x + base.w / 2} y={base.y + 48} text-anchor="middle" class="svg-name">{base.name}</text>
+      <text x={base.x + base.w / 2} y={base.y + 70} text-anchor="middle" class="svg-sub">{base.sub}</text>
+      <text x={base.x + base.w / 2} y={base.y + base.h + 16} text-anchor="middle" class="svg-foot">{base.foot}</text>
+    </g>
+  </svg>
+
+  <!-- Responsive fallback: vertical stack for narrow viewports -->
+  <ol class="eco-fallback">
+    <li>
+      <span class="label eco-f-num">#1</span>
+      <span class="eco-f-name">CommonGround</span>
+      <span class="eco-f-sub label">governance</span>
+      <span class="eco-f-foot">absorbs FlowState + Co-Op OS governance</span>
+    </li>
+    <li>
+      <span class="label eco-f-num">#2</span>
+      <span class="eco-f-name">Kindred</span>
+      <span class="eco-f-sub label">credits</span>
+      <span class="eco-f-foot">absorbs Co-Op OS treasury + reputation</span>
+    </li>
+    <li>
+      <span class="label eco-f-num">#3</span>
+      <span class="eco-f-name">Equip</span>
+      <span class="eco-f-sub label">hardware</span>
+    </li>
+    <li>
+      <span class="label eco-f-num">#4</span>
+      <span class="eco-f-name">WikiForge</span>
+      <span class="eco-f-sub label">library</span>
+    </li>
+    <li>
+      <span class="label eco-f-num">#5</span>
+      <span class="eco-f-name">Synapse</span>
+      <span class="eco-f-sub label">planning</span>
+      <span class="eco-f-foot">requires data from all below</span>
+    </li>
+  </ol>
+</figure>
+
+<style>
+  .eco-diagram {
+    margin: 0;
+    color: var(--ink);
+    background: var(--paper);
+    border: 0.5px solid var(--rule);
+    padding: 32px 24px;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  .eco-svg {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    height: auto;
+  }
+
+  .svg-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    fill: var(--muted);
+  }
+  .svg-num-accent { fill: var(--accent); }
+  .svg-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    fill: var(--ink);
+  }
+  .svg-sub {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    fill: var(--muted);
+  }
+  .svg-foot {
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 10px;
+    fill: var(--muted);
+  }
+
+  /* Fallback list — hidden by default, shown on narrow viewports */
+  .eco-fallback {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .eco-fallback li {
+    border-top: 0.5px solid var(--rule);
+    padding: 16px 4px;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    column-gap: 14px;
+    row-gap: 4px;
+  }
+  .eco-fallback li:last-child { border-bottom: 0.5px solid var(--rule); }
+  .eco-f-num { grid-row: span 3; align-self: center; color: var(--muted); }
+  .eco-fallback li:first-child .eco-f-num { color: var(--accent); }
+  .eco-f-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+  }
+  .eco-f-sub { color: var(--muted); }
+  .eco-f-foot {
+    font-family: var(--font-mono);
+    font-style: italic;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 800px) {
+    .eco-svg { display: none; }
+    .eco-fallback { display: block; }
+  }
+</style>
