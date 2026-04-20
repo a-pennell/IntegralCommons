@@ -8,6 +8,7 @@ import '../styles/global.css';
 <!doctype html>
 <html lang="en">
 <head>
+  <script is:inline>document.documentElement.classList.add('js');</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
@@ -16,14 +17,29 @@ import '../styles/global.css';
 </head>
 <body class="narrative-body">
   <a class="skip-link" href="#scene-01">Skip to main content</a>
+  <header class="narrative-header">
+    <div class="narrative-header-inner">
+      <a class="narrative-mark" href="/">CommonGround</a>
+      <nav class="narrative-nav label">
+        <a href="/manifesto">Manifesto</a>
+        <a href="/constitution">Constitution</a>
+        <a href="/protocol">Protocol</a>
+        <a href="/overview">Overview</a>
+        <a href="/docs">Docs</a>
+      </nav>
+      <span class="narrative-edition label">Vol. I · Spring 2026</span>
+    </div>
+  </header>
   <main id="scene-01" class="narrative">
     <slot />
   </main>
 
   <script>
     import { initScroll, installBaselineReveal } from '../lib/scroll';
+    import { mountHeroEntrance } from '../lib/hero';
     initScroll();
     installBaselineReveal();
+    mountHeroEntrance();
   </script>
 </body>
 </html>
@@ -75,5 +91,66 @@ import '../styles/global.css';
     letter-spacing: var(--fs-label-tracking);
     text-transform: uppercase;
     color: var(--muted);
+  }
+
+  .narrative-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 20px 48px;
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .narrative-header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: baseline;
+    gap: 32px;
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .narrative-mark {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .narrative-nav {
+    display: flex;
+    gap: 24px;
+    justify-self: center;
+  }
+  .narrative-nav a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .narrative-nav a:hover { color: var(--ink); }
+  .narrative-edition {
+    justify-self: end;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  @media (max-width: 800px) {
+    .narrative-header { padding: 16px 24px; }
+    .narrative-header-inner { grid-template-columns: 1fr auto; gap: 16px; }
+    .narrative-nav { display: none; }
+  }
+
+  html.js [data-hero-wordmark],
+  html.js [data-hero-tagline],
+  html.js [data-hero-rung],
+  html.js [data-hero-scroll] {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js [data-hero-wordmark],
+    html.js [data-hero-tagline],
+    html.js [data-hero-rung],
+    html.js [data-hero-scroll] {
+      opacity: 1;
+    }
   }
 </style>

@@ -1,18 +1,29 @@
 <section class="scene scene-opening grid">
-  <div class="col-wide" style="grid-column: 2 / 12; text-align:center;">
-    <h1 class="opening-wordmark">CommonGround</h1>
-    <p class="opening-sub">A premise, three commitments, one operating system.</p>
+  <div class="col-wide opening-stack" style="grid-column: 2 / 12;">
+    <h1 class="opening-wordmark" data-hero-wordmark>CommonGround</h1>
+    <p class="opening-sub" data-hero-tagline>A premise, three commitments, one operating system.</p>
+    <p class="opening-rung" data-hero-rung><span class="label opening-rung-mark">§ 01</span><em>We believe</em></p>
   </div>
+  <a class="opening-scroll label" href="#scene-01-premise" data-hero-scroll aria-label="Begin reading">
+    <span class="opening-scroll-arrow" aria-hidden="true">↓</span>
+    <span>Begin reading</span>
+  </a>
 </section>
 
 <style>
-  .scene-opening { min-height: 100vh; }
+  .scene-opening {
+    min-height: 100vh;
+    position: relative;
+    justify-content: center;
+  }
+  .opening-stack { text-align: center; }
   .opening-wordmark {
     font-family: var(--font-display);
     font-size: clamp(64px, 11vw, 160px);
     font-weight: 500;
     letter-spacing: -0.02em;
     margin: 0 0 24px;
+    line-height: 1;
   }
   .opening-sub {
     font-family: var(--font-mono);
@@ -20,6 +31,41 @@
     letter-spacing: var(--fs-label-tracking);
     text-transform: uppercase;
     color: var(--muted);
+    margin: 0 0 36px;
+  }
+  .opening-rung {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--muted);
     margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .opening-rung em { font-style: italic; color: var(--ink); }
+  .opening-rung-mark { color: var(--accent); }
+
+  .opening-scroll {
+    position: absolute;
+    bottom: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 8px 14px;
+  }
+  .opening-scroll:hover { color: var(--ink); }
+  .opening-scroll-arrow {
+    display: inline-block;
+    animation: opening-bob 2.4s ease-in-out infinite;
+    animation-delay: 1.8s;
+  }
+  @keyframes opening-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
   }
 </style>
