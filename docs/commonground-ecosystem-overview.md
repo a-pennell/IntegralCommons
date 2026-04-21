@@ -13,7 +13,7 @@ Seven originally-proposed projects were consolidated into **five** after a syste
 | # | Survivor | Absorbs | Ships |
 |---|---|---|---|
 | **1** | **CommonGround** — structured deliberation + constitutional governance + liquid delegation | FlowState (now: delegation-graph visualization + cross-space federation as CG features), Co-Op OS *governance module* | **First.** [commonground-prd.md](commonground-prd.md) is mature and ready to spec. |
-| **2** | **Kindred** — attestation-based credit ledger | original Kindred (care credits) + Co-Op OS *treasury* (surplus distribution) + Co-Op OS *reputation portability* | Second. PRD needs ~1–2 days of consolidation before spec. |
+| **2** | **Kindred** — attestation-based **gift ledger**. Records circulation of care and contribution; **does not rank persons**. See [`kindred-design-principles.md`](kindred-design-principles.md). | original Kindred (care credits) + Co-Op OS *treasury* (surplus distribution) | Second. PRD needs ~1–2 days of consolidation before spec. |
 | **3** | **Equip** — physical-asset library | unchanged | Third or fourth (community demand drives the pick vs WikiForge). |
 | **4** | **WikiForge** — open hardware design repo | unchanged | Third or fourth. |
 | **5** | **Synapse** — democratic planning engine | unchanged | **Last.** Depends on real data from 1–4. |
@@ -30,14 +30,15 @@ FlowState's signature features — topic-based delegation proxies, Git-like prop
 
 Co-Op OS's governance module (quadratic voting, steward selection) is CommonGround configured for worker-coop defaults. That's a governance profile (Phase 3 of the existing CG roadmap), not a new product.
 
-### Kindred absorbs Co-Op OS treasury + reputation
+### Kindred absorbs Co-Op OS treasury — but NOT portable reputation
 
-All three describe attestation-based credit ledgers with different surfaces:
-- **Time-banked care credits** (original Kindred)
-- **Surplus distribution** (Co-Op OS treasury)
-- **Portable 5-star reputation** (Co-Op OS reputation)
+Two of the three originally-proposed surfaces survive:
+- **Time-banked care credits** (original Kindred) — kept, reframed as gift records with demurrage.
+- **Surplus distribution** (Co-Op OS treasury) — kept. Coop accounting is not a social credit system.
 
-One primitive — mutually-attested credit — covers all three. Sybil-resistance and proof-of-personhood live here.
+One is **retracted**: the Co-Op OS "portable 5-star reputation." Portable *records of completed work* are fine. Portable *ratings* are a social-credit architecture and are explicitly rejected. See [`kindred-design-principles.md`](kindred-design-principles.md) for the full design constraints — ten binding principles derived from Eisenstein's *Sacred Economics* and Hyde's *The Gift* that prevent Kindred from becoming a ranking system.
+
+Sybil-resistance and proof-of-personhood still live in Kindred, but only to ensure attestations are genuine — never to compute a score.
 
 ### Equip, WikiForge, Synapse stay separate
 
