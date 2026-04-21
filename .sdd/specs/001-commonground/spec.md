@@ -320,7 +320,7 @@ CommonGround is the foundation layer of the broader Integral Commons OS (ICOS) v
 
 **Data Export**
 
-- FR-050 [US10; PRD §Data Export]: The system MUST support full data export of a Space's Issues, Perspectives, Decision Records, Civic Memory, and governance profile in open, portable formats.
+- FR-050 [US10; PRD §Data Export]: The system MUST support two distinct export paths: (a) **own-data export** — any member MAY at any time export their own Perspectives, Decision Record contributions, and participation history with zero gating (this implements CR-002 Tier 1 exit rights and MUST NOT be blockable by any group decision); and (b) **space-wide export** — a full export of a Space's Issues, Perspectives, Decision Records, Civic Memory, and governance profile MUST be initiated through a normal Issue under the Space's governance process. Both paths deliver open, portable formats.
 - FR-051 [US10; PRD §Data Export]: The system MUST NOT impose any lock-in preventing a group from migrating or forking with its data intact.
 
 **Configurability**
@@ -341,8 +341,13 @@ CommonGround is the foundation layer of the broader Integral Commons OS (ICOS) v
 - NFR-009 [PRD §Technical Requirements]: The system MUST remain functional without any AI services (Phase 1 baseline fully human-powered).
 - NFR-010 [PRD §Data Export]: The system MUST allow full data export in open, portable formats from day one.
 - NFR-011 [PRD §Technical Requirements]: The system MUST be text-first and low-compute, such that a self-hosting group can operate without heavyweight infrastructure.
-- NFR-012 [NEEDS CLARIFICATION — accessibility]: The system MUST meet a defined accessibility standard (standard to be specified; see Known Clarifications).
-- NFR-013 [NEEDS CLARIFICATION — performance]: The system MUST meet defined performance budgets for interaction responsiveness under typical group sizes (targets to be specified).
+- NFR-012 [accessibility]: The system MUST meet WCAG 2.2 Level AA across all member-facing surfaces, including keyboard navigability, visible focus states, valid heading outlines, and a minimum 4.5:1 contrast for body text.
+- NFR-013 [performance]: The system MUST meet the following perceived-responsiveness targets under typical group load (5–200 members, 50–500 open Issues):
+  - p95 interaction latency < 200ms for Issue list, Issue detail, Perspective submission, and Decision Record draft actions.
+  - Rhythm digest delivered within 15 minutes of its scheduled dispatch time.
+  - Full Civic Memory timeline for any Issue renders within 500ms p95.
+- NFR-014 [authentication]: The system MUST authenticate members via email + magic-link as the Phase 1 identity primitive. No passwords are stored. Passkey (WebAuthn) support MAY be added as an additive option in Phase 2; SSO/federated identity is out of scope for Phase 1.
+- NFR-015 [hosting model]: The hosted deployment offered by the project MUST be available without per-member or per-space fees. Operating costs are covered via aligned grants, donation, and cooperative-hosting partnerships. The software MUST remain fully self-hostable as the primary guarantee that no user is gated by ability to pay.
 
 ### Constitutional Requirements
 
@@ -350,7 +355,7 @@ The CommonGround Constitutional Framework (v2) is load-bearing. All eleven princ
 
 **Tier 1 — Inviolable**
 
-- CR-001 [Tier 1, Principle 8 — Removal Due Process]: The system MUST guarantee members subject to removal the right to participate in deliberation, forbid them from blocking final decisions on their own removal, and enforce a transparent process with defined criteria and thresholds.
+- CR-001 [Tier 1, Principle 8 — Removal Due Process]: The system MUST guarantee members subject to removal the right to participate in deliberation, forbid them from blocking final decisions on their own removal, and enforce a transparent process with defined criteria and thresholds. Default threshold: 2/3 supermajority of participating members, with stand-aside count displayed separately. The subject member may participate in deliberation but not vote on their own removal.
 - CR-002 [Tier 1, Principle 10 — Commons Protection]: The system MUST prevent any decision that privatizes shared infrastructure, restricts exit rights (data, identity, participation), or undermines the revocability of governance. When this principle conflicts with any other, it wins.
 - CR-003 [Tier 1, Principle 11 — Forkability]: The system MUST allow any group to fork the software and its governance, provided interoperability standards are maintained.
 
@@ -359,9 +364,9 @@ The CommonGround Constitutional Framework (v2) is load-bearing. All eleven princ
 - CR-004 [Tier 2, Principle 1 — Bootstrap]: The system MUST establish initial governance via a hardcoded consent-based meta-method, and MUST record its outcome as the first Decision Record.
 - CR-005 [Tier 2, Principle 2 — Revocability]: The system MUST make every delegation revocable and MUST refuse to record any delegation marked irrevocable.
 - CR-006 [Tier 2, Principle 3 — Bounded Referendum Right]: The system MUST permit any member to initiate a referendum only when supported by a minimum threshold of members or stake relevant to the decision's scope.
-- CR-007 [Tier 2, Principle 4 — Scope and Subsidiarity]: The system MUST route decisions to the lowest competent level and MUST restrict referendum participation to those materially affected.
-- CR-008 [Tier 2, Principle 5 — Temporal Stability]: The system MUST enforce stability periods for delegations and decisions during which they cannot be challenged except under exceptional conditions defined by the Space.
-- CR-009 [Tier 2, Principle 6 — Rate Limiting]: The system MUST enforce per-member limits on the frequency of referenda or governance actions within a given time window.
+- CR-007 [Tier 2, Principle 4 — Scope and Subsidiarity]: The system MUST route decisions to the lowest competent level and MUST restrict referendum participation to those materially affected. The affected set is determined by a **hybrid rule**: every Issue carries one or more scope tags; members matching at least one tag are automatically in the affected set; any untagged member may self-declare inclusion; any tagged member may self-declare exclusion. The scope tag vocabulary is configured per Space.
+- CR-008 [Tier 2, Principle 5 — Temporal Stability]: The system MUST enforce stability periods for delegations and decisions during which they cannot be challenged except under exceptional conditions defined by the Space. Default minimum stability period: 30 days from the Decision Record's creation. Default "exceptional conditions" threshold: 2/3 supermajority of that Issue's past participants request re-opening. Spaces MAY raise or lower both defaults via their governance process.
+- CR-009 [Tier 2, Principle 6 — Rate Limiting]: The system MUST enforce per-member limits on the frequency of referenda or governance actions within a given time window. Default limits: (a) at most 1 referendum per member per rolling 7-day window, (b) at most 3 Issue creations per member per calendar day. Spaces MAY tighten these defaults via their governance process; the system refuses to loosen them beyond the defaults.
 - CR-010 [Tier 2, Principle 7 — Deliberation First]: The system MUST include a structured deliberation phase in every referendum before any vote is permitted.
 - CR-011 [Tier 2, Principle 9 — Participation Integrity]: The system MUST enforce quorum thresholds, track diversity of participation to avoid capture, and require transparent rationale in every Decision Record.
 
@@ -396,19 +401,26 @@ Success is defined qualitatively (groups governing better) with a small number o
 
 ---
 
-## Known Clarifications Needed
+## Resolved Clarifications
 
-- [NEEDS CLARIFICATION: Accessibility] The PRD does not specify an accessibility target. Proposed default: a recognized WCAG-level standard appropriate to the group's statutory context. Requires decision before Phase 2 planning.
-- [NEEDS CLARIFICATION: Performance targets] The PRD does not specify interaction-latency or digest-delivery latency targets. Requires decision on perceived-responsiveness budgets for Issues list, Issue view, and Perspective submission under typical (5–200 member) group size.
-- [NEEDS CLARIFICATION: Authentication architecture] The PRD specifies "standard web authentication" without defining the identity model, account recovery behavior, or whether federated/SSO options are required for Phase 1.
-- [NEEDS CLARIFICATION: Business model] The PRD is silent on whether hosted deployment is free, cooperatively funded, subscription-based, or donation-based. Affects Space creation flow and cooperative-hosting partnerships.
-- [NEEDS CLARIFICATION: Detailed acceptance criteria per feature] The PRD's functional section is high-level. Each FR above requires a second pass of feature-level acceptance criteria during Phase 2 planning.
-- [NEEDS CLARIFICATION: Scope of "materially affected"] CR-007 (Principle 4 — Subsidiarity) requires a rule for determining which members are materially affected by a given decision. Default heuristic and override mechanism are not specified.
-- [NEEDS CLARIFICATION: Rate-limit defaults] CR-009 (Principle 6) requires default rate-limit thresholds and time windows. Not yet specified.
-- [NEEDS CLARIFICATION: Temporal-stability defaults] CR-008 (Principle 5) requires default stability periods for delegations and decisions, and a definition of "exceptional conditions." Not yet specified.
-- [NEEDS CLARIFICATION: Export export-authority rule] FR-050 does not specify which member(s) can trigger an export. Candidate rule: export is itself an Issue (consistent with FR-004), but a fast path may be required for Tier 1 exit rights.
-- [NEEDS CLARIFICATION: Removal threshold defaults] CR-001 (Principle 8) specifies "defined criteria and thresholds" but leaves defaults open.
-- [NEEDS CLARIFICATION: Diversity-of-participation measurement] CR-011 (Principle 9) requires a measurable definition of diversity-of-participation to detect capture. Not yet specified.
+Eleven clarifications were triaged. Ten are resolved in-spec (see FR/NFR/CR updates above and below). One is deferred to Phase 2 research with an explicit Phase 1 fallback.
+
+**Resolved in-spec:**
+
+1. **Accessibility standard** → WCAG 2.2 AA. See NFR-012.
+2. **Performance targets** → p95 interaction < 200ms; digest within 15 min; Civic Memory timeline < 500ms. See NFR-013.
+3. **Authentication architecture** → email + magic-link for Phase 1; passkey (WebAuthn) possible in Phase 2; SSO out of scope. See NFR-014.
+4. **Business model** → free hosted deployment + donation + fully self-hostable. No per-member or per-space fees. See NFR-015.
+5. **"Materially affected" rule** (Principle 4) → hybrid: scope tags auto-include + member self-declaration both directions. See CR-007.
+6. **Rate-limit defaults** (Principle 6) → 1 referendum per member per 7 days; 3 Issues per day. Spaces may tighten, never loosen. See CR-009.
+7. **Temporal-stability defaults** (Principle 5) → 30-day minimum; 2/3 supermajority re-open threshold. See CR-008.
+8. **Removal threshold defaults** (Principle 8) → 2/3 supermajority of participating members; stand-aside count separate; subject may deliberate but not vote on own removal. See CR-001.
+9. **Export authority** (FR-050) → each member's own-data export is always available with zero gate (Tier 1 exit right); space-wide exports proceed through a normal Issue. FR-050 updated accordingly (see §Functional Requirements).
+10. **Detailed acceptance criteria per feature** → handed to Phase 2 planning workflow. Each FR receives feature-level AC during `plan:` and `tasks` phases.
+
+**Deferred to Phase 2 research:**
+
+11. **Diversity-of-participation measurement** (Principle 9, CR-011): how to detect capture without introducing a social-credit-ish scoring mechanism is a genuine research question. Phase 1 ships with *transparent* participation visibility (members can see who's participating on each Issue) but no automatic capture-detection algorithm. Human facilitators flag concerns; automated detection is a Phase 2 research item. The Phase 1 fallback is explicit and acceptable: visibility without algorithmic judgment.
 
 ---
 
