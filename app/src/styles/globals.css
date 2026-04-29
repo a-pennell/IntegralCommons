@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+/* Mirror site/ design tokens for visual continuity between the marketing site and the app. */
+@theme {
+  --color-paper: #fafaf7;
+  --color-ink: #1a1a1a;
+  --color-rule: #d9d6ce;
+  --color-muted: #6b6b66;
+  --color-accent: #b8341f;
+
+  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-body: 19px;
+  --text-body--line-height: 1.65;
+  --text-label: 11px;
+  --text-label--letter-spacing: 0.15em;
+
+  --container-content: 1200px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+}
+
+/* Default to reduced-motion-friendly; explicit opt-in by component. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

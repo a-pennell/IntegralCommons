@@ -1,0 +1,68 @@
+# Fly.io deployment configuration for CommonGround (hosted reference).
+# See docs/ops/commonground-runbook.md for deployment instructions.
+#
+# Two processes run from the same image:
+#   app    — Next.js server  (next start)
+#   worker — pg-boss worker  (node ./dist/worker.js)
+#
+# Adjust [env] and the [postgres] database attachment to match your org.
+
+app = "commonground"
+primary_region = "syd"           # closest region to initial pilot
+
+[build]
+  dockerfile = "Dockerfile"
+
+[processes]
+  app    = "node server.js"
+  worker = "node dist/worker.js"
+
+[[services]]
+  protocol    = "tcp"
+  internal_port = 3000
+  processes   = ["app"]
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    [services.ports.force_https]
+      enabled = true
+
+  [services.concurrency]
+    type       = "requests"
+    hard_limit = 250
+    soft_limit = 200
+
+  [[services.http_checks]]
+    interval = "15s"
+    timeout  = "5s"
+    method   = "GET"
+    path     = "/api/health"
+
+[env]
+  NODE_ENV            = "production"
+  EMAIL_ADAPTER       = "resend"
+  STORAGE_ADAPTER     = "s3"
+  DATABASE_AUTO_MIGRATE = "true"
+
+# Secrets (set via `fly secrets set`):
+#   DATABASE_URL
+#   SESSION_SECRET
+#   RESEND_API_KEY
+#   STORAGE_S3_ENDPOINT
+#   STORAGE_S3_REGION
+#   STORAGE_S3_BUCKET
+#   STORAGE_S3_ACCESS_KEY_ID
+#   STORAGE_S3_SECRET_ACCESS_KEY
+
+[checks]
+  [checks.health]
+    type     = "http"
+    port     = 3000
+    path     = "/api/health"
+    interval = "15s"
+    timeout  = "5s"

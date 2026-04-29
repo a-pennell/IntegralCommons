@@ -1,0 +1,23 @@
+node_modules/
+.next/
+dist/
+out/
+.turbo/
+tsconfig.tsbuildinfo
+
+# tests
+test-results/
+playwright-report/
+coverage/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# os
+.DS_Store
+
+# ide
+.idea/
+.vscode/

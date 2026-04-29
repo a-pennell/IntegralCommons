@@ -1,0 +1,65 @@
+/**
+ * Result<Ok, Err> — explicit success/failure return type for service-layer
+ * functions. The service layer never throws for *expected* errors; it returns
+ * an `Err`. Only genuine bugs (null deref, broken invariant) throw.
+ *
+ * Usage:
+ *   const r = await spaces.create({ name: 'alpha' });
+ *   if (!r.ok) { return r; }                         // propagate
+ *   const space = r.value;                           // narrowed to Ok
+ */
+
+export type Ok<T> = { readonly ok: true; readonly value: T };
+export type Err<E> = { readonly ok: false; readonly error: E };
+export type Result<T, E> = Ok<T> | Err<E>;
+
+export function ok<T>(value: T): Ok<T> {
+  return { ok: true, value };
+}
+
+export function err<E>(error: E): Err<E> {
+  return { ok: false, error };
+}
+
+export function isOk<T, E>(r: Result<T, E>): r is Ok<T> {
+  return r.ok;
+}
+
+export function isErr<T, E>(r: Result<T, E>): r is Err<E> {
+  return !r.ok;
+}
+
+export function map<T, U, E>(r: Result<T, E>, fn: (t: T) => U): Result<U, E> {
+  return r.ok ? ok(fn(r.value)) : r;
+}
+
+export async function mapAsync<T, U, E>(
+  r: Result<T, E>,
+  fn: (t: T) => Promise<U>,
+): Promise<Result<U, E>> {
+  return r.ok ? ok(await fn(r.value)) : r;
+}
+
+export function flatMap<T, U, E>(r: Result<T, E>, fn: (t: T) => Result<U, E>): Result<U, E> {
+  return r.ok ? fn(r.value) : r;
+}
+
+export async function flatMapAsync<T, U, E>(
+  r: Result<T, E>,
+  fn: (t: T) => Promise<Result<U, E>>,
+): Promise<Result<U, E>> {
+  return r.ok ? await fn(r.value) : r;
+}
+
+/**
+ * Unwrap a Result, throwing the error if it is Err. Use ONLY in tests or
+ * bootstrap code where an unexpected error should abort the process.
+ */
+export function unwrap<T, E>(r: Result<T, E>): T {
+  if (!r.ok) {
+    throw new Error(
+      `unwrap() on an Err: ${typeof r.error === 'string' ? r.error : JSON.stringify(r.error)}`,
+    );
+  }
+  return r.value;
+}
