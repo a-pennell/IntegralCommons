@@ -1,23 +1,55 @@
 @import 'tailwindcss';
 
-/* Mirror site/ design tokens for visual continuity between the marketing site and the app. */
 @theme {
-  --color-paper: #fafaf7;
-  --color-ink: #1a1a1a;
-  --color-rule: #d9d6ce;
-  --color-muted: #6b6b66;
-  --color-accent: #b8341f;
+  /* Paper & ink — warm, editorial, low-glare. */
+  --color-paper: #f4efe3;
+  --color-paper-deep: #ede5d2;
+  --color-paper-soft: #f8f4ea;
+  --color-ink: #1c1815;
+  --color-ink-soft: #3a322c;
+  --color-rule: #c9bfa9;
+  --color-rule-strong: #5a4f3d;
+  --color-muted: #756c5b;
+  --color-accent: #a8431f;
+  --color-accent-soft: #c89a5e;
 
-  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Typography — Source Serif 4 throughout, mono for technical metadata. */
+  --font-display: var(--font-source-serif), 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-source-serif), 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --text-body: 19px;
+  /* Editorial type scale. */
+  --text-display: 56px;
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+
+  --text-title: 36px;
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.015em;
+
+  --text-heading: 24px;
+  --text-heading--line-height: 1.3;
+  --text-heading--letter-spacing: -0.01em;
+
+  --text-lede: 21px;
+  --text-lede--line-height: 1.55;
+
+  --text-body: 18px;
   --text-body--line-height: 1.65;
-  --text-label: 11px;
-  --text-label--letter-spacing: 0.15em;
 
-  --container-content: 1200px;
+  --text-small: 15px;
+  --text-small--line-height: 1.55;
+
+  --text-caption: 13px;
+  --text-caption--line-height: 1.5;
+
+  --text-label: 11px;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.16em;
+
+  --container-content: 1100px;
+  --container-prose: 640px;
+  --container-form: 440px;
 }
 
 :root {
@@ -31,9 +63,50 @@ body {
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
+  font-feature-settings: 'liga' 1, 'kern' 1, 'onum' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Default to reduced-motion-friendly; explicit opt-in by component. */
+/* Selection — warm ink on accent paper. */
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+/* Focus ring — visible but quiet. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Tabular figures for data — vote tallies, dates, counts. */
+.tabular {
+  font-feature-settings: 'tnum' 1, 'lnum' 1, 'kern' 1;
+}
+
+/* Small caps utility for editorial labels. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+/* Drop cap for long-form perspectives / decisions. */
+.dropcap::first-letter {
+  font-size: 4.5em;
+  line-height: 0.85;
+  float: left;
+  margin: 0.05em 0.08em 0 -0.04em;
+  font-weight: 400;
+}
+
+/* Reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
