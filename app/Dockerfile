@@ -29,7 +29,7 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY app/ ./app/
 WORKDIR /app/app
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN pnpm build
+RUN mkdir -p public && pnpm build
 
 FROM base AS runner
 ENV NODE_ENV=production
