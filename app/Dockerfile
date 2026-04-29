@@ -39,6 +39,8 @@ WORKDIR /app/app
 COPY --from=builder --chown=nextjs:nodejs /app/app/.next ./.next
 COPY --from=builder --chown=nextjs:nodejs /app/app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/app/package.json ./package.json
+# pnpm symlinks in app/node_modules point into the root .pnpm store — copy both
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules /app/node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/app/drizzle ./drizzle
 # The pg-boss worker runs from TypeScript source via tsx. The full src/ tree
