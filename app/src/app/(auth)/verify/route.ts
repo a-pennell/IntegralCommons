@@ -1,8 +1,15 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { verifyMagicLink, setSessionCookie } from '@/server/auth';
 
+function getPublicOrigin(request: NextRequest): string {
+  const proto = request.headers.get('x-forwarded-proto') ?? 'https';
+  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? 'localhost:3000';
+  return `${proto}://${host}`;
+}
+
 export async function GET(request: NextRequest): Promise<NextResponse> {
-  const { searchParams, origin } = request.nextUrl;
+  const { searchParams } = request.nextUrl;
+  const origin = getPublicOrigin(request);
   const token = searchParams.get('token');
   const next = searchParams.get('next');
 
