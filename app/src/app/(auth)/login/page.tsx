@@ -65,6 +65,14 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           CommonGround uses magic-link sign-in. Every link is single-use and expires after fifteen
           minutes.
         </p>
+        <p className="mt-4 text-(length:--text-small) leading-(--text-small--line-height)">
+          <a
+            href="/framework"
+            className="text-[color:var(--color-ink-soft)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+          >
+            Read the Governance Framework
+          </a>
+        </p>
       </footer>
     </main>
   );
