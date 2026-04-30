@@ -2,6 +2,10 @@ import { notFound, redirect } from 'next/navigation';
 import { requireSession } from '@/server/auth';
 import { getSpaceBySlugForMember } from '@/server/spaces';
 import { resolveGovernanceProfile } from '@/server/governance-config';
+import { Button } from '@/components/ui/button';
+import { Field } from '@/components/ui/field';
+import { Note } from '@/components/ui/note';
+import { Textarea } from '@/components/ui/textarea';
 import { createIssueAction, createGovernanceIssueAction } from './action';
 
 type RouteParams = { spaceSlug: string };
@@ -26,103 +30,104 @@ export default async function NewIssuePage({
   const profile = resolveGovernanceProfile(space.governanceProfile);
   const { error, type } = await searchParams;
   const isGovernance = type === 'governance';
-
   const preBootstrap = space.bootstrapCompletedAt === null;
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.name}
-      </div>
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">New Issue</h1>
+    <main
+      data-density="standard"
+      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">{isGovernance ? 'Governance change · New' : 'Issue · New'}</div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          {isGovernance ? 'Open a governance change' : 'Open an issue'}
+        </h1>
+      </header>
 
       {preBootstrap ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">
-          Bootstrap is incomplete. Until the Bootstrap Decision Record is finalized, only the
-          Bootstrap Issue can be opened (CR-004).
-        </p>
+        <div className="mb-6">
+          <Note tone="info">
+            Bootstrap is incomplete. Until the Bootstrap Decision Record is finalized, only the
+            Bootstrap Issue can be opened.
+          </Note>
+        </div>
+      ) : null}
+
+      {isGovernance ? (
+        <div className="mb-6">
+          <Note tone="info">
+            <strong className="font-medium not-italic">Governance change.</strong> When a Decision
+            Record on this Issue is finalized, the proposed governance profile will be applied to
+            this Space.
+          </Note>
+        </div>
       ) : null}
 
       {error ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">{describeError(error)}</p>
-      ) : null}
-
-      {isGovernance && (
-        <div className="mb-4 border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] p-3 text-sm">
-          <strong>Governance change Issue</strong> — when a Decision Record on this Issue is
-          finalized, the proposed governance profile will be applied to this Space (US9, CR-008,
-          CR-009).
+        <div className="mb-6">
+          <Note tone="error">{describeError(error)}</Note>
         </div>
-      )}
+      ) : null}
 
       <form
         action={isGovernance ? createGovernanceIssueAction : createIssueAction}
-        className="flex flex-col gap-4"
+        className="space-y-10"
       >
         <input type="hidden" name="spaceId" value={space.id} />
 
-        <label htmlFor="title" className="flex flex-col gap-1">
-          <span className="text-sm">Title</span>
-          <input
-            id="title"
-            name="title"
-            required
-            minLength={1}
-            maxLength={200}
-            className="border border-[color:var(--color-rule)] bg-white p-2"
-          />
-        </label>
+        <Field
+          id="title"
+          name="title"
+          label="Title"
+          type="text"
+          required
+          minLength={1}
+          maxLength={200}
+        />
 
-        <label htmlFor="scope" className="flex flex-col gap-1">
-          <span className="text-sm">
-            Scope{' '}
-            <span className="text-[color:var(--color-muted)]">(what this Issue is about)</span>
-          </span>
-          <textarea
-            id="scope"
-            name="scope"
-            required
-            minLength={1}
-            maxLength={500}
-            rows={3}
-            className="border border-[color:var(--color-rule)] bg-white p-2"
-          />
-        </label>
+        <Textarea
+          id="scope"
+          name="scope"
+          label="Scope"
+          required
+          minLength={1}
+          maxLength={500}
+          rows={3}
+          hint="What this Issue is about, and what it isn't."
+        />
 
-        {isGovernance && (
-          <label htmlFor="proposedProfile" className="flex flex-col gap-1">
-            <span className="text-sm">
-              Proposed governance profile{' '}
-              <span className="text-[color:var(--color-muted)]">(JSON)</span>
-            </span>
-            <textarea
-              id="proposedProfile"
-              name="proposedProfile"
-              required
-              rows={12}
-              placeholder={JSON.stringify(profile, null, 2)}
-              className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-xs"
-            />
-            <span className="text-xs text-[color:var(--color-muted)]">
-              Paste the full proposed profile JSON. Constitutional floors (CR-008, CR-009) are
-              enforced at finalization.
-            </span>
-          </label>
-        )}
+        {isGovernance ? (
+          <Textarea
+            id="proposedProfile"
+            name="proposedProfile"
+            label="Proposed governance profile (JSON)"
+            mono
+            required
+            rows={14}
+            placeholder={JSON.stringify(profile, null, 2)}
+            hint="Paste the full proposed profile JSON. Constitutional floors are enforced at finalization."
+          />
+        ) : null}
 
         {profile.scopeTagVocabulary.length > 0 ? (
-          <fieldset className="flex flex-col gap-2">
-            <legend className="text-sm">
-              Scope tags
-              <span className="block text-xs text-[color:var(--color-muted)]">
-                Select the tags that match — members tagged with any of these will be auto-included
-                if this Issue becomes a referendum (CR-007).
-              </span>
-            </legend>
-            <div className="flex flex-wrap gap-2">
+          <fieldset>
+            <legend className="eyebrow mb-2">Scope tags</legend>
+            <p className="mb-4 max-w-prose font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+              Members tagged with any of these will be auto-included if this Issue becomes a
+              referendum.
+            </p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
               {profile.scopeTagVocabulary.map((tag) => (
-                <label key={tag} className="flex items-center gap-1 text-sm">
-                  <input type="checkbox" name="scopeTags" value={tag} />
+                <label
+                  key={tag}
+                  className="flex items-center gap-2 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)]"
+                >
+                  <input
+                    type="checkbox"
+                    name="scopeTags"
+                    value={tag}
+                    className="h-4 w-4 accent-[color:var(--color-accent)]"
+                  />
                   {tag}
                 </label>
               ))}
@@ -130,29 +135,31 @@ export default async function NewIssuePage({
           </fieldset>
         ) : null}
 
-        <button
-          type="submit"
-          className="mt-2 bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-        >
-          {isGovernance ? 'Open governance Issue' : 'Open Issue'}
-        </button>
+        <div className="pt-2">
+          <Button type="submit">{isGovernance ? 'Open governance Issue' : 'Open Issue'}</Button>
+        </div>
       </form>
 
-      {!isGovernance && (
-        <p className="mt-4 text-xs text-[color:var(--color-muted)]">
+      {!isGovernance ? (
+        <p className="mt-12 font-[var(--font-body)] text-(length:--text-caption) text-[color:var(--color-muted)] italic">
           Want to change how this Space governs itself?{' '}
-          <a href={`?type=governance`} className="underline">
+          <a
+            href="?type=governance"
+            className="not-italic underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+          >
             Open a governance change Issue
           </a>
           .
         </p>
-      )}
+      ) : null}
 
-      <p className="mt-8 text-sm text-[color:var(--color-muted)]">
-        The first event written to this Issue&rsquo;s Civic Memory is <code>issue_created</code>.
-        The timeline is append-only — the record never disappears, even if the Issue is later
-        archived.
-      </p>
+      <footer className="mt-16 border-t border-[color:var(--color-rule)] pt-6">
+        <p className="font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-muted)] italic">
+          The first event written to this Issue&rsquo;s Civic Memory is{' '}
+          <code className="metadata not-italic">issue_created</code>. The timeline is append-only —
+          the record never disappears, even if the Issue is later archived.
+        </p>
+      </footer>
     </main>
   );
 }
@@ -160,11 +167,11 @@ export default async function NewIssuePage({
 function describeError(kind: string): string {
   switch (kind) {
     case 'rate_limited':
-      return 'You have reached the daily limit for creating Issues. Try again tomorrow (CR-009).';
+      return 'You have reached the daily limit for opening issues. Try again tomorrow.';
     case 'bootstrap_required':
-      return 'This Space is still in Bootstrap — only the Bootstrap Issue can be opened right now (CR-004).';
+      return 'This Space is still in Bootstrap — only the Bootstrap Issue can be opened right now.';
     case 'invalid_tag':
-      return 'One or more scope tags do not match this Space’s configured vocabulary (CR-007).';
+      return "One or more scope tags do not match this Space's configured vocabulary.";
     case 'validation':
       return 'One of the fields was invalid. Please check and try again.';
     default:

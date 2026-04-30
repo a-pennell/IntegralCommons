@@ -30,8 +30,7 @@ export default async function IssueTimelinePage({ params }: { params: Promise<Ro
 
   const events = await listTimelineEventsForIssue(issue[0].id);
 
-  // Resolve actor display names for rendering. Redacted ("[removed member]")
-  // when the row has been RTBF'd.
+  // Resolve actor display names. Redacted ("[removed]") for RTBF'd rows.
   const actorIds = [...new Set(events.map((e) => e.actorMemberId).filter((v): v is string => !!v))];
   const actorRows = actorIds.length
     ? await db
@@ -44,54 +43,112 @@ export default async function IssueTimelinePage({ params }: { params: Promise<Ro
     if (row.displayName) actorMap.set(row.id, row.displayName);
   }
 
+  // Group events by month for chronicle-style date rules.
+  const byMonth = new Map<string, TimelineEvent[]>();
+  for (const ev of events) {
+    const key = monthKey(ev.occurredAt);
+    if (!byMonth.has(key)) byMonth.set(key, []);
+    byMonth.get(key)!.push(ev);
+  }
+  const monthsSorted = Array.from(byMonth.keys()).sort().reverse();
+
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.space.name} / Civic Memory
-      </div>
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">{issue[0].title}</h1>
+    <main
+      data-density="editorial"
+      className="mx-auto w-full max-w-(--container-folio) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">
+          Civic Memory
+          {' · '}
+          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+            {issue[0].title}
+          </span>
+        </div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          The record
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          Every event written to this issue, in the order it happened. The record is append-only —
+          entries are never deleted or rewritten, even when the issue is archived.
+        </p>
+      </header>
 
       {events.length === 0 ? (
-        <p className="text-[color:var(--color-muted)]">
-          This Issue has no Civic Memory entries yet. Entries appear as the Issue is discussed,
+        <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+          This issue has no Civic Memory entries yet. Entries appear as the issue is discussed,
           decided, and revisited.
         </p>
       ) : (
-        <ol className="divide-y divide-[color:var(--color-rule)]">
-          {events.map((event) => (
-            <li key={event.id} className="py-3">
-              <TimelineRow
-                event={event}
-                actorName={
-                  event.actorMemberId
-                    ? (actorMap.get(event.actorMemberId) ?? '[removed member]')
-                    : null
-                }
-              />
-            </li>
-          ))}
-        </ol>
+        <div className="space-y-12">
+          {monthsSorted.map((m) => {
+            const monthEvents = byMonth.get(m)!;
+            return (
+              <section key={m}>
+                <DateRule label={formatMonth(m)} />
+                <ol className="space-y-1">
+                  {monthEvents.map((event) => (
+                    <li
+                      key={event.id}
+                      className="grid grid-cols-[120px_1fr] items-baseline gap-x-6 border-b border-[color:var(--color-rule)] py-3"
+                    >
+                      <time className="metadata tabular text-[color:var(--color-ink)]">
+                        {formatDayTime(event.occurredAt)}
+                      </time>
+                      <div>
+                        <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+                          {humanReadableEventType(event.eventType)}
+                        </div>
+                        {event.actorMemberId ? (
+                          <div className="metadata mt-1 tabular">
+                            by{' '}
+                            <span className="text-[color:var(--color-ink)]">
+                              {actorMap.get(event.actorMemberId) ?? '[removed]'}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="metadata mt-1 tabular italic">by the system</div>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            );
+          })}
+        </div>
       )}
     </main>
   );
 }
 
-function TimelineRow({ event, actorName }: { event: TimelineEvent; actorName: string | null }) {
+function DateRule({ label }: { label: string }) {
   return (
-    <div className="grid grid-cols-[max-content_1fr] gap-x-4">
-      <time className="font-mono text-xs text-[color:var(--color-muted)]">
-        {event.occurredAt.toISOString().slice(0, 19).replace('T', ' ')}
-      </time>
-      <div>
-        <div className="text-xs tracking-[0.1em] text-[color:var(--color-muted)] uppercase">
-          {humanReadableEventType(event.eventType)}
-        </div>
-        {actorName ? <div className="text-sm">by {actorName}</div> : null}
-      </div>
+    <div className="mb-6 flex items-baseline gap-4">
+      <span className="eyebrow text-[color:var(--color-ink)]">— {label} —</span>
+      <span className="h-px flex-1 bg-[color:var(--color-rule-strong)]" aria-hidden />
     </div>
   );
 }
 
 function humanReadableEventType(t: TimelineEvent['eventType']): string {
-  return t.replace(/_/g, ' ');
+  return t.replace(/_/g, ' ').replace(/^./, (c) => c.toUpperCase());
+}
+
+function monthKey(d: Date): string {
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
+function formatMonth(key: string): string {
+  const [y, m] = key.split('-').map(Number);
+  return new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' }).format(
+    new Date(Date.UTC(y!, m! - 1, 1)),
+  );
+}
+
+function formatDayTime(d: Date): string {
+  // "14 Apr 14:32" — short for archive density
+  const day = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' }).format(d);
+  const time = `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
+  return `${day}  ${time}`;
 }

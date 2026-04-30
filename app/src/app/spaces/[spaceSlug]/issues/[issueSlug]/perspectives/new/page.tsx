@@ -3,6 +3,9 @@ import { requireSession } from '@/server/auth';
 import { resolveGovernanceProfile } from '@/server/governance-config';
 import { getIssueBySlugForMember } from '@/server/issues';
 import { getSpaceBySlugForMember } from '@/server/spaces';
+import { Button } from '@/components/ui/button';
+import { Note } from '@/components/ui/note';
+import { Textarea } from '@/components/ui/textarea';
 import { submitPerspectiveAction } from './action';
 
 type RouteParams = { spaceSlug: string; issueSlug: string };
@@ -37,78 +40,96 @@ export default async function NewPerspectivePage({
 
   const profile = resolveGovernanceProfile(space.space.governanceProfile);
   const { replyTo, error } = await searchParams;
+  const isReply = Boolean(replyTo);
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.space.name} / {issue.title}
-      </div>
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">
-        {replyTo ? 'Respond to a Perspective' : 'Add a Perspective'}
-      </h1>
+    <main
+      data-density="editorial"
+      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">
+          {isReply ? 'Perspective · Reply' : 'Perspective · New'}
+          {' · '}
+          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+            {issue.title}
+          </span>
+        </div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          {isReply ? 'Respond to a perspective' : 'Add a perspective'}
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          A perspective is a first-class contribution, not a comment. It carries one taxonomy and
+          may speak from direct experience.
+        </p>
+      </header>
 
       {error ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">{describeError(error)}</p>
+        <div className="mb-6">
+          <Note tone="error">{describeError(error)}</Note>
+        </div>
       ) : null}
 
-      <form action={submitPerspectiveAction} className="flex flex-col gap-4">
+      <form action={submitPerspectiveAction} className="space-y-10">
         <input type="hidden" name="issueId" value={issue.id} />
         {replyTo ? <input type="hidden" name="parentPerspectiveId" value={replyTo} /> : null}
 
-        <fieldset className="flex flex-col gap-2">
-          <legend className="text-sm">
-            Taxonomy
-            <span className="block text-xs text-[color:var(--color-muted)]">
-              Each Perspective carries one taxonomy tag. Pick the one that best matches the angle
-              you&rsquo;re bringing.
-            </span>
-          </legend>
-          <div className="flex flex-wrap gap-2">
+        <fieldset>
+          <legend className="eyebrow mb-2">Taxonomy</legend>
+          <p className="mb-4 max-w-prose font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+            Each perspective carries one taxonomy. Pick the one that best matches the angle you're
+            bringing.
+          </p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
             {profile.taxonomyVocabulary.map((t, i) => (
-              <label key={t} className="flex items-center gap-1 text-sm">
+              <label
+                key={t}
+                className="flex items-center gap-2 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)]"
+              >
                 <input
                   type="radio"
                   name="taxonomyType"
                   value={t}
                   required
                   defaultChecked={i === 0}
+                  className="h-4 w-4 accent-[color:var(--color-accent)]"
                 />
-                {t}
+                <span className="capitalize">{t}</span>
               </label>
             ))}
           </div>
         </fieldset>
 
-        <label htmlFor="bodyMarkdown" className="flex flex-col gap-1">
-          <span className="text-sm">
-            Your perspective{' '}
-            <span className="text-[color:var(--color-muted)]">(Markdown accepted)</span>
-          </span>
-          <textarea
-            id="bodyMarkdown"
-            name="bodyMarkdown"
-            required
-            minLength={1}
-            maxLength={10_000}
-            rows={8}
-            className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-sm"
+        <Textarea
+          id="bodyMarkdown"
+          name="bodyMarkdown"
+          label="Your perspective"
+          required
+          minLength={1}
+          maxLength={10_000}
+          rows={10}
+          hint="Markdown accepted. Generous typography is part of the point — write what's worth saying."
+        />
+
+        <label className="flex items-start gap-3 font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height)">
+          <input
+            type="checkbox"
+            name="fromDirectExperience"
+            value="on"
+            className="mt-[5px] h-4 w-4 accent-[color:var(--color-accent)]"
           />
-        </label>
-
-        <label className="flex items-start gap-2 text-sm">
-          <input type="checkbox" name="fromDirectExperience" value="on" className="mt-1" />
-          <span>
-            <strong>I&rsquo;m speaking from direct experience</strong> with the matter at hand
-            (FR-020). This flag helps the group weigh perspectives — it does not confer veto rights.
+          <span className="text-[color:var(--color-ink)]">
+            <strong className="font-medium">I'm speaking from direct experience</strong> with the
+            matter at hand.{' '}
+            <span className="text-[color:var(--color-muted)] italic">
+              This flag helps the group weigh perspectives — it does not confer veto rights.
+            </span>
           </span>
         </label>
 
-        <button
-          type="submit"
-          className="mt-2 self-start bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-        >
-          Post Perspective
-        </button>
+        <div className="pt-2">
+          <Button type="submit">Post perspective</Button>
+        </div>
       </form>
     </main>
   );
@@ -119,9 +140,9 @@ function describeError(kind: string): string {
     case 'validation':
       return 'Something was off with the submission. Check the body and taxonomy.';
     case 'nesting':
-      return 'Replies are one level deep. You can respond to the parent Perspective, not a reply.';
+      return 'Replies are one level deep. You can respond to the parent perspective, not a reply.';
     case 'archived':
-      return 'This Issue is decided or archived — reopen it to add a Perspective.';
+      return 'This issue is decided or archived — reopen it to add a perspective.';
     default:
       return 'Something went wrong. Please try again.';
   }

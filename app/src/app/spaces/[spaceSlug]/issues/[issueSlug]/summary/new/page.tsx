@@ -6,6 +6,9 @@ import { getSpaceBySlugForMember } from '@/server/spaces';
 import { getIssueBySlugForMember } from '@/server/issues';
 import { publishSummary } from '@/server/civic-memory';
 import { memberHoldsCapability } from '@/server/delegations';
+import { Button } from '@/components/ui/button';
+import { Note } from '@/components/ui/note';
+import { Textarea } from '@/components/ui/textarea';
 
 type Props = { params: Promise<{ spaceSlug: string; issueSlug: string }> };
 
@@ -33,11 +36,19 @@ export default async function NewSummaryPage({ params }: Props) {
 
   if (!hasFacilitation) {
     return (
-      <main className="mx-auto max-w-2xl p-8">
-        <h1 className="mb-4 text-2xl font-[var(--font-display)]">Publish a summary</h1>
-        <p className="text-[color:var(--color-muted)]">
-          Only the delegated facilitator for this Issue may publish an Official Summary.
-        </p>
+      <main
+        data-density="standard"
+        className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+      >
+        <header className="mb-8 border-b-2 border-[color:var(--color-ink)] pb-4">
+          <div className="eyebrow">Summary · Restricted</div>
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+            Publish a summary
+          </h1>
+        </header>
+        <Note tone="info">
+          Only the delegated facilitator for this issue may publish an Official Summary.
+        </Note>
       </main>
     );
   }
@@ -52,37 +63,42 @@ export default async function NewSummaryPage({ params }: Props) {
   );
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.space.name} / {issue.title}
-      </div>
-      <h1 className="mb-6 text-2xl font-[var(--font-display)]">Publish an official summary</h1>
-      <p className="mb-6 text-sm text-[color:var(--color-muted)]">
-        Summaries are versioned and immutable once published. Revisions create a new version;
-        prior versions remain in Civic Memory.
-      </p>
-
-      <form action={action} className="space-y-4">
-        <div>
-          <label htmlFor="body" className="mb-1 block text-sm font-medium">
-            Summary (Markdown)
-          </label>
-          <textarea
-            id="body"
-            name="body"
-            rows={16}
-            required
-            maxLength={20_000}
-            placeholder="Summarise the deliberation, key Perspectives, areas of agreement, and unresolved questions…"
-            className="w-full border border-[color:var(--color-rule)] p-3 font-mono text-sm focus:outline-none focus:ring-1 focus:ring-[color:var(--color-ink)]"
-          />
+    <main
+      data-density="editorial"
+      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">
+          Official summary · New
+          {' · '}
+          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+            {issue.title}
+          </span>
         </div>
-        <button
-          type="submit"
-          className="border border-[color:var(--color-ink)] px-6 py-2 text-sm hover:bg-[color:var(--color-ink)] hover:text-[color:var(--color-paper)] transition-colors"
-        >
-          Publish summary
-        </button>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          Publish an official summary
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          Summaries are versioned and immutable once published. Revisions create a new version;
+          prior versions remain in Civic Memory.
+        </p>
+      </header>
+
+      <form action={action} className="space-y-10">
+        <Textarea
+          id="body"
+          name="body"
+          label="Summary (Markdown)"
+          required
+          rows={18}
+          maxLength={20_000}
+          placeholder="Summarise the deliberation, key perspectives, areas of agreement, and unresolved questions…"
+          hint="Lead with what's unresolved. Give equal depth to minority and majority positions."
+        />
+
+        <div className="pt-2">
+          <Button type="submit">Publish summary</Button>
+        </div>
       </form>
     </main>
   );

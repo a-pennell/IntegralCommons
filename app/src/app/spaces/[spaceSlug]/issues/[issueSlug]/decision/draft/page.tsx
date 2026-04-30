@@ -3,6 +3,9 @@ import { requireSession } from '@/server/auth';
 import { memberHoldsCapability } from '@/server/delegations';
 import { getIssueBySlugForMember } from '@/server/issues';
 import { getSpaceBySlugForMember } from '@/server/spaces';
+import { Button } from '@/components/ui/button';
+import { Note } from '@/components/ui/note';
+import { Textarea } from '@/components/ui/textarea';
 import { draftDecisionRecordAction, finalizeAction } from './action';
 
 type RouteParams = { spaceSlug: string; issueSlug: string };
@@ -46,109 +49,137 @@ export default async function DecisionDraftPage({
   const { error } = await searchParams;
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.space.name} / {issue.title}
-      </div>
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">Draft a Decision Record</h1>
+    <main
+      data-density="editorial"
+      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">
+          Decision record · Draft
+          {' · '}
+          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+            {issue.title}
+          </span>
+        </div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          Draft a decision record
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          A decision record is the official artifact of a decided issue. It captures the outcome,
+          the reasons, and what remains unresolved — so the group remembers not just what was
+          decided, but why.
+        </p>
+      </header>
 
       {!canDraft ? (
-        <p className="text-sm text-[color:var(--color-accent)]">
-          Only the delegated facilitator may draft a Decision Record for this Issue. See the
+        <Note tone="info">
+          Only the delegated facilitator may draft a decision record for this issue. See the
           Delegations page to find out who currently holds facilitation.
-        </p>
+        </Note>
       ) : (
         <>
           {error ? (
-            <p className="mb-4 text-sm text-[color:var(--color-accent)]">{describeError(error)}</p>
+            <div className="mb-6">
+              <Note tone="error">{describeError(error)}</Note>
+            </div>
           ) : null}
 
-          <form action={draftDecisionRecordAction} className="flex flex-col gap-4">
+          <form action={draftDecisionRecordAction} className="space-y-10">
             <input type="hidden" name="issueId" value={issue.id} />
 
-            <Field
+            <Textarea
+              id="whatText"
+              name="whatText"
               label="What was decided"
+              required
+              minLength={10}
+              maxLength={20_000}
+              rows={5}
               hint="A crisp description of the outcome — what will (or will not) happen."
-            >
-              <textarea
-                name="whatText"
-                required
-                minLength={10}
-                maxLength={20_000}
-                rows={5}
-                className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-sm"
-              />
-            </Field>
+            />
 
-            <Field
+            <Textarea
+              id="rationaleText"
+              name="rationaleText"
               label="Rationale"
+              required
+              minLength={10}
+              maxLength={20_000}
+              rows={6}
               hint="The key reasons captured at the time — so future members can understand what mattered then."
-            >
-              <textarea
-                name="rationaleText"
-                required
-                minLength={10}
-                maxLength={20_000}
-                rows={6}
-                className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-sm"
-              />
-            </Field>
+            />
 
-            <Field
-              label="Unresolved objections / stand-asides"
-              hint='Write "none" if there are no objections. Stand-asides belong here too. Use the literal keyword "BLOCKED" to pause finalization.'
-            >
-              <textarea
-                name="unresolvedObjectionsText"
-                maxLength={20_000}
-                rows={4}
-                className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-sm"
-                defaultValue="none"
-              />
-            </Field>
+            <Textarea
+              id="unresolvedObjectionsText"
+              name="unresolvedObjectionsText"
+              label="Unresolved objections & stand-asides"
+              maxLength={20_000}
+              rows={4}
+              defaultValue="none"
+              hint={
+                <>
+                  Write &ldquo;none&rdquo; if there are no objections. Stand-asides belong here too.
+                  Use the literal keyword{' '}
+                  <code className="metadata not-italic">BLOCKED</code> to pause finalization.
+                </>
+              }
+            />
 
-            <Field label="Review date" hint="Must be in the future (FR-023).">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="reviewDate" className="eyebrow">
+                Review date
+              </label>
               <input
+                id="reviewDate"
                 type="date"
                 name="reviewDate"
                 required
-                className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-sm"
+                className="border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 font-[var(--font-mono)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
               />
-            </Field>
+              <p className="font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+                Must be in the future. The decision will resurface for review on this date.
+              </p>
+            </div>
 
-            <button
-              type="submit"
-              className="mt-2 self-start bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-            >
-              Save draft
-            </button>
+            <div className="pt-2">
+              <Button type="submit">Save draft</Button>
+            </div>
           </form>
 
-          <section className="mt-10 border-t border-[color:var(--color-rule)] pt-6">
-            <h2 className="mb-3 text-xl font-[var(--font-display)]">Finalize an existing draft</h2>
-            <p className="mb-3 text-sm text-[color:var(--color-muted)]">
-              Paste the Decision Record ID to finalize. Finalization transitions the Issue to{' '}
-              <code>decided</code> and writes the record to Civic Memory.
-            </p>
-            <form action={finalizeAction} className="flex items-end gap-2">
+          <section className="mt-20 border-t-2 border-[color:var(--color-ink)] pt-8">
+            <header className="mb-6">
+              <div className="eyebrow">Finalize</div>
+              <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+                Finalize an existing draft
+              </h2>
+              <p className="mt-2 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-muted)] italic">
+                Paste the Decision Record ID to finalize. Finalization transitions the issue to{' '}
+                <code className="metadata not-italic">decided</code> and writes the record to Civic
+                Memory. <strong className="font-medium not-italic">Irreversible.</strong>
+              </p>
+            </header>
+            <form
+              action={finalizeAction}
+              className="flex flex-col gap-4 sm:flex-row sm:items-end"
+            >
               <input type="hidden" name="spaceSlug" value={space.space.slug} />
               <input type="hidden" name="issueSlug" value={issue.slug} />
-              <label className="flex flex-1 flex-col gap-1">
-                <span className="text-xs">Decision Record ID</span>
+              <div className="flex flex-1 flex-col gap-2">
+                <label htmlFor="decisionRecordId" className="eyebrow">
+                  Decision Record ID
+                </label>
                 <input
+                  id="decisionRecordId"
                   name="decisionRecordId"
                   required
                   minLength={26}
                   maxLength={26}
-                  className="border border-[color:var(--color-rule)] bg-white p-2 font-mono text-sm"
+                  className="border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 font-[var(--font-mono)] text-(length:--text-small) leading-(--text-body--line-height) text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
                 />
-              </label>
-              <button
-                type="submit"
-                className="bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-              >
+              </div>
+              <Button type="submit" variant="secondary">
                 Finalize
-              </button>
+              </Button>
             </form>
           </section>
         </>
@@ -157,38 +188,20 @@ export default async function DecisionDraftPage({
   );
 }
 
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string;
-  hint: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="flex flex-col gap-1">
-      <span className="text-sm">{label}</span>
-      <span className="text-xs text-[color:var(--color-muted)]">{hint}</span>
-      {children}
-    </label>
-  );
-}
-
 function describeError(kind: string): string {
   switch (kind) {
     case 'not_facilitator':
-      return 'Only the delegated facilitator may draft or finalize a Decision Record.';
+      return 'Only the delegated facilitator may draft or finalize a decision record.';
     case 'validation':
       return 'One or more required fields are missing or too short.';
     case 'blocked':
       return 'Finalization is paused because the draft is marked BLOCKED.';
     case 'awareness':
-      return 'Awareness quorum is not met — the Issue cannot be decided yet (CR-011).';
+      return 'Awareness quorum is not met — the issue cannot be decided yet.';
     case 'not_found':
       return 'The Decision Record ID was not found.';
     case 'already_finalized':
-      return 'That Decision Record is already finalized.';
+      return 'That decision record is already finalized.';
     default:
       return 'Something went wrong. Please try again.';
   }
