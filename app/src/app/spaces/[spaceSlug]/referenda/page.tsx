@@ -3,6 +3,10 @@ import type { Route } from 'next';
 import { requireSession } from '@/server/auth';
 import { listReferendaForSpace } from '@/server/referenda';
 import { getSpaceBySlugForMember } from '@/server/spaces';
+import type { Referendum } from '@/db/schema';
+import { Citation } from '@/components/ui/citation';
+import { SectionHeader } from '@/components/ui/section-header';
+import { StatusStamp, type Status } from '@/components/ui/status-stamp';
 
 type RouteParams = { spaceSlug: string };
 
@@ -16,60 +20,118 @@ export default async function ReferendaIndexPage({ params }: { params: Promise<R
   const space = await getSpaceBySlugForMember(spaceSlug, session.value.memberId);
   if (!space) notFound();
 
-  const list = await listReferendaForSpace(space.space.id);
+  const all = await listReferendaForSpace(space.space.id);
+  const open = all.filter((r) => r.status !== 'closed');
+  const closed = all.filter((r) => r.status === 'closed');
 
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <header className="mb-6 flex items-start justify-between">
+    <main
+      data-density="standard"
+      className="mx-auto w-full max-w-(--container-folio) px-10 py-14"
+    >
+      <header className="mb-10 flex items-baseline justify-between border-b-2 border-[color:var(--color-ink)] pb-4">
         <div>
-          <div className="text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-            {space.space.name}
-          </div>
-          <h1 className="text-3xl font-[var(--font-display)]">Referenda</h1>
+          <div className="eyebrow">Referenda</div>
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+            All referenda
+          </h1>
         </div>
         <a
           href={`/spaces/${space.space.slug}/referenda/new` as Route}
-          className="border border-[color:var(--color-ink)] px-3 py-1 text-sm"
+          className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
         >
-          Initiate
+          + Initiate
         </a>
       </header>
 
-      {list.length === 0 ? (
-        <p className="text-[color:var(--color-muted)]">
-          No referenda yet. Referenda are the instrument for revoking delegations or overturning
-          Decision Records — use them sparingly (CR-006).
-        </p>
-      ) : (
-        <ul className="divide-y divide-[color:var(--color-rule)]">
-          {list.map((r) => (
-            <li key={r.id} className="py-3">
-              <a
-                href={`/spaces/${space.space.slug}/referenda/${r.id}` as Route}
-                className="block hover:underline"
-              >
-                <div className="flex items-baseline justify-between gap-3">
-                  <div className="text-sm font-[var(--font-display)]">
-                    Referendum on{' '}
-                    {r.targetType === 'delegation'
-                      ? 'a delegation'
-                      : r.targetType === 'decision_record'
-                        ? 'a Decision Record'
-                        : 'a governance profile change'}
-                  </div>
-                  <span className="font-mono text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-                    {r.status}
-                  </span>
-                </div>
-                <div className="text-xs text-[color:var(--color-muted)]">
-                  initiated {r.createdAt.toISOString().slice(0, 10)}
-                  {r.outcome ? ` · outcome: ${r.outcome}` : null}
-                </div>
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <p className="mb-12 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        Referenda are the instrument for revoking a delegation, overturning a Decision Record, or
+        proposing a governance change. Use them sparingly. Each carries a deliberation floor before
+        voting opens.
+      </p>
+
+      <section className="mb-14">
+        <SectionHeader label="Open" count={open.length} />
+        {open.length === 0 ? (
+          <p className="border-t border-[color:var(--color-rule)] py-6 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+            No referenda are currently open in this Space.
+          </p>
+        ) : (
+          <ul className="border-t border-[color:var(--color-rule)]">
+            {open.map((r) => (
+              <ReferendumRow key={r.id} referendum={r} spaceSlug={space.space.slug} />
+            ))}
+          </ul>
+        )}
+      </section>
+
+      {closed.length > 0 ? (
+        <section>
+          <SectionHeader label="From the register" count={closed.length} />
+          <ul className="border-t border-[color:var(--color-rule)]">
+            {closed.map((r) => (
+              <ReferendumRow key={r.id} referendum={r} spaceSlug={space.space.slug} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </main>
   );
+}
+
+function ReferendumRow({ referendum: r, spaceSlug }: { referendum: Referendum; spaceSlug: string }) {
+  return (
+    <li className="border-b border-[color:var(--color-rule)]">
+      <a
+        href={`/spaces/${spaceSlug}/referenda/${r.id}` as Route}
+        className="grid grid-cols-[auto_1fr_auto] items-baseline gap-x-6 py-4 transition-colors hover:bg-[color:var(--color-paper-soft)]"
+      >
+        <Citation type="REF" number={r.id.slice(-5).toUpperCase()} />
+        <div>
+          <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+            On {targetLabel(r.targetType)}
+          </div>
+          <div className="metadata mt-1 tabular">
+            initiated {formatShortDate(r.createdAt)}
+            {r.outcome ? (
+              <>
+                {' · outcome '}
+                <span
+                  className={
+                    r.outcome === 'affirmed'
+                      ? 'text-[color:var(--color-accent)]'
+                      : r.outcome === 'revoked'
+                        ? 'text-[color:var(--color-oxblood)]'
+                        : ''
+                  }
+                >
+                  {r.outcome}
+                </span>
+              </>
+            ) : null}
+          </div>
+        </div>
+        <StatusStamp status={r.status as Status} />
+      </a>
+    </li>
+  );
+}
+
+function targetLabel(type: Referendum['targetType']): string {
+  switch (type) {
+    case 'delegation':
+      return 'a delegation';
+    case 'decision_record':
+      return 'a Decision Record';
+    case 'governance_profile_change':
+      return 'a governance profile change';
+  }
+}
+
+function formatShortDate(d: Date): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(d);
 }

@@ -9,6 +9,8 @@ import {
 import { getIssueBySlugForMember } from '@/server/issues';
 import { getSpaceBySlugForMember } from '@/server/spaces';
 import { renderMarkdown } from '@/lib/markdown';
+import { Folio } from '@/components/ui/folio';
+import { StatusStamp } from '@/components/ui/status-stamp';
 
 type RouteParams = { spaceSlug: string; issueSlug: string };
 
@@ -38,96 +40,222 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
     ? await getSupersessionChain(issue.currentDecisionRecordId)
     : [];
 
+  // Pre-render markdown
+  const [whatHtml, rationaleHtml, objectionsHtml] = current
+    ? await Promise.all([
+        renderMarkdown(current.whatText),
+        renderMarkdown(current.rationaleText),
+        current.unresolvedObjectionsText.trim().length
+          ? renderMarkdown(current.unresolvedObjectionsText)
+          : Promise.resolve(''),
+      ])
+    : ['', '', ''];
+
+  const isFinalized = !!current?.finalizedAt;
+
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.space.name} / {issue.title}
-      </div>
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">Decision Record</h1>
-
-      {current && current.finalizedAt ? (
-        <article className="space-y-4">
-          <DrField label="What was decided">
-            <Markdown md={current.whatText} />
-          </DrField>
-          <DrField label="How (method)">
-            <p className="font-mono text-sm">{current.howMethod}</p>
-          </DrField>
-          <DrField label="Rationale">
-            <Markdown md={current.rationaleText} />
-          </DrField>
-          <DrField label="Unresolved objections / stand-asides">
-            {current.unresolvedObjectionsText.trim().length === 0 ? (
-              <p className="text-sm text-[color:var(--color-muted)]">(none)</p>
-            ) : (
-              <Markdown md={current.unresolvedObjectionsText} />
-            )}
-          </DrField>
-          <DrField label="Review date">
-            <p className="font-mono text-sm">{current.reviewDate}</p>
-          </DrField>
-          <DrField label="Finalized">
-            <p className="font-mono text-sm">{current.finalizedAt.toISOString().slice(0, 10)}</p>
-          </DrField>
-        </article>
+    <main
+      data-density="editorial"
+      className="mx-auto w-full max-w-(--container-folio) px-10 py-14"
+    >
+      {!current || !isFinalized ? (
+        <>
+          <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+            <div className="eyebrow">
+              Decision record
+              {' · '}
+              <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+                {issue.title}
+              </span>
+            </div>
+            <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+              No record on file
+            </h1>
+          </header>
+          <p className="font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink-soft)] italic">
+            No Decision Record has been finalized for this issue yet.{' '}
+            <a
+              href={`/spaces/${space.space.slug}/issues/${issue.slug}/decision/draft` as Route}
+              className="not-italic underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+            >
+              Draft one ▸
+            </a>
+          </p>
+        </>
       ) : (
-        <p className="mb-4 text-[color:var(--color-muted)]">
-          No Decision Record has been finalized for this Issue yet.{' '}
-          <a
-            href={`/spaces/${space.space.slug}/issues/${issue.slug}/decision/draft` as Route}
-            className="underline"
-          >
-            Draft one →
-          </a>
-        </p>
+        <Folio
+          marginWidth="240px"
+          className=""
+          margin={
+            <>
+              <div className="eyebrow text-[color:var(--color-ink)]">Decision Record</div>
+              <div className="metadata mt-1 tabular text-[color:var(--color-ink)]">
+                DR-{current.id.slice(-5).toUpperCase()}
+              </div>
+
+              <div className="mt-5">
+                <StatusStamp status="decided" />
+              </div>
+
+              <div className="mt-6">
+                <div className="eyebrow">Method</div>
+                <div className="metadata mt-1 tabular">{current.howMethod}</div>
+              </div>
+
+              <div className="mt-6">
+                <div className="eyebrow">Finalized</div>
+                <div className="metadata mt-1 tabular">
+                  {current.finalizedAt
+                    ? formatLongDate(current.finalizedAt)
+                    : '—'}
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <div className="eyebrow">Review on</div>
+                <div className="metadata mt-1 tabular text-[color:var(--color-stuart)]">
+                  {current.reviewDate}
+                </div>
+              </div>
+
+              {chain.length > 1 ? (
+                <div className="mt-6">
+                  <div className="eyebrow">Supersession</div>
+                  <div className="metadata mt-1 tabular">
+                    {chain.length}-record chain
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="mt-6">
+                <div className="eyebrow">See also</div>
+                <div className="metadata mt-1">
+                  <a
+                    href={`/spaces/${space.space.slug}/issues/${issue.slug}` as Route}
+                    className="underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                  >
+                    Issue
+                  </a>
+                  {' · '}
+                  <a
+                    href={
+                      `/spaces/${space.space.slug}/issues/${issue.slug}/timeline` as Route
+                    }
+                    className="underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                  >
+                    Civic Memory
+                  </a>
+                </div>
+              </div>
+            </>
+          }
+        >
+          <header className="mb-12">
+            <div className="eyebrow">
+              Decision record
+              {' · '}
+              <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+                {issue.title}
+              </span>
+            </div>
+            <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+              The record
+            </h1>
+          </header>
+
+          <article className="space-y-12">
+            <DrSection title="What was decided" html={whatHtml} />
+            <DrSection title="Rationale" html={rationaleHtml} />
+            <DrSection
+              title="Unresolved objections & stand-asides"
+              html={objectionsHtml}
+              empty="None recorded."
+            />
+          </article>
+
+          {chain.length > 1 ? (
+            <section className="mt-20 border-t-2 border-[color:var(--color-ink)] pt-8">
+              <header className="mb-5">
+                <div className="eyebrow">Supersession chain</div>
+                <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+                  Predecessors
+                </h2>
+              </header>
+              <ol className="space-y-3">
+                {chain.map((dr, i) => (
+                  <li
+                    key={dr.id}
+                    className="grid grid-cols-[80px_1fr] items-baseline gap-x-6 border-b border-[color:var(--color-rule)] pb-3"
+                  >
+                    <span className="metadata tabular text-[color:var(--color-ink)]">
+                      {i === 0 ? 'current' : `v${chain.length - i}`}
+                    </span>
+                    <span className="font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink)]">
+                      {dr.whatText.slice(0, 120)}
+                      {dr.whatText.length > 120 ? '…' : ''}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
+
+          <section className="mt-16 border-t border-[color:var(--color-rule)] pt-6">
+            <div className="eyebrow mb-3">All drafts on this issue</div>
+            <ul className="space-y-1">
+              {allDrafts.map((d) => (
+                <li key={d.id} className="metadata tabular">
+                  {d.id.slice(-8).toUpperCase()} · drafted {formatShortDate(d.createdAt)}
+                  {d.finalizedAt ? (
+                    <>
+                      {' · finalized '}
+                      <span className="text-[color:var(--color-oxblood)]">
+                        {formatShortDate(d.finalizedAt)}
+                      </span>
+                    </>
+                  ) : (
+                    ' · draft'
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        </Folio>
       )}
-
-      {chain.length > 1 ? (
-        <section className="mt-10 border-t border-[color:var(--color-rule)] pt-6">
-          <h2 className="mb-3 text-xl font-[var(--font-display)]">Supersession chain</h2>
-          <ol className="space-y-2 text-sm">
-            {chain.map((dr, i) => (
-              <li key={dr.id}>
-                <span className="font-mono text-xs text-[color:var(--color-muted)]">
-                  {i === 0 ? 'current' : `v${chain.length - i}`}
-                </span>{' '}
-                — {dr.whatText.slice(0, 80)}
-                {dr.whatText.length > 80 ? '…' : ''}
-              </li>
-            ))}
-          </ol>
-        </section>
-      ) : null}
-
-      <section className="mt-10 border-t border-[color:var(--color-rule)] pt-6">
-        <h2 className="mb-3 text-xl font-[var(--font-display)]">All drafts on this Issue</h2>
-        <ul className="space-y-1 text-sm">
-          {allDrafts.map((d) => (
-            <li key={d.id} className="font-mono text-xs text-[color:var(--color-muted)]">
-              {d.id.slice(-8)} · drafted {d.createdAt.toISOString().slice(0, 10)}
-              {d.finalizedAt
-                ? ` · finalized ${d.finalizedAt.toISOString().slice(0, 10)}`
-                : ' · draft'}
-            </li>
-          ))}
-        </ul>
-      </section>
     </main>
   );
 }
 
-function DrField({ label, children }: { label: string; children: React.ReactNode }) {
+function DrSection({ title, html, empty }: { title: string; html: string; empty?: string }) {
   return (
     <section>
-      <h2 className="mb-1 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {label}
-      </h2>
-      <div className="text-sm">{children}</div>
+      <h2 className="eyebrow mb-3 text-[color:var(--color-ink)]">{title}</h2>
+      {html ? (
+        <div
+          className="prose prose-sm max-w-prose font-[var(--font-body)] text-(length:--text-body)"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+      ) : (
+        <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+          {empty ?? '—'}
+        </p>
+      )}
     </section>
   );
 }
 
-async function Markdown({ md }: { md: string }) {
-  const html = await renderMarkdown(md);
-  return <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: html }} />;
+function formatShortDate(d: Date): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(d);
+}
+
+function formatLongDate(d: Date): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(d);
 }

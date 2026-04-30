@@ -2,6 +2,8 @@ import { notFound, redirect } from 'next/navigation';
 import { requireSession } from '@/server/auth';
 import { listDelegationsForSpace } from '@/server/delegations';
 import { getSpaceBySlugForMember } from '@/server/spaces';
+import { Button } from '@/components/ui/button';
+import { Note } from '@/components/ui/note';
 import { initiateReferendumAction } from './action';
 
 type RouteParams = { spaceSlug: string };
@@ -30,52 +32,74 @@ export default async function NewReferendumPage({
   });
 
   return (
-    <main className="mx-auto max-w-2xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.space.name}
-      </div>
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">Initiate a Referendum</h1>
+    <main
+      data-density="standard"
+      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">Referendum · New</div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          Initiate a referendum
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          Phase 1 supports referenda against active delegations. Revoking a delegation by
+          referendum is the canonical expression of the Bounded Referendum Right.
+        </p>
+      </header>
 
       {error ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">{describeError(error)}</p>
+        <div className="mb-6">
+          <Note tone="error">{describeError(error)}</Note>
+        </div>
       ) : null}
 
-      <p className="mb-4 text-sm text-[color:var(--color-muted)]">
-        Phase 1 supports referenda against active delegations. Revoking a delegation by referendum
-        is the canonical CR-005 expression. Additional targets (Decision Records, governance-profile
-        changes) land in M4/M5.
-      </p>
-
       {active.length === 0 ? (
-        <p className="text-[color:var(--color-muted)]">
-          There are no active delegations to target.
-        </p>
+        <Note tone="info">
+          There are no active delegations to target. A referendum may only be initiated against an
+          active capability transfer.
+        </Note>
       ) : (
-        <form action={initiateReferendumAction} className="flex flex-col gap-4">
+        <form action={initiateReferendumAction} className="space-y-10">
           <input type="hidden" name="spaceId" value={space.space.id} />
 
-          <fieldset className="flex flex-col gap-2">
-            <legend className="text-sm">Target delegation</legend>
-            {active.map((d) => (
-              <label key={d.id} className="flex items-start gap-2 text-sm">
-                <input type="radio" name="delegationId" value={d.id} required />
-                <span>
-                  <strong>{d.granteeDisplayName ?? '[removed member]'}</strong>{' '}
-                  <span className="font-mono text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-                    {d.capability}
-                  </span>{' '}
-                  {d.issueId ? '(per-Issue)' : '(space-wide)'}
-                </span>
-              </label>
-            ))}
+          <fieldset>
+            <legend className="eyebrow mb-3">Target delegation</legend>
+            <ul className="border-t border-[color:var(--color-rule)]">
+              {active.map((d) => (
+                <li
+                  key={d.id}
+                  className="border-b border-[color:var(--color-rule)]"
+                >
+                  <label className="flex items-baseline gap-4 py-4 hover:bg-[color:var(--color-paper-soft)]">
+                    <input
+                      type="radio"
+                      name="delegationId"
+                      value={d.id}
+                      required
+                      className="mt-1 h-4 w-4 accent-[color:var(--color-accent)]"
+                    />
+                    <span className="flex flex-1 items-baseline justify-between gap-4">
+                      <span className="font-[var(--font-body)] text-(length:--text-body) text-[color:var(--color-ink)]">
+                        <strong className="font-medium">
+                          {d.granteeDisplayName ?? '[removed member]'}
+                        </strong>
+                        <span className="ml-3 metadata tabular text-[color:var(--color-muted)]">
+                          {d.capability.toUpperCase()}
+                        </span>
+                      </span>
+                      <span className="metadata tabular">
+                        {d.issueId ? 'per-issue' : 'space-wide'}
+                      </span>
+                    </span>
+                  </label>
+                </li>
+              ))}
+            </ul>
           </fieldset>
 
-          <button
-            type="submit"
-            className="mt-2 self-start bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-          >
-            Initiate
-          </button>
+          <div className="pt-2">
+            <Button type="submit">Initiate</Button>
+          </div>
         </form>
       )}
     </main>
@@ -85,9 +109,9 @@ export default async function NewReferendumPage({
 function describeError(kind: string): string {
   switch (kind) {
     case 'rate_limited':
-      return 'You have already initiated a referendum within the last 7 days (CR-009).';
+      return 'You have already initiated a referendum within the last 7 days.';
     case 'stability':
-      return 'This delegation is inside its stability period — a referendum against it is temporarily blocked (CR-008).';
+      return 'This delegation is inside its stability period — a referendum against it is temporarily blocked.';
     case 'conflict':
       return 'That delegation cannot be targeted right now.';
     case 'validation':
