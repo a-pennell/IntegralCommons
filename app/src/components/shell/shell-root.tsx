@@ -1,16 +1,17 @@
 'use client';
 
 import { useEffect, useState, type ReactNode } from 'react';
+import { CommandPalette } from './command-palette';
 import { Sidebar } from './sidebar';
 import { Topbar } from './topbar';
 
 /**
- * Shell root — the client-side coordinator that owns mobile-drawer state.
+ * Shell root — the client-side coordinator that owns mobile-drawer state
+ * and the command palette.
  *
- * On desktop (≥lg): sidebar is fixed, drawer state has no effect.
- * On narrow viewports: sidebar slides in from the left as a drawer when
- * the hamburger is tapped. Backdrop scrim closes it. Escape closes it.
- * Body scroll locks while open. Navigation auto-closes.
+ * On desktop (≥lg): sidebar is fixed in flow.
+ * On narrow viewports: sidebar slides in from the left as a drawer.
+ * ⌘K (or Ctrl+K) toggles the command palette from anywhere in the shell.
  */
 
 type Props = {
@@ -33,6 +34,7 @@ export function ShellRoot({
   memberInitials,
 }: Props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const closeDrawer = () => setDrawerOpen(false);
 
   // Lock body scroll while drawer is open
@@ -45,7 +47,7 @@ export function ShellRoot({
     };
   }, [drawerOpen]);
 
-  // Escape closes the drawer
+  // Escape closes the drawer (palette has its own Escape handler)
   useEffect(() => {
     if (!drawerOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -54,6 +56,19 @@ export function ShellRoot({
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [drawerOpen]);
+
+  // ⌘K (or Ctrl+K) toggles the command palette from anywhere in the shell.
+  // Registered once; state updates live in the event handler, not the effect body.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
 
   return (
     <div className="flex h-screen w-full bg-[color:var(--color-paper)]">
@@ -88,9 +103,14 @@ export function ShellRoot({
         <Topbar
           memberInitials={memberInitials}
           onMenuClick={() => setDrawerOpen((v) => !v)}
+          onPaletteClick={() => setPaletteOpen(true)}
         />
         <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
+
+      {paletteOpen ? (
+        <CommandPalette spaceSlug={spaceSlug} onClose={() => setPaletteOpen(false)} />
+      ) : null}
     </div>
   );
 }

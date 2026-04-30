@@ -16,10 +16,12 @@ type Props = {
   back?: { href: string; label: string };
   hasNotifications?: boolean;
   memberInitials: string;
-  /** Slot for command-palette trigger; rendered as a stub until wired. */
+  /** Slot for a custom palette trigger; defaults to the ⌘K button. */
   paletteTrigger?: ReactNode;
   /** Click handler for the hamburger (mobile drawer toggle). When omitted, hamburger is hidden. */
   onMenuClick?: () => void;
+  /** Click handler for the ⌘K command palette trigger. */
+  onPaletteClick?: () => void;
 };
 
 export function Topbar({
@@ -28,6 +30,7 @@ export function Topbar({
   memberInitials,
   paletteTrigger,
   onMenuClick,
+  onPaletteClick,
 }: Props) {
   return (
     <header className="flex h-(--container-shell-topbar) items-center justify-between border-b border-[color:var(--color-rule)] px-4 sm:px-6">
@@ -53,19 +56,22 @@ export function Topbar({
       </div>
 
       <div className="flex items-center gap-5">
-        {paletteTrigger ?? (
-          <span
-            aria-hidden
-            className="metadata hidden items-center gap-1 tabular text-[color:var(--color-muted)] sm:flex"
-          >
-            <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
-              ⌘
-            </kbd>
-            <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
-              K
-            </kbd>
-          </span>
-        )}
+        {paletteTrigger ??
+          (onPaletteClick ? (
+            <button
+              type="button"
+              onClick={onPaletteClick}
+              aria-label="Open command palette"
+              className="metadata hidden items-center gap-1 tabular text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)] sm:flex"
+            >
+              <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
+                ⌘
+              </kbd>
+              <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
+                K
+              </kbd>
+            </button>
+          ) : null)}
 
         {hasNotifications ? (
           <span
