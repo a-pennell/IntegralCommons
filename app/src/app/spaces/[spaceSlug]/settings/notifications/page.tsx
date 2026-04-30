@@ -1,19 +1,19 @@
 import { notFound, redirect } from 'next/navigation';
 import { requireSession } from '@/server/auth';
 import { getSpaceBySlugForMember } from '@/server/spaces';
+import { Button } from '@/components/ui/button';
+import { Note } from '@/components/ui/note';
 import { setCadenceAction } from './action';
 
 type RouteParams = { spaceSlug: string };
 type SearchParams = { saved?: string; error?: string };
 
-/**
- * Digest cadence settings. This is NOT a notifications page in the "alerts
- * you can subscribe to" sense — that vocabulary is deliberately absent
- * (NFR-001). Every Space produces at most one digest per cadence bucket,
- * and the cadence is the only knob.
- */
-
-const CADENCES = ['daily', 'weekly', 'monthly', 'off'] as const;
+const CADENCES = [
+  { value: 'daily', label: 'Daily', desc: 'Every morning, while there is anything to report.' },
+  { value: 'weekly', label: 'Weekly', desc: 'A single email summarising the past seven days.' },
+  { value: 'monthly', label: 'Monthly', desc: 'A single email summarising the past month.' },
+  { value: 'off', label: 'Off', desc: 'No digest. The system never pushes beyond your choice.' },
+] as const;
 
 export default async function DigestCadencePage({
   params,
@@ -40,48 +40,77 @@ export default async function DigestCadencePage({
     | 'off';
 
   return (
-    <main className="mx-auto max-w-xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.name}
-      </div>
-      <h1 className="mb-2 text-3xl font-[var(--font-display)]">Digest cadence</h1>
-      <p className="mb-8 text-sm text-[color:var(--color-muted)]">
-        How often this Space sends you a single email summarizing what happened. This is the only
-        push channel — no badges, no counters, no urgency cues (NFR-001). You may lower the cadence
-        below the Space default, or turn it off entirely; you cannot raise it above the Space
-        default.
-      </p>
+    <main
+      data-density="standard"
+      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">Settings · Digest cadence</div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          How often we write
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          A single email summarising what happened. The only push channel — no badges, no counters,
+          no urgency cues. You may lower the cadence below the Space default or turn it off
+          entirely; you cannot raise it above the default.
+        </p>
+      </header>
 
-      <p className="mb-4 text-sm">
-        Space default: <strong>{space.digestCadenceDefault}</strong>
-      </p>
+      <div className="mb-8">
+        <Note tone="info">
+          <span className="metadata tabular">Space default · {space.digestCadenceDefault}</span>
+        </Note>
+      </div>
 
       {saved ? (
-        <p className="mb-4 border-l-2 border-[color:var(--color-accent)] pl-4 text-sm">
-          Cadence saved: {saved}.
-        </p>
+        <div className="mb-6">
+          <Note tone="info">
+            Cadence saved · <span className="metadata tabular">{saved}</span>
+          </Note>
+        </div>
       ) : null}
       {error ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">{describeError(error)}</p>
+        <div className="mb-6">
+          <Note tone="error">{describeError(error)}</Note>
+        </div>
       ) : null}
 
-      <form action={setCadenceAction} className="flex flex-col gap-3">
+      <form action={setCadenceAction} className="space-y-10">
         <input type="hidden" name="spaceSlug" value={space.slug} />
-        <fieldset className="flex flex-col gap-2">
-          <legend className="text-sm">Your cadence</legend>
-          {CADENCES.map((c) => (
-            <label key={c} className="flex items-center gap-2 text-sm">
-              <input type="radio" name="cadence" value={c} defaultChecked={c === effective} />
-              {c}
-            </label>
-          ))}
+
+        <fieldset>
+          <legend className="eyebrow mb-3">Your cadence</legend>
+          <ul className="border-t border-[color:var(--color-rule)]">
+            {CADENCES.map((c) => (
+              <li key={c.value} className="border-b border-[color:var(--color-rule)]">
+                <label className="flex items-baseline gap-4 py-4 hover:bg-[color:var(--color-paper-soft)]">
+                  <input
+                    type="radio"
+                    name="cadence"
+                    value={c.value}
+                    defaultChecked={c.value === effective}
+                    className="mt-1 h-4 w-4 accent-[color:var(--color-accent)]"
+                  />
+                  <span className="flex-1">
+                    <span className="font-[var(--font-display)] text-(length:--text-body) font-semibold text-[color:var(--color-ink)]">
+                      {c.label}
+                    </span>
+                    <span className="ml-3 metadata tabular text-[color:var(--color-muted)]">
+                      {c.value}
+                    </span>
+                    <span className="mt-1 block font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)] italic">
+                      {c.desc}
+                    </span>
+                  </span>
+                </label>
+              </li>
+            ))}
+          </ul>
         </fieldset>
-        <button
-          type="submit"
-          className="mt-2 self-start bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-        >
-          Save
-        </button>
+
+        <div className="pt-2">
+          <Button type="submit">Save</Button>
+        </div>
       </form>
     </main>
   );

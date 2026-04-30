@@ -1,5 +1,9 @@
 import { redirect } from 'next/navigation';
 import { requireSession } from '@/server/auth';
+import { Button } from '@/components/ui/button';
+import { Field } from '@/components/ui/field';
+import { Note } from '@/components/ui/note';
+import { Textarea } from '@/components/ui/textarea';
 import { createSpaceAction } from './action';
 
 type SearchParams = { error?: string };
@@ -17,51 +21,44 @@ export default async function NewSpacePage({
   const { error } = await searchParams;
 
   return (
-    <main className="mx-auto max-w-xl p-8">
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">Create a Space</h1>
+    <main
+      data-density="standard"
+      className="mx-auto w-full max-w-(--container-form) px-10 py-14"
+    >
+      <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
+        <div className="eyebrow">CommonGround · Charter</div>
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          Charter a new Space
+        </h1>
+        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          A Space is a small republic — a group that governs something shared. You become its
+          first member. Your next step will be to complete the Bootstrap Issue: how this Space
+          decides.
+        </p>
+      </header>
 
       {error ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">{describeError(error)}</p>
+        <div className="mb-8">
+          <Note tone="error">{describeError(error)}</Note>
+        </div>
       ) : null}
 
-      <form action={createSpaceAction} className="flex flex-col gap-4">
-        <label htmlFor="name" className="flex flex-col gap-1">
-          <span className="text-sm">Name</span>
-          <input
-            id="name"
-            name="name"
-            required
-            minLength={1}
-            maxLength={100}
-            className="border border-[color:var(--color-rule)] bg-white p-2"
-          />
-        </label>
+      <form action={createSpaceAction} className="space-y-10">
+        <Field id="name" name="name" label="Name" type="text" required minLength={1} maxLength={100} />
 
-        <label htmlFor="description" className="flex flex-col gap-1">
-          <span className="text-sm">
-            Description <span className="text-[color:var(--color-muted)]">(optional)</span>
-          </span>
-          <textarea
-            id="description"
-            name="description"
-            maxLength={1000}
-            rows={4}
-            className="border border-[color:var(--color-rule)] bg-white p-2"
-          />
-        </label>
+        <Textarea
+          id="description"
+          name="description"
+          label="Description"
+          maxLength={1000}
+          rows={4}
+          hint="Optional. What does this Space steward, and on whose behalf?"
+        />
 
-        <button
-          type="submit"
-          className="mt-2 bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-        >
-          Create
-        </button>
+        <div className="pt-2">
+          <Button type="submit">Charter</Button>
+        </div>
       </form>
-
-      <p className="mt-8 text-sm text-[color:var(--color-muted)]">
-        You become the Space&rsquo;s first Member. Your next step will be to complete the Bootstrap
-        decision — the Issue &ldquo;How should we make decisions?&rdquo;
-      </p>
     </main>
   );
 }
@@ -69,7 +66,7 @@ export default async function NewSpacePage({
 function describeError(kind: string): string {
   switch (kind) {
     case 'invalid_name':
-      return 'Space names must be 1–100 characters.';
+      return 'Names must be between 1 and 100 characters.';
     case 'conflict':
       return 'A Space with that name already exists. Please choose another.';
     default:

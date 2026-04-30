@@ -3,6 +3,7 @@ import type { Route } from 'next';
 import { requireSession } from '@/server/auth';
 import { getSpaceBySlugForMember } from '@/server/spaces';
 import { resolveGovernanceProfile, type GovernanceProfile } from '@/server/governance-config';
+import { Folio } from '@/components/ui/folio';
 
 type RouteParams = { spaceSlug: string };
 
@@ -20,125 +21,169 @@ export default async function SettingsPage({ params }: { params: Promise<RoutePa
   const profile = resolveGovernanceProfile(space.governanceProfile);
 
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <div className="mb-2 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {space.name}
-      </div>
-      <h1 className="mb-2 text-3xl font-[var(--font-display)]">Governance</h1>
-      <p className="mb-8 text-sm text-[color:var(--color-muted)]">
-        These are the active rules for this Space. Read-only — every change routes through a
-        governance Issue (
-        <a className="underline" href={`/spaces/${space.slug}/issues` as Route}>
-          see Issues
-        </a>
-        ).
-      </p>
+    <main
+      data-density="standard"
+      className="mx-auto w-full max-w-(--container-folio) px-10 py-14"
+    >
+      <Folio
+        marginWidth="220px"
+        className=""
+        margin={
+          <>
+            <div className="eyebrow text-[color:var(--color-ink)]">Settings</div>
+            <div className="metadata mt-1 tabular">Governance · v1</div>
+            <div className="mt-6 metadata tabular text-[color:var(--color-muted)] italic">
+              Read-only. Every change routes through a governance Issue.
+            </div>
+            <nav className="mt-8 flex flex-col gap-2">
+              <div className="eyebrow">Related</div>
+              <a
+                href={`/spaces/${space.slug}/settings/notifications` as Route}
+                className="metadata underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+              >
+                Digest cadence
+              </a>
+              <a
+                href={`/spaces/${space.slug}/settings/export` as Route}
+                className="metadata underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+              >
+                Export data
+              </a>
+              <a
+                href={`/spaces/${space.slug}/issues?type=governance` as Route}
+                className="metadata underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+              >
+                Open governance issue
+              </a>
+            </nav>
+          </>
+        }
+      >
+        <header className="mb-12">
+          <div className="eyebrow">Governance</div>
+          <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+            The active rules
+          </h1>
+          <p className="mt-4 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+            How this Space governs itself, today. Each parameter was either set at bootstrap or
+            adjusted through a finalized Decision Record.
+          </p>
+        </header>
 
-      <div className="mb-8 flex gap-4 text-sm">
-        <a
-          href={`/spaces/${space.slug}/settings/notifications` as Route}
-          className="underline text-[color:var(--color-muted)]"
-        >
-          Notifications
-        </a>
-        <a
-          href={`/spaces/${space.slug}/settings/export` as Route}
-          className="underline text-[color:var(--color-muted)]"
-        >
-          Export data
-        </a>
-      </div>
+        <dl className="space-y-12">
+          <Row label="Decision method (default)">
+            {profile.decisionMethodDefault === 'consent' ? (
+              <>
+                <strong className="font-medium">Consent</strong> — a decision passes when no member
+                has an unresolved objection. Dissent is captured as a stand-aside.
+              </>
+            ) : (
+              profile.decisionMethodDefault
+            )}
+          </Row>
 
-      <dl className="space-y-6">
-        <Row label="Decision method (default)">
-          {profile.decisionMethodDefault === 'consent' ? (
-            <>
-              <strong>Consent</strong> — a decision passes when no member has an unresolved
-              objection. Dissent is captured as a stand-aside.
-            </>
-          ) : (
-            profile.decisionMethodDefault
-          )}
-        </Row>
+          <Row label="Deliberation floor">
+            <span className="metadata tabular">{profile.deliberation.standardIssueHours}h</span>{' '}
+            minimum on standard issues before any vote can start.
+          </Row>
 
-        <Row label="Deliberation floor">
-          {profile.deliberation.standardIssueHours} hours minimum on standard Issues before any vote
-          can start.
-        </Row>
+          <Row label="Quorum thresholds">
+            <Numbered>
+              <li>
+                Awareness <Pct value={profile.quorum.awarenessPct} /> of active members
+              </li>
+              <li>
+                Participation <Pct value={profile.quorum.participationPct} /> of active members
+              </li>
+              <li>
+                Extension multiplier{' '}
+                <span className="metadata tabular">{profile.quorum.extensionMultiplier}×</span>
+              </li>
+            </Numbered>
+          </Row>
 
-        <Row label="Quorum thresholds">
-          <ul className="list-inside list-disc">
-            <li>
-              Awareness: <Pct value={profile.quorum.awarenessPct} /> of active Members
-            </li>
-            <li>
-              Participation: <Pct value={profile.quorum.participationPct} /> of active Members
-            </li>
-            <li>Extension multiplier: {profile.quorum.extensionMultiplier}&times;</li>
-          </ul>
-        </Row>
+          <Row label="Rate limits (constitutional floors)">
+            <Numbered>
+              <li>
+                <span className="metadata tabular">{profile.rateLimits.createIssuePerDay}</span>{' '}
+                new issues per member per day
+              </li>
+              <li>
+                <span className="metadata tabular">
+                  {profile.rateLimits.initiateReferendumPerRollingWeek}
+                </span>{' '}
+                referendum per rolling 7-day window per member
+              </li>
+            </Numbered>
+          </Row>
 
-        <Row label="Rate limits (constitutional floors)">
-          <ul className="list-inside list-disc">
-            <li>{profile.rateLimits.createIssuePerDay} new Issues per Member per day</li>
-            <li>
-              {profile.rateLimits.initiateReferendumPerRollingWeek} referendum per rolling 7-day
-              window per Member
-            </li>
-          </ul>
-        </Row>
+          <Row label="Temporal stability">
+            <Numbered>
+              <li>
+                Standard issue ·{' '}
+                <span className="metadata tabular">
+                  {profile.stability.standardIssueDays}d
+                </span>{' '}
+                before the same decision can be challenged without a 2/3 supermajority
+              </li>
+              <li>
+                Policy change ·{' '}
+                <span className="metadata tabular">{profile.stability.policyChangeDays}d</span>
+              </li>
+              <li>
+                Constitutional amendment ·{' '}
+                <span className="metadata tabular">
+                  {profile.stability.constitutionalAmendmentDays}d
+                </span>
+              </li>
+            </Numbered>
+          </Row>
 
-        <Row label="Temporal stability">
-          <ul className="list-inside list-disc">
-            <li>
-              Standard Issue: {profile.stability.standardIssueDays} days before the same decision
-              can be challenged without a 2/3 supermajority
-            </li>
-            <li>Policy change: {profile.stability.policyChangeDays} days</li>
-            <li>Constitutional amendment: {profile.stability.constitutionalAmendmentDays} days</li>
-          </ul>
-        </Row>
+          <Row label="Perspective taxonomy">
+            <TagList tags={profile.taxonomyVocabulary} />
+          </Row>
 
-        <Row label="Perspective taxonomy">
-          <TagList tags={profile.taxonomyVocabulary} />
-        </Row>
-
-        <Row label="Scope tags">
-          {profile.scopeTagVocabulary.length === 0 ? (
-            <span className="text-[color:var(--color-muted)]">
-              None configured. Add scope tags via a governance Issue.
-            </span>
-          ) : (
-            <TagList tags={profile.scopeTagVocabulary} />
-          )}
-        </Row>
-      </dl>
+          <Row label="Scope tags">
+            {profile.scopeTagVocabulary.length === 0 ? (
+              <span className="text-[color:var(--color-muted)] italic">
+                None configured. Add scope tags via a governance issue.
+              </span>
+            ) : (
+              <TagList tags={profile.scopeTagVocabulary} />
+            )}
+          </Row>
+        </dl>
+      </Folio>
     </main>
   );
 }
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="border-t border-[color:var(--color-rule)] pt-4">
-      <dt className="mb-1 text-xs tracking-[0.15em] text-[color:var(--color-muted)] uppercase">
-        {label}
-      </dt>
-      <dd className="text-sm leading-relaxed">{children}</dd>
+    <div>
+      <dt className="eyebrow mb-2">{label}</dt>
+      <dd className="font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)]">
+        {children}
+      </dd>
     </div>
   );
 }
 
+function Numbered({ children }: { children: React.ReactNode }) {
+  return <ol className="ml-0 mt-1 list-none space-y-2">{children}</ol>;
+}
+
 function Pct({ value }: { value: number }) {
-  return <>{Math.round(value * 100)}%</>;
+  return <span className="metadata tabular">{Math.round(value * 100)}%</span>;
 }
 
 function TagList({ tags }: { tags: GovernanceProfile['taxonomyVocabulary'] }) {
   return (
-    <ul className="flex flex-wrap gap-2">
+    <ul className="flex flex-wrap gap-x-3 gap-y-2">
       {tags.map((t) => (
         <li
           key={t}
-          className="border border-[color:var(--color-rule)] bg-white/50 px-2 py-0.5 text-xs"
+          className="metadata tabular border border-[color:var(--color-rule)] px-2 py-1 text-[color:var(--color-ink)]"
         >
           {t}
         </li>
