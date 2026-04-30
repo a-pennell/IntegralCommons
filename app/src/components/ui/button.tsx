@@ -7,7 +7,7 @@ type Props = {
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const baseClasses =
-  'inline-flex items-center justify-center px-6 py-3 font-[var(--font-display)] text-(length:--text-body) leading-none transition-colors disabled:cursor-not-allowed disabled:opacity-50';
+  'inline-flex items-center justify-center px-6 py-3 font-[var(--font-display)] text-(length:--text-body) font-semibold leading-none tracking-[0.01em] transition-colors disabled:cursor-not-allowed disabled:opacity-50';
 
 const variantClasses: Record<Variant, string> = {
   primary:

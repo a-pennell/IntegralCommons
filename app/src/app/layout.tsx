@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Source_Serif_4, IBM_Plex_Mono } from 'next/font/google';
+import { Source_Serif_4, IBM_Plex_Mono, Public_Sans } from 'next/font/google';
 import '@/styles/globals.css';
 
 const sourceSerif = Source_Serif_4({
@@ -7,6 +7,13 @@ const sourceSerif = Source_Serif_4({
   weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
   variable: '--font-source-serif',
+  display: 'swap',
+});
+
+const publicSans = Public_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-public-sans',
   display: 'swap',
 });
 
@@ -31,7 +38,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sourceSerif.variable} ${plexMono.variable}`}>
+    <html
+      lang="en"
+      className={`${sourceSerif.variable} ${publicSans.variable} ${plexMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

@@ -101,7 +101,7 @@ export function Sidebar({
       <div className="border-t border-[color:var(--color-rule)]" />
 
       <div className="px-6 pt-5 pb-6">
-        <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)]">
+        <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
           {spaceName}
         </h2>
         <div className="metadata mt-2 tabular">
@@ -136,8 +136,8 @@ export function Sidebar({
                       {s.number}
                     </span>
                     <span
-                      className={`text-(length:--text-body) ${
-                        isActive ? 'font-medium' : 'font-normal'
+                      className={`font-[var(--font-display)] text-(length:--text-body) ${
+                        isActive ? 'font-semibold' : 'font-medium'
                       }`}
                     >
                       {s.label}

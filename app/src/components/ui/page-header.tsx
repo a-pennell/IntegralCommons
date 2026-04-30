@@ -14,11 +14,11 @@ export function PageHeader({ eyebrow, title, lede }: Props) {
           <Eyebrow>{eyebrow}</Eyebrow>
         </div>
       ) : null}
-      <h1 className="text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)]">
+      <h1 className="text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
         {title}
       </h1>
       {lede ? (
-        <p className="mt-4 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-4 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
           {lede}
         </p>
       ) : null}

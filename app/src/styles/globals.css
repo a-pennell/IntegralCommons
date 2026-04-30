@@ -12,8 +12,8 @@
   --color-muted: #756c5b;
 
   /* Accents.
-   * - terracotta: the primary accent — in-progress, attention, action.
-   * - oxblood:    high authority — finalized decisions, closed referenda, irreversible.
+   * - terracotta: in-progress, attention, action.
+   * - oxblood:    irreversible authority — finalized decisions, closed referenda.
    * - stuart:     procedural metadata — countdowns, timeline timestamps. Used sparingly.
    * - amber:      page-level highlights / selection backgrounds.
    */
@@ -22,39 +22,52 @@
   --color-stuart: #3a4a5e;
   --color-accent-soft: #c89a5e;
 
-  /* Typography — Source Serif 4 throughout, mono for technical metadata. */
-  --font-display: var(--font-source-serif), 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-sans: var(--font-source-serif), 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  /* Typography — three voices, each with a job.
+   *   display  Public Sans    architectural wayfinding (display, title, heading, eyebrow, button)
+   *   body     Source Serif 4 reading (body, lede, small, caption)
+   *   mono     IBM Plex Mono  technical metadata (citations, IDs, dates, status stamps)
+   */
+  --font-display: var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: var(--font-source-serif), 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-display); /* alias for legacy callers */
   --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Editorial type scale. */
+  /* Editorial type scale. Display tier is HEAVY — bold sans gives the UI weight. */
   --text-display: 56px;
   --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.02em;
+  --text-display--letter-spacing: -0.025em;
+  --text-display--font-weight: 800;
 
   --text-title: 36px;
   --text-title--line-height: 1.15;
-  --text-title--letter-spacing: -0.015em;
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 700;
 
   --text-heading: 24px;
   --text-heading--line-height: 1.3;
   --text-heading--letter-spacing: -0.01em;
+  --text-heading--font-weight: 700;
 
   --text-lede: 21px;
   --text-lede--line-height: 1.55;
+  --text-lede--font-weight: 400;
 
   --text-body: 18px;
   --text-body--line-height: 1.65;
+  --text-body--font-weight: 400;
 
   --text-small: 15px;
   --text-small--line-height: 1.55;
+  --text-small--font-weight: 400;
 
   --text-caption: 13px;
   --text-caption--line-height: 1.5;
+  --text-caption--font-weight: 400;
 
   --text-label: 11px;
   --text-label--line-height: 1.4;
   --text-label--letter-spacing: 0.16em;
+  --text-label--font-weight: 600;
 
   /* Layout containers. */
   --container-content: 1100px;
@@ -73,7 +86,7 @@ html,
 body {
   background: var(--color-paper);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
   font-feature-settings: 'liga' 1, 'kern' 1, 'onum' 1;
@@ -114,14 +127,14 @@ body {
   font-feature-settings: 'tnum' 1, 'lnum' 1, 'kern' 1;
 }
 
-/* Small caps utility for editorial labels. */
+/* Eyebrow — wayfinding label. Sans, small caps, medium weight. */
 .eyebrow {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: var(--text-label);
   line-height: var(--text-label--line-height);
   letter-spacing: var(--text-label--letter-spacing);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-muted);
 }
 

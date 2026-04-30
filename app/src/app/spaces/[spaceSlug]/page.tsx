@@ -64,7 +64,7 @@ export default async function SpaceDashboardPage({
       <header className="mb-12 flex items-baseline justify-between border-b-2 border-[color:var(--color-ink)] pb-4">
         <div>
           <div className="eyebrow">Dashboard</div>
-          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)]">
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
             {isPreBootstrap ? 'Awaiting bootstrap' : 'In session'}
           </h1>
         </div>
@@ -79,7 +79,7 @@ export default async function SpaceDashboardPage({
           <SectionHeader label="Awaiting your attention" count={1} />
           <div className="border-l-2 border-[color:var(--color-accent)] pl-5">
             <div className="metadata mb-2 tabular">Bootstrap required</div>
-            <h3 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)]">
+            <h3 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
               Decide how decisions get made
             </h3>
             <p className="mt-2 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)]">
@@ -202,7 +202,7 @@ function Vital({
     <div className="border-l border-[color:var(--color-rule)] pl-4">
       <dt className="eyebrow">{label}</dt>
       <dd
-        className={`mt-1 font-[var(--font-display)] text-(length:--text-heading) tabular ${
+        className={`mt-1 font-[var(--font-display)] text-(length:--text-heading) font-bold tabular ${
           tone === 'attention' ? 'text-[color:var(--color-accent)]' : 'text-[color:var(--color-ink)]'
         }`}
       >
