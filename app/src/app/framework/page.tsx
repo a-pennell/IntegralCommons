@@ -26,7 +26,7 @@ export default function FrameworkPage() {
     <div className="min-h-screen bg-[color:var(--color-paper)]">
       {/* Top rule */}
       <header className="border-b border-[color:var(--color-rule)]">
-        <div className="mx-auto flex max-w-(--container-folio) items-baseline justify-between px-10 py-5">
+        <div className="mx-auto flex max-w-(--container-folio) items-baseline justify-between px-6 py-5 sm:px-10">
           <div className="eyebrow">CommonGround</div>
           <a
             href="/login"
@@ -39,7 +39,7 @@ export default function FrameworkPage() {
 
       <main
         data-density="editorial"
-        className="mx-auto max-w-(--container-folio) px-10 py-16"
+        className="mx-auto max-w-(--container-folio) px-6 py-10 sm:px-10 sm:py-16"
       >
         {/* Page masthead */}
         <Folio

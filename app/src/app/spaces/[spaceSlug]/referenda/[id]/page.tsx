@@ -40,7 +40,7 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
   return (
     <main
       data-density="dense"
-      className="mx-auto w-full max-w-(--container-folio) px-10 py-14"
+      className="mx-auto w-full max-w-(--container-folio) px-6 py-10 sm:px-10 sm:py-14"
     >
       <Folio
         marginWidth="240px"

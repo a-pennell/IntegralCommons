@@ -34,7 +34,7 @@ export default async function NewReferendumPage({
   return (
     <main
       data-density="standard"
-      className="mx-auto w-full max-w-(--container-prose) px-10 py-14"
+      className="mx-auto w-full max-w-(--container-prose) px-6 py-10 sm:px-10 sm:py-14"
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Referendum · New</div>

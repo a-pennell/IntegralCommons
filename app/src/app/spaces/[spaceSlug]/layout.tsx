@@ -4,17 +4,17 @@ import { db } from '@/db';
 import { members, memberships } from '@/db/schema';
 import { requireSession } from '@/server/auth';
 import { getSpaceBySlugForMember } from '@/server/spaces';
-import { Sidebar } from '@/components/shell/sidebar';
-import { Topbar } from '@/components/shell/topbar';
+import { ShellRoot } from '@/components/shell/shell-root';
 
 type RouteParams = { spaceSlug: string };
 
 /**
  * Shell layout for any /spaces/[spaceSlug]/** route.
  *
- * Renders the persistent sidebar + topbar around the page content. All
- * shell data (current member, current space, member counts) is resolved
- * once here so child pages don't have to.
+ * Resolves all shell data (current member, current space, member count)
+ * once here so child pages don't re-query. Hands off to ShellRoot — a
+ * client component that coordinates the persistent sidebar, topbar, and
+ * mobile drawer state.
  */
 export default async function SpaceShellLayout({
   children,
@@ -48,19 +48,16 @@ export default async function SpaceShellLayout({
   const memberInitials = initialsFor(memberRow?.email ?? '', memberRow?.displayName ?? null);
 
   return (
-    <div className="flex h-screen w-full bg-[color:var(--color-paper)]">
-      <Sidebar
-        spaceName={result.space.name}
-        spaceSlug={result.space.slug}
-        memberCount={memberCount}
-        convening={result.space.bootstrapCompletedAt ? 'in_session' : 'in_recess'}
-        memberHandle={memberHandle}
-      />
-      <div className="flex h-full flex-1 flex-col overflow-hidden">
-        <Topbar memberInitials={memberInitials} />
-        <div className="flex-1 overflow-y-auto">{children}</div>
-      </div>
-    </div>
+    <ShellRoot
+      spaceName={result.space.name}
+      spaceSlug={result.space.slug}
+      memberCount={memberCount}
+      convening={result.space.bootstrapCompletedAt ? 'in_session' : 'in_recess'}
+      memberHandle={memberHandle}
+      memberInitials={memberInitials}
+    >
+      {children}
+    </ShellRoot>
   );
 }
 

@@ -80,6 +80,8 @@ type Props = {
   convening: 'in_session' | 'in_recess';
   memberHandle: string;
   counts?: Partial<Record<SectionKey, number>>;
+  /** Called when any nav link is clicked. Used by ShellRoot to close mobile drawer. */
+  onNavigate?: () => void;
 };
 
 export function Sidebar({
@@ -89,6 +91,7 @@ export function Sidebar({
   convening,
   memberHandle,
   counts = {},
+  onNavigate,
 }: Props) {
   const pathname = usePathname() ?? '';
 
@@ -125,6 +128,7 @@ export function Sidebar({
                 ) : null}
                 <Link
                   href={s.href(spaceSlug)}
+                  {...(onNavigate ? { onClick: onNavigate } : {})}
                   className={`flex items-baseline justify-between px-3 py-2 transition-colors hover:bg-[color:var(--color-paper-deep)] ${
                     isActive
                       ? 'text-[color:var(--color-ink)]'
@@ -157,6 +161,7 @@ export function Sidebar({
         <div className="metadata tabular">@{memberHandle}</div>
         <Link
           href={'/spaces' as Route}
+          {...(onNavigate ? { onClick: onNavigate } : {})}
           className="mt-1 block text-(length:--text-small) text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-accent)]"
         >
           Switch space
