@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
+import { Folio } from '@/components/ui/folio';
 
 export const metadata: Metadata = {
   title: 'Governance Framework',
@@ -201,21 +201,6 @@ export default function FrameworkPage() {
           </p>
         </Folio>
       </main>
-    </div>
-  );
-}
-
-/**
- * Folio layout — marginalia on left, body on right.
- * On narrow viewports, marginalia stacks above body.
- */
-function Folio({ margin, children }: { margin: ReactNode; children: ReactNode }) {
-  return (
-    <div className="mb-14 grid gap-y-3 sm:grid-cols-[180px_1fr] sm:gap-x-12">
-      <aside className="pt-1 sm:border-r sm:border-[color:var(--color-rule)] sm:pr-8">
-        <div className="metadata leading-(--text-caption--line-height)">{margin}</div>
-      </aside>
-      <div>{children}</div>
     </div>
   );
 }
