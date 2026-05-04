@@ -515,11 +515,11 @@ None of these fully solves the problem. Power asymmetries in civic participation
 
 ## Business Model
 
-MCS is open-source (AGPL). Revenue comes from:
+MCS is open-source (AGPL). Any municipality can self-host at no cost. Sustainability comes from services and public funding — not per-seat licensing.
 
-**Institutional SaaS.** Municipal governments, regional authorities, and large civic organizations pay for hosted deployment, implementation support, and customization. Pricing is public and transparent.
+**Implementation services.** Municipal governments, regional authorities, and large civic organizations pay for technical implementation, facilitation training, and community liaison program design. These are not upsells — they are often what makes the platform actually work. The code is always free; the expertise is not.
 
-**Implementation services.** Technical implementation, facilitation training, and community liaison program design for municipalities without internal capacity. These are not upsells — they are often what makes the platform actually work.
+**Public and grant funding.** Civic deliberation infrastructure should be publicly funded. MCS pursues recognition and funding as public digital infrastructure from municipal innovation programs, civic tech foundations, and intergovernmental bodies.
 
 **Commons fund for civil society.** A portion of institutional revenue is set aside as a commons fund for civil society organizations, community groups, and under-resourced municipalities to access the platform at reduced or no cost. This is a structural commitment, not a discretionary grants program.
 

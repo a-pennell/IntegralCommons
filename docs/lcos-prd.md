@@ -945,28 +945,19 @@ Import is available during onboarding and at any time after. It converts existin
 
 ## Business Model
 
-Local Commons is sustained by the neighborhoods and organizations that use it — not by advertising, data monetization, or grant dependency.
+Local Commons is open-source civic infrastructure — not a product communities rent, but a commons they can run. Sustainability comes from the institutions and communities that benefit from it, not from extracting value from the neighborhoods using it.
 
-### Revenue Model
+### Model
 
-**Hosted SaaS — neighborhood tier**
-Individual neighborhoods pay a modest monthly subscription for the Local Commons-hosted instance. Pricing is sliding scale based on neighborhood size and self-reported capacity. A free tier exists for low-income communities and pilot neighborhoods.
+**Open source, always.** The codebase is AGPL-licensed. Any neighborhood, cooperative, or municipality can self-host at no cost. There is no feature gating, no premium tier, no subscription required to access any part of the platform.
 
-Indicative pricing (to be validated with pilots):
-- Free tier: up to 30 members, 90 days full feature access, then prompt to upgrade. Governance and Credits are included — these are core to the product, not premium add-ons.
-- Standard: $20-40/month, full feature access, up to 150 members
-- Community: $40-80/month, up to 500 members, printable exports, SMS fast follow
+**Hosted option, contribution-based.** A hosted instance is available for communities that cannot or do not want to run their own infrastructure. This is funded through voluntary contributions and grant support — not mandatory subscription fees. No neighborhood is turned away for inability to contribute.
 
-**Institutional licensing — organizational tier**
-Housing co-ops, community land trusts, mutual aid networks, and similar organizations pay an organizational rate that covers multiple neighborhoods or internal working groups. Individuals within these organizations never pay directly.
+**Institutional services.** Housing cooperatives, community land trusts, mutual aid networks, and municipalities that want implementation support, facilitation training, or integration assistance pay for those services. The code is free; the expertise and support are not. Institutional clients never pay for per-seat access — they pay for services.
 
-Indicative pricing: $150-400/month depending on member count and feature tier.
+**Grant and public funding.** Civic infrastructure should be publicly funded. Local Commons actively pursues grants from commons infrastructure funds, civic tech foundations, housing cooperative networks, and municipal innovation programs. The goal is for Local Commons to be recognized and funded as public digital infrastructure — not dependent on any single funding source.
 
-### Grant Strategy
-
-Grants are used as runway — to fund the Phase 1 build and first pilot cohort — not as a primary revenue model. Grant dependency is a documented failure mode of civic tech; Local Commons plans to be grant-seeded and SaaS-sustained.
-
-Target grant sources: commons infrastructure funds, civic tech foundations, housing cooperative networks, municipal innovation programs.
+**Commons Fund.** A portion of institutional services revenue is set aside as a commons fund available to low-income communities, pilot neighborhoods, and under-resourced organizations. This is a structural commitment, not a discretionary grants program.
 
 ### On Unpaid Steward Labor
 
@@ -974,7 +965,7 @@ Local Commons runs on the labor of neighborhood Stewards — the organizers who 
 
 The platform is designed to reduce this burden, not increase it. Every feature that allows members to self-serve — self-initiated joining, direct Exchange Requests, self-facilitated Decisions — is one fewer task for a Steward. But organizing has irreducible human elements — the relationship-building, the hard conversations, the showing up — that no platform can automate away.
 
-The institutional pricing tier exists partly in recognition of this: organizations using Local Commons at scale should pay for the value it creates, and that value includes the labor of the people making it work locally. In Phase 3, the roadmap includes exploring whether Commons Fund credits or organizational stipends can provide at least symbolic compensation for Steward labor. This is not a solved problem. It is a named one.
+In Phase 3, the roadmap includes exploring whether institutional services revenue or Commons Fund resources can provide at least symbolic compensation for Steward labor in communities where the organizing burden is highest. This is not a solved problem. It is a named one.
 
 ### What Local Commons Will Never Do
 

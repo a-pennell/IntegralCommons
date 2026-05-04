@@ -197,11 +197,26 @@ These are not future roadmap items. They are design decisions that will not be b
 
 ## Open Items Requiring Resolution Before Phase 2
 
-1. **SaaS vs. commons ethos.** The hosted SaaS model (neighborhoods pay subscription) is in tension with the commons infrastructure framing. The bootstrapping path from hosted SaaS to community-run federation is not yet specified. This does not block Phase 1 but needs resolution before Phase 2 pricing and infrastructure decisions are made.
+1. **Pilot neighborhood identification.** Phase 1 requires real pilots — not internal testing, but actual neighborhoods. Pilot agreements, onboarding support, and feedback mechanisms need to be in place before Phase 1 can complete.
 
-2. **Pilot neighborhood identification.** Phase 1 requires real pilots — not internal testing, but actual neighborhoods. Pilot agreements, onboarding support, and feedback mechanisms need to be in place before Phase 1 can complete.
+2. **Care coordinator recruitment.** Phase 2 cannot begin without care coordinators in place and peer support infrastructure ready. This is a human and organizational task, not a technical one.
 
-3. **Care coordinator recruitment.** Phase 2 cannot begin without care coordinators in place and peer support infrastructure ready. This is a human and organizational task, not a technical one.
+3. **Governance transition timeline.** Phase 1 concentrates some authority in the founding team. A documented, binding timeline for transitioning constitutional framework governance to the communities using the system must exist before Phase 3 begins. "We'll do it later" is not acceptable — later tends to stay later.
+
+---
+
+## Business Model
+
+**Resolved: open source / commons, not SaaS.**
+
+- All code is AGPL-licensed. Any community can self-host at no cost, always.
+- No feature gating, no subscription tiers, no premium plans.
+- Hosted option available on contribution basis, not mandatory subscription.
+- Sustainability: institutional services revenue (municipalities and organizations paying for implementation support, not per-seat access) + grants + public funding + voluntary community contributions.
+- Commons Fund: a portion of institutional services revenue held for low-income communities and under-resourced organizations. Structural commitment, not discretionary.
+- Long-term goal: recognition and funding as public digital infrastructure.
+
+The SaaS model (neighborhoods pay monthly subscription) is explicitly off the table. Charging communities to access civic infrastructure contradicts the "not a platform" principle.
 
 ---
 
