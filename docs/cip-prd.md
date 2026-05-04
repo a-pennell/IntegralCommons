@@ -236,6 +236,14 @@ No member-level detail. No names of people in holds or circles. Only aggregate s
 - No care data is included in the Trust Graph
 - Full data deletion on circle close (30-day window); thread records reduced to minimal aggregate on thread close
 
+### Architectural Data Partition
+
+CIP objects exist in a separate data partition with no direct foreign keys to any Local Commons object. This separation is architectural, not merely a policy statement — future developers must deliberately break an architectural boundary to violate it.
+
+When a support circle needs to coordinate Local Commons capabilities (Exchange Requests, Registry access, Steward alerts), it creates a temporary, anonymous coordination request that is indistinguishable from any other Exchange Request in Local Commons. No reference back to the circle, the care hold, or any care relationship is stored in that coordination request. The two layers communicate through a clean interface; they do not share data structures.
+
+The risk this addresses: any foreign key from a care relationship to the exchange log is an inch from making care legible to the contribution system. The credit system's accounting logic must not be able to creep into care relationships as the platform evolves — not because anyone would intend this, but because integration pressure is constant and policy boundaries erode under it. Architectural boundaries do not.
+
 ---
 
 ## The CIP/Local Commons Boundary
@@ -321,15 +329,17 @@ Aggregate care load data (number of active circles by neighborhood, care coordin
 - CIP/Local Commons boundary handling (exchange requests from circles, Steward alert integration)
 - Privacy infrastructure (circle data deletion on close, no platform-held hold identities)
 
-**Pilot:** Run alongside Local Commons pilots in Phase 1 neighborhoods. Recruit 1–2 care coordinators per pilot neighborhood before launch.
+**Pilot:** Run alongside Local Commons pilots in Phase 1 neighborhoods. Recruit 1–2 care coordinators per pilot neighborhood before launch. Care coordinator support infrastructure must be in place before pilots begin — not added afterward. Recruiting people to hold care load without support infrastructure in place reproduces the exact dynamic CIP is designed to address: invisible, uncompensated labor that depletes the people doing it.
+
+**Care coordinator support (Phase 1, not Phase 2):** The care coordinator well-being check and the beginnings of a peer coordinator network ship in Phase 1 as a condition of running pilots. This is not a Phase 2 addition. The reasoning: if Phase 1 pilots recruit care coordinators, those coordinators begin carrying load immediately. Deferring support infrastructure to Phase 2 means Phase 1 care coordinators operate without it — which is the pattern of exploitation CIP is explicitly designed not to reproduce. The Phase 1 version may be simple (a regular check-in prompt, a private channel for pilot care coordinators to connect with each other) but it must exist before anyone takes on the care coordinator role.
 
 ### Phase 2: Repair and Depth (3–4 months post-Phase 1 validation)
 
 **Ships:**
 - Repair Thread structure (4-phase, harmed-party-led)
 - Facilitator guide for repair threads
-- Cross-neighborhood care coordinator peer support (coordinators in different neighborhoods can connect)
-- Care coordinator well-being check
+- Cross-neighborhood care coordinator peer support (expanded — connects coordinators across neighborhoods, not just within the pilot cohort)
+- Care coordinator well-being check (expanded from Phase 1 baseline)
 - Anonymous care hold transition to circle with full privacy preservation
 
 ### Phase 3: Federation and Ecosystem (Phase 3+)

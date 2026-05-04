@@ -552,10 +552,11 @@ Facilitator proposes a resolution based on the Integration Summary. Affected mem
 - **Consent** — no paramount objection
 - **Stand aside** — acknowledged, non-blocking
 - **Paramount objection** — must be a reasoned claim of harm to the commons or to the conditions for collective sense-making; not a preference. If another member challenges whether an objection is truly paramount, a 2/3 legitimacy check vote is triggered.
+- **Process refusal** — a member may formally refuse to participate in a deliberation process as a political act rather than through apathy or absence. Process refusal requires a brief public reason and is recorded differently from non-participation. A decision with 40% participation and 15% active process refusal is a different political situation than one with 40% participation and 60% silence. The platform makes this distinction legible to the facilitator and to the neighborhood. Process refusal does not block a decision from proceeding once quorum is otherwise met — it is a political signal, not a veto. Its presence in the Decision Record is permanent: any future governance revisiting related questions must acknowledge the prior refusal.
 
 **Secret ballot:** available for any decision on any member's request. The request is visible; the vote is not.
 
-**Quorum check:** system enforces awareness and participation quorum against the affected group before the Decision phase can close. If quorum is not met within the deliberation window, the Decision is marked "Stalled — insufficient participation" and cannot proceed until quorum is reached.
+**Quorum check:** system enforces awareness and participation quorum against the affected group before the Decision phase can close. If quorum is not met within the deliberation window, the Decision is marked "Stalled — insufficient participation" and cannot proceed until quorum is reached. If active process refusals account for more than 20% of affected members, the stall reason is recorded as "Stalled — active process refusal" rather than "Stalled — insufficient participation," and the Decision Record must address this before the Decision can be reopened.
 
 ---
 
@@ -660,6 +661,14 @@ When enabled, they are community-configured: the neighborhood decides what to re
 
 Recognition signals, where configured, are celebratory and contextual. They do not gate features or governance. Their absence is neutral.
 
+### Participation Equity Audit (Steward-Only)
+
+When governance participation is systematically skewed — with the majority of Perspectives on Decisions coming from a structural subset of the neighborhood — the Steward dashboard surfaces a **participation equity alert**. This does not require demographic tracking beyond what the neighborhood already holds. It uses neighborhood-defined attributes (zone, membership tenure, full vs. anonymous tier, active vs. inactive status) to identify structural patterns.
+
+The alert fires when: ≥80% of Perspectives on a Decision come from members sharing a single attribute value (e.g., all from one zone, all with >1 year tenure, all full members rather than anonymous members). It is informational — a prompt for facilitators to actively reach out to underrepresented members before the Integration phase closes, not an automatic gate on the process.
+
+This addresses the reality that "structured deliberation" can systematically advantage members with time, cultural fluency, and platform comfort — and that governance appearing healthy by participation-rate metrics may still be functionally dominated by a structural subset.
+
 ### Conflict and Issue Alerts (Steward-Only)
 
 When patterns emerge that may warrant attention — a resource repeatedly returned damaged, a member with multiple unresolved exchanges, a Need fulfilled but disputed — the system sends a **private alert to neighborhood Stewards only**. No public flag. No notation on the member's record.
@@ -728,6 +737,8 @@ The base unit is the **hour**. One hour = one credit, regardless of contribution
 
 **On gift exchanges:** Any exchange can be marked as a gift — no credits requested or offered, by either party. Gift exchanges are logged in both parties' Stewardship Records as a distinct category (gift, not credited exchange). This supports cultural traditions of giving without transactionality, honors the reality that not all care should be metered, and is the default for all exchanges in neighborhoods that haven't enabled credits.
 
+**Architectural separation of gift and credit:** Gift exchanges and credit-tracked exchanges are architecturally separate — different data objects with no foreign keys between them. A gift exchange cannot be "upgraded" to a credit exchange through any platform pathway. This separation is enforced in the data model, not just the interface. The goal is to ensure that the accounting logic of the credit system cannot creep into the gift economy as the platform evolves. If a future developer can trivially link a gift exchange to a credit balance, the firewall has failed.
+
 **Commons Fund:**
 - Credits above the neighborhood ceiling and voluntary credit donations go to a Commons Fund
 - The Fund can be drawn on through a governance Decision to support neighborhood projects, cover costs for low-capacity neighbors, or seed new resources
@@ -791,6 +802,7 @@ These principles override individual feature decisions when there is tension.
 - **No dark patterns.** No auto-notifications, no FOMO mechanics, no countdown timers, no growth loops embedded in the product.
 - **Exit is a right.** Members can export all their data and leave at any time. This is not a lock-in platform.
 - **Local and legible.** The platform should be comprehensible to a neighbor who has never used a civic tech tool before. Complexity should live in the back end, not the interface.
+- **Offline equivalents exist.** Every core workflow has a documented offline equivalent — a way to accomplish the same coordination without the software. These are provided as physical artifacts to communities at onboarding, alongside the digital platform. The 5-phase governance protocol has a facilitation card deck equivalent. The Registry has a paper format. The Needs & Offers board has a physical analogue. Communities that begin with the offline format and adopt the software as an augmentation when they are ready will have a fundamentally different (and healthier) relationship to the platform than those who start from the software. The offline equivalents are not fallbacks — they are proof that the platform is augmenting human capacity, not replacing it.
 
 ---
 
@@ -1168,7 +1180,11 @@ All dispute flags, emergency actions, and Conflict Resolution Decisions are logg
 - Data export (Markdown / JSON)
 - Hosted deployment for 3-5 pilot neighborhoods
 
-**Pilot neighborhoods:** Target community gardens, housing co-ops, and established mutual aid networks — groups with existing coordination habits that Local Commons can augment, not replace.
+**Pilot neighborhoods:** The pilot cohort must include two distinct community types:
+
+1. **Organized community pilots** — community gardens, housing co-ops, and established mutual aid networks with existing coordination habits that Local Commons can augment. These pilots validate core functionality.
+
+2. **Structural barriers pilot** — at least one pilot neighborhood must be a community with no prior digital coordination infrastructure and significant structural barriers to participation: language access challenges, economic precarity, low digital literacy, historical distrust of institutions, or a combination. This is a design constraint, not a diversity add-on. Features that pass organized-community pilots but fail this pilot reveal equity problems that must be caught in Phase 1. A platform calibrated only for communities with existing organizing capacity will underserve the communities that most need better coordination infrastructure, and that failure will be invisible until it is too late to correct without a full redesign.
 
 ### Phase 1 Fast Follows (post-launch, pre-Phase 2)
 

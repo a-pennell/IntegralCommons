@@ -32,7 +32,7 @@ These are not a hierarchy. They are nested holons — each is a whole in itself 
 
 ## The Constitutional Foundation
 
-All Integral Commons layers share six inviolable principles from the CommonGround Constitution:
+All Integral Commons layers share seven inviolable principles from the CommonGround Constitution:
 
 1. **Revocability** — All delegations of authority are revocable. No delegation may be made permanent.
 2. **Due Process** — Members subject to removal are entitled to transparent process.
@@ -40,8 +40,9 @@ All Integral Commons layers share six inviolable principles from the CommonGroun
 4. **Forkability** — Any community may fork its governance and leave with its data.
 5. **Holonic Nesting** — Higher-level holons cannot override the sovereignty of lower-level holons.
 6. **Deliberation** — No decision proceeds without structured deliberation.
+7. **Framework Accountability** — The constitutional framework is governed by a federated body drawn from active communities, not by the Integral Commons organization. No change to Tier 1 principles is valid without a supermajority of active community holons.
 
-These six principles are the grammar of the system. Individual layers add vocabulary; none may contradict the grammar.
+These seven principles are the grammar of the system. Individual layers add vocabulary; none may contradict the grammar.
 
 ---
 

@@ -61,7 +61,7 @@ The Holonic Nesting principle says higher-level holons cannot override lower-lev
 
 ## The Constitutional Backbone
 
-The six Tier 1 inviolable principles from the CommonGround Constitution apply at every scale — neighborhood, group, city — and cannot be overridden by any governance profile or institutional configuration:
+The seven Tier 1 inviolable principles from the CommonGround Constitution apply at every scale — neighborhood, group, city — and cannot be overridden by any governance profile or institutional configuration:
 
 | Principle | What it means at neighborhood scale (Local Commons) | What it means at city scale (MCS) |
 |---|---|---|
@@ -71,6 +71,7 @@ The six Tier 1 inviolable principles from the CommonGround Constitution apply at
 | **Forkability** | Any neighborhood member can export data and leave | Any community can exit the MCS platform with full data; any jurisdiction can fork the governance architecture |
 | **Holonic Nesting** | Neighborhood governance is sovereign within its scope; city governance cannot override it in the platform | City governance is sovereign within its scope; it does not automatically override neighborhood deliberation |
 | **Deliberation** | No Local Commons Decision closes without Perspecting and Integration phases | No MCS Civic Process closes without structured deliberation; no participation theater allowed |
+| **Framework Accountability** | The neighborhood's governance profile is their own; any change to the Tier 1 constitutional framework requires a supermajority of active community holons across the network — not a unilateral decision by the Integral Commons organization | Same; the constitutional architecture governing all MCS Civic Processes is owned by the communities using it, not the platform provider |
 
 ---
 

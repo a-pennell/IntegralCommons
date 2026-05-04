@@ -75,7 +75,7 @@ A neighborhood (Local Commons instance) is a coherent whole: it has its own gove
 
 Each level of the holon retains its sovereignty. A neighborhood's Decisions cannot be overridden by municipal governance. A municipality cannot override bioregional ecological data. Higher-level holons inform lower-level holons; they do not command them. The relationship is consultative, not hierarchical.
 
-What makes this coherent — rather than just decentralized — is a shared constitutional layer. The six Tier 1 inviolable principles from the CommonGround Constitution apply to every Integral Commons layer and every holon within them:
+What makes this coherent — rather than just decentralized — is a shared constitutional layer. The seven Tier 1 inviolable principles from the CommonGround Constitution apply to every Integral Commons layer and every holon within them:
 
 1. **Revocability** — All delegations of authority are revocable. No delegation may be made permanent at any level.
 2. **Due Process** — Members subject to removal are entitled to transparent criteria, participation in deliberation, and defined thresholds.
@@ -83,8 +83,9 @@ What makes this coherent — rather than just decentralized — is a shared cons
 4. **Forkability** — Any holon may fork its governance profile and leave with its data.
 5. **Holonic Nesting** — Higher-level holons cannot override the Tier 1 principles of lower-level holons. Sovereignty flows downward; accountability flows upward.
 6. **Deliberation** — No decision proceeds without structured deliberation. Voting without deliberation is constitutionally prohibited.
+7. **Framework Accountability** — The constitutional framework is governed by a federated body drawn from active communities, not by the Integral Commons organization. No change to Tier 1 principles is valid without a supermajority of active community holons. The founding organization is steward of the infrastructure, not sovereign over the rules that govern it.
 
-These six principles are the grammar of the system. Individual layers add vocabulary; none may contradict the grammar.
+These seven principles are the grammar of the system. Individual layers add vocabulary; none may contradict the grammar.
 
 ---
 
@@ -139,6 +140,188 @@ All Integral Commons layers are built on these principles. Individual layers may
 **Acknowledge what we cannot do.** Each layer's documentation explicitly names what it cannot achieve: things that require political will, human relationship, or knowledge that no database holds. These are not gaps to be designed away. They are honest boundaries that prevent the platform from overpromising and underdelivering in ways that erode trust.
 
 **The unpaid labor problem.** Each layer depends on human labor that is not compensated by the platform: neighborhood Stewards, community organizers, ecological translators, care circle coordinators, governance facilitators. Integral Commons does not solve this problem — it names it in every layer's documentation, designs to minimize it, and is honest when features require it to exist.
+
+**Convivial by design.** Every platform feature has a documented offline equivalent. Communities must be able to accomplish the same coordination without the software — even if less efficiently. If a feature has no viable offline analogue, it is creating dependency rather than augmenting existing capacity. The goal is to make the platform less necessary over time, not more. Communities that start from the offline format and adopt the software as an augmentation will have a fundamentally different relationship to it than those who start from the software.
+
+**Refusal as legitimate.** Political non-participation is not the same as apathy. Communities and individual members must have a structural path to formally refuse a process, an integration, or a governance framework as a political act — not merely to not-participate. Refusal that is indistinguishable from silence is a governance design failure. Refusal registered as a deliberate act is information the community needs.
+
+**Power-aware integration.** Every integration point, visibility decision, and data flow must be analyzed for who gains power and what the distributional effect is. The system that makes things visible accrues power over what it makes visible — regardless of intent. This applies to the AI layer, to cross-layer data sharing, and to the Integral Commons organization's own access to community data. Legibility and surveillance are not opposites; they exist on a continuum.
+
+**Empiricism before scaling.** No layer or integration expands to a new context without documented evidence of working in a comparable existing context. Architecture that is ahead of its evidence base should be held as hypothesis, not design certainty. Pilot small and prove it before building for scale.
+
+---
+
+## The Political Claim
+
+Integral Commons is not a neutral platform. It makes specific political arguments through its design choices, and naming them plainly is more honest than the alternative.
+
+**What we are arguing for:**
+
+- Neighborhoods having more substantive decision-making authority relative to municipal governments and market actors
+- Care work recognized as civic infrastructure rather than private labor, and supported accordingly
+- Ecological systems having standing in governance decisions about the territories they inhabit
+- Communities retaining sovereignty over their data, governance history, and coordination infrastructure — not as a legal formality, but as an operative reality
+- The commons as a durable institutional form: not a historical artifact or a metaphor, but a living alternative to both market and state organization of shared life
+
+**What this means for every design decision:**
+
+- Features that concentrate power — even in well-intentioned actors — are suspect by default
+- Speed that benefits organized, well-resourced actors at the expense of slow, underserved ones is not efficiency
+- Technical solutions that create platform dependencies where human coordination capacity existed before are regressions, not advances
+- Quantification of what was previously unquantified is not automatically progress
+- Neutral infrastructure does not exist: every architectural choice embeds values, and those values should be visible and contestable through the governance processes the system itself provides
+
+---
+
+## Anti-Capture Architecture
+
+Capture — the process by which a system built to distribute power gets redirected to concentrate it — is not a failure mode that happens to some platforms. It is the default trajectory. Well-intentioned infrastructure consistently gets captured: by funders, by founders, by the state, by organized interests, by the market logic it was built to resist. Designing against capture requires naming each specific mechanism and building structural responses.
+
+### Financial capture
+*A major funder gains de facto control over mission through funding dependency.*
+
+- Hard cap: no single funding source may exceed 20% of annual budget. This is a constitutional commitment, not a policy preference.
+- Grants with governance influence provisions are constitutionally prohibited. The board cannot accept them even by unanimous vote.
+- No equity investment, ever. Equity is a claim on future value extraction; it cannot be reconciled with the commons mission.
+- Full financial transparency: all funding sources, executive compensation, and budget-to-mission alignment are published proactively, annually.
+
+### Founder capture
+*The founding team becomes indispensable and accumulates unchecked power through institutional memory, relationships, and design authority.*
+
+- No permanent founder authority. All roles have defined terms and succession processes.
+- Knowledge commons requirement: all architectural decisions, governance rationale, and operational processes are documented in community-accessible form. Institutional knowledge that lives only in a person's head is an organizational liability.
+- Succession planning is a Phase 1 deliverable, not a later consideration.
+
+### Board and governance capture
+*The board becomes self-perpetuating, ideologically homogeneous, or captured by a single stakeholder class.*
+
+- Community-elected seats: a minimum of 40% of board seats are elected by active communities in the network, not appointed by the existing board.
+- No single stakeholder class (workers, communities, funders) holds majority control.
+- Supermajority requirements (⅔ minimum) for any changes to Tier 1 constitutional principles, mission, the asset lock, or community governance provisions.
+- Staggered terms with mandatory rotation.
+
+### State capture
+*Government funding or regulatory requirements gradually reshape the platform toward state interests.*
+
+- Cap on government funding as a percentage of budget, separate from the general 20% cap.
+- Community data is not shared with government entities without a valid legal process. Communities are notified when requests are received.
+- Advocacy capacity is built from the start: Integral Commons actively shapes the regulatory environment rather than only responding to it.
+
+### Market and mission drift
+*Financial pressure produces accumulated small decisions that gradually shift the mission without any single decision being the cause.*
+
+- Annual community-facing mission alignment review: active communities formally vote on whether the organization is living its stated mission. Results are published.
+- Sunset clauses on programs and features that generate revenue: must be re-ratified by community governance every three years.
+- A "what we will never do" list is constitutionally protected — removing items requires the same supermajority as changing Tier 1 principles.
+
+### Technical capture
+*Proprietary dependencies, vendor lock-in, or implementation complexity create chokepoints that communities cannot escape.*
+
+- AGPL license for all code. AGPL closes the SaaS loophole that standard GPL does not: modifications to software used over a network must be released under the same license.
+- Developer Certificate of Origin (DCO), not a Contributor License Agreement (CLA). A CLA can grant the organization rights to relicense code proprietary; a DCO cannot.
+- Creative Commons BY-SA for all non-code assets: governance templates, facilitation guides, documentation.
+- No proprietary dependencies in the critical path. Hosting infrastructure, databases, and authentication must all have documented open-source equivalents.
+- Self-hostable as a hard Phase 1 requirement, not a roadmap aspiration.
+- Open standards for all data formats and protocols. Communities must be able to migrate to a different implementation without losing their history.
+
+### Data capture
+*Centralizing data creates leverage over communities even without intent to use it.*
+
+- Community data sovereignty: data generated by a community belongs to that community. The Integral Commons organization holds it in trust, not in ownership.
+- No cross-community aggregation without explicit, revocable consent from each community.
+- Data minimization as a constitutional principle: collect only what is necessary for the stated function.
+- The AI layer's outputs are owned by the communities they describe. The organization does not have default access to community pattern data.
+- Annual data audit: what data does the organization hold, why, and is it still necessary? Published.
+
+### Platform capture
+*The platform becomes the chokepoint it was designed to resist because communities cannot leave without losing coordination capacity.*
+
+- Forkability must be tested, not just documented. Before Phase 2, at least one community must have successfully forked and verified that their data, governance history, and operational capacity survive the fork.
+- Federation protocols (Phase 3) use or develop open standards that any implementation can speak — not proprietary APIs.
+- Full interoperability requirement: communities must be able to export governance records, member data, and resource history in formats that work with other tools.
+
+### Expertise capture
+*Key knowledge accumulates in too few people, creating irreplaceable individuals and organizational fragility.*
+
+- Bus factor audit as a quarterly operational check: what happens if person X leaves tomorrow? Anything with a bus factor of 1 is a structural vulnerability requiring immediate documentation.
+- Documentation is a constitutional requirement, not a cultural preference. Undocumented systems are anti-commons.
+- Community capacity building: communities should understand how the platform works, not just how to use it.
+
+### Narrative capture
+*The organization's story replaces communities' stories; Integral Commons becomes the subject and communities become the product.*
+
+- All public communication centers community experiences and community authorship. The organization is infrastructure — when it's working, it should be invisible.
+- Communities have the right to withdraw from organizational communications at any time, including removing their story from the website.
+- No case studies without community authorship or explicit co-authorship.
+
+### Federation and community capture
+*One large, well-resourced community dominates the federated network.*
+
+- Each community has one vote in cross-network governance decisions, regardless of size, resource level, or tenure.
+- No single community or community type (geographic, cultural, socioeconomic) may hold majority representation in federation governance.
+
+### Cultural capture
+*The organization's internal culture becomes exclusionary or homogeneous, replicating the dynamics it was designed to counter.*
+
+- All salaries are published internally. Compensation transparency is non-negotiable.
+- Language access is a Phase 1 requirement at every layer, not a roadmap item.
+- Regular power audits of the organization itself: who makes decisions, who holds institutional memory, who is most likely to burn out first. Published.
+
+### The transitional governance problem
+There is a real tension between organizational coherence sufficient to build something and distributing governance enough to prevent capture. Phase 1 necessarily concentrates some authority in the founding team. This is legitimate if and only if there is a documented, binding timeline for transitioning those decisions to community governance. Governance rights retained "for now" tend to stay retained. The transition dates are constitutional commitments, not aspirations — and the communities entering the federation in Phase 1 are the primary accountability mechanism for enforcing them.
+
+---
+
+## Organizational Legal Structure
+
+The Integral Commons organization must be structured to make the anti-capture commitments above legally enforceable, not just aspirational policy. Legal structure is not a formality — it determines what a future board can and cannot do without the founding team's involvement.
+
+**Not-for-profit vs. non-profit:** These are not the same. "Non-profit" typically refers to a specific legal status (501(c)(3) in the US) with donor-deductible giving, public benefit requirements, and board governance. "Not-for-profit" is broader: it includes cooperatives, mutual benefit organizations, and other structures that don't generate profit for owners but may exist for member benefit rather than public charity. A standard 501(c)(3) is still vulnerable to board capture, funder capture, and mission drift. Legal non-profit status is necessary but not sufficient.
+
+**Recommended structure:** A multistakeholder cooperative or a nonprofit with mandatory community governance representation encoded in the founding documents. Not a standard 501(c)(3) with an advisory community board — a structure where communities hold formal, legally binding voting rights.
+
+**Asset lock:** On dissolution, all assets transfer to a designated beneficiary (another commons organization, a public trust, or an ecological stewardship body) — never to founders or board members. This must be in the founding documents and cannot be removed without a supermajority of active community holons.
+
+**Licensing commitments:**
+- AGPL for all code — constitutionally committed, not just presently intended
+- DCO (Developer Certificate of Origin) rather than CLA for contributors — contributors retain rights; the organization gains no power to relicense
+- Creative Commons BY-SA for all non-code assets
+
+**Governance structure:**
+- Community-elected seats: minimum 40% of board seats elected by active communities
+- No single stakeholder class holds majority
+- Supermajority requirements (⅔) for constitutional changes
+- Staggered terms, mandatory rotation, no permanent founder authority
+
+**Financial commitments:**
+- No equity investment accepted
+- 20% cap on any single funding source, constitutionally encoded
+- Full financial transparency published annually
+- Commons fund set-aside from institutional licensing revenue for underserved communities
+
+---
+
+## AI Layer Constitutional Constraints
+
+The AI (intelligence) layer does not yet have a technical architecture. Before that architecture is designed, the following constraints must be constitutionally established. They are not design preferences — they are the framework within which design choices will be made. An AI layer built without this framework will reproduce the surveillance and power dynamics the rest of the system is designed to prevent.
+
+**What the AI layer is categorically prohibited from doing:**
+
+1. Comparing or ranking communities against each other based on any metric or pattern
+2. Producing outputs visible to the Integral Commons organization about individual communities without that community's explicit, revocable consent
+3. Producing outputs about individual members — AI layer outputs concern communities and networks, never individuals
+4. Being used in any funding, eligibility, or prioritization decision about communities by the Integral Commons organization
+5. Surfacing care-related signals from CIP data — even in aggregate — to governance or resource layers without explicit community authorization
+6. Making recommendations — the AI layer produces legibility artifacts (structured summaries of what the data shows), never recommendations, predictions, or scores
+
+**What the AI layer is for:**
+- Helping communities understand their own patterns at a scale they cannot see unaided
+- Surfacing cross-layer signals within a single community (resource utilization, governance participation, ecological data) that inform that community's own decision-making
+- Identifying structural conditions (care load concentration, participation skew, unmet needs clustering) that invite community attention — not platform intervention
+
+**Data ownership:** AI layer outputs are owned by the communities they describe. Aggregate federation-level signals (Phase 3+) require explicit consent from each participating community and may not be stored by the Integral Commons organization without community authorization.
+
+**The legibility/surveillance distinction:** "The AI layer only shows patterns, it doesn't recommend" is insufficient protection. The framing of patterns is itself a form of recommendation; the system that makes communities legible to themselves also makes them legible to the organization that built it. The prohibition list above is the structural answer, not a design intent.
 
 ---
 
