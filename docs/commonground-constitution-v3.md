@@ -152,6 +152,22 @@ At higher scales, representative deliberation satisfies this principle. A sortit
 
 ---
 
+### Principle 7 — Framework Accountability
+
+The constitutional framework is governed by the communities it serves, not by the organization that built it. No change to Tier 1 principles is valid without a supermajority of active community holons. The founding organization is steward of the infrastructure, not sovereign over the rules that govern it.
+
+This principle exists to prevent capture of the framework itself. An organization that can unilaterally change the constitutional rules it nominally serves has made those rules meaningless. The power to define the rules is the ultimate power — which is why that power must rest with the communities, not the platform.
+
+**Transition obligation:** Phase 1 necessarily concentrates some authority in the founding team — the group that writes the initial code and drafts the first governance documents. This is a legitimate temporary condition, not a permanent right. There must be a documented, binding timeline for transitioning constitutional governance to a federated body drawn from active communities. "We'll do it later" is a governance failure in waiting. The transition dates are constitutional commitments, not aspirations.
+
+**What the founding organization may and may not do:**
+- *May:* Maintain infrastructure, provide implementation support, convene communities, publish proposed amendments, hold stewardship of the codebase
+- *May not:* Unilaterally amend Tier 1 principles, make binding interpretations of the constitution without community consent, gate community access to governance for non-compliance with the founding organization's preferences
+
+**The supermajority threshold:** Changes to Tier 1 principles require approval by a supermajority (≥ two-thirds) of active community holons with at least 90 days of public deliberation. This threshold is high by design — Tier 1 principles are the shared grammar of the system. Changing them should be rare, deliberate, and broadly consented.
+
+---
+
 ## Tier 2: Core Values
 
 These principles are constitutional values that groups can amend through supermajority. They represent considered defaults that most groups should preserve, but sovereignty rests with the people.

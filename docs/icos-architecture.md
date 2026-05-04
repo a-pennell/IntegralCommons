@@ -383,9 +383,9 @@ Before Phase 2 design is finalized, the Phase 3 federation architecture needs in
 
 2. **Intelligence Layer constraints.** ~~Resolved in intelligence-layer-prd.md v0.8.~~ Eight hard constraints established: no individual profiling, no predictive scores, no optimization targets, no autonomous action, no recommendations, community data ownership, public methodology, CIP data excluded. Open questions remain inside the Intelligence Layer PRD (consent granularity, methodology gaming, null result communication).
 
-3. **Decentralized execution.** Earlier architecture exploration considered smart contracts for governance execution. The current PRDs don't commit to a blockchain model. The choice between decentralized execution and hosted infrastructure has significant implications for accessibility, cost, and governance. This decision needs to be made before Phase 1 build begins.
+3. **Decentralized execution.** ~~Resolved.~~ The stack choice (hosted PostgreSQL, Next.js, self-hostable via AGPL) settles this. Smart contract / blockchain execution is not pursued. Reasons: accessibility, cost, and governance — decentralized execution on a blockchain would make the platform inaccessible to low-resource communities, introduce token economics incompatible with the commons model, and add complexity that serves no governance purpose the existing stack cannot serve.
 
-4. **CIP/Local Commons boundary.** The boundary between relational care (CIP) and coordinated mutual aid (Local Commons Needs & Offers) needs to be precisely defined. The distinction is: Local Commons handles care that can be transacted (I need X, you have X, here is the exchange). CIP holds care that cannot be transacted (ongoing support, grief, repair, presence). Edge cases need explicit handling.
+4. **CIP/Local Commons boundary.** ~~Resolved in cip-prd.md.~~ Local Commons handles care that can be transacted (I need X, you have X, exchange completes). CIP holds care that cannot be transacted (ongoing support, grief, repair, presence). Edge cases are documented in the CIP/Local Commons boundary table in `cip-prd.md`.
 
 5. **Federation prerequisites.** Phase 3 federation across multiple layers requires technical groundwork in Phase 1. What must be built into the Phase 1 architectures to enable Phase 3 federation without requiring rebuilds?
 
