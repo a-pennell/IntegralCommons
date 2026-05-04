@@ -131,7 +131,23 @@ After CommonGround is proven at group scale (Phase 1 success criteria met).
 - [ ] Accessibility: WCAG 2.1 Level AA; multilingual from day one in pilot jurisdictions
 - [ ] Accountability layer — tracks whether DACs were honored
 
-### Flow Engine — Equip (Layer 2, component 2)
+### Flow Engine — Synapse (Layer 2, component 3)
+Phase 2 pilot use case: **decentralized farm network surplus/shortage visibility and municipal allocation routing.** This is more tractable than full participatory planning and validates the core Synapse architecture with real producers and institutions.
+
+- [ ] Producer actor type — farms and food producers as a distinct participant type with opt-in public surplus/shortage declarations (different privacy model from household declarations)
+- [ ] Surplus/shortage declaration — producer declares: resource type, quantity, location, availability window, conditions
+- [ ] Regional visibility map — surplus/shortage by crop/resource type across participating producers; not a marketplace, not price-discovery
+- [ ] Allocation matching — match producer surplus to locality/municipality need, subject to EIL constraints
+- [ ] EIL integration — farm production data as EIL input; EIL bioregional constraints (water budget, soil stress) as hard routing constraints
+- [ ] Municipal procurement bridge — allocation opportunities surfaced to MCS participatory budgeting process when institutional commitment required
+- [ ] Consent flow — proposed allocations require community/institutional consent before becoming commitments; Synapse does not execute
+
+**Prerequisites before Synapse build begins:**
+- Producer actor type designed (different privacy characteristics from household model)
+- At least one farm network or food cooperative as design partner
+- MCS participatory budgeting module operational (for municipal procurement bridge)
+
+### Flow Engine — Equip (Layer 2, component 4)
 After Local Commons Registry is stable.
 
 - [ ] Cross-neighborhood asset inventory and check-out

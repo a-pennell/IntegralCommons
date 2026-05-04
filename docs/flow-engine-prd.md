@@ -88,9 +88,43 @@ When EIL constraints make a desired match impossible, Synapse surfaces this expl
 - **Does not automate decisions.** Synapse produces proposed matches for community consent. It does not execute distributions.
 - **Does not operate without governance.** Any production plan produced by Synapse must pass through the participating communities' governance process before it becomes a commitment.
 
+### Concrete use case: decentralized farms, regional surplus/shortage visibility
+
+The target Phase 2 pilot use case for Synapse is a network of decentralized farms and the localities and municipalities they supply. This use case is more tractable than full participatory planning and validates the core Synapse architecture.
+
+**The problem:** Farms produce surplus and shortage in patterns that are invisible to each other and to the municipalities that could redistribute or procure from them. Surplus rots. Shortages go unmet. Price signals are the current allocation mechanism — but price signals exclude communities with low purchasing power and don't optimize for ecological health or food sovereignty.
+
+**What Synapse provides:**
+
+*Surplus/shortage visibility map.* Farms and food producers declare availability in near-real-time or by planning horizon: crop type, quantity, location, availability window, any conditions (collection required, organic certification, storage capacity available). This is a regional supply map — not a marketplace, not a price-discovery mechanism. The map shows what exists and where; it does not set the terms of exchange.
+
+*Allocation routing.* Localities, food cooperatives, and municipalities declare what they need. Synapse matches capacity to need, subject to EIL constraints (water budget, soil stress, biodiversity indicators for the bioregion). The output is a proposed allocation: farm A's surplus squash goes to locality B and food co-op C. Communities and institutions consent to or modify the proposal; Synapse does not execute it.
+
+*Municipal procurement bridge.* When a municipality's allocation requires a formal procurement decision — a civic commitment of public funds toward local farm purchasing — that decision moves through MCS (participatory budgeting or community priority-setting module). Synapse makes the opportunity visible; MCS governs the institutional response.
+
+**What Synapse does not do in this use case:**
+- Does not arrange transport or logistics. It identifies allocation opportunities; delivery is a third-party problem.
+- Does not negotiate prices. Terms of exchange are agreed between producer and recipient directly, or through their governance processes.
+- Does not make farms visible to anyone they haven't consented to share with.
+
+**Actor types this introduces:**
+
+The farm surplus/shortage use case requires a *producer* actor type that doesn't exist in the current Local Commons household/community model:
+
+| Actor | Type | Visibility of declarations |
+|---|---|---|
+| Household | Private — ZKP required | Aggregate only; never individual |
+| Farm / food producer | Producer — opt-in public | Surplus/shortage declared publicly by default; opt-out available |
+| Food cooperative | Collective | Needs declared on behalf of members; member-level privacy preserved |
+| Municipality | Institutional | Procurement needs public; deliberated through MCS |
+
+The producer actor type needs to be designed before Phase 2 Synapse development begins. It has different privacy characteristics from household declarations and different governance relationships (a farm is often a business, not a commons participant in the same sense as a household).
+
+**EIL integration is especially direct here.** Farms are major generators of EIL data — water use, soil health, biodiversity indicators, carbon sequestration. A farm participating in Synapse is also a data source for EIL. The data relationship is bidirectional: EIL constrains what Synapse can route (bioregional water budget); farms annotate EIL with ground-truth production data.
+
 ### Phase 2 scope
 
-Synapse is the most complex component of the Flow Engine and has the most demanding data infrastructure prerequisites. **Phase 2 scope: regional matching for pre-declared needs in domains where communities already have production relationships** — bulk food purchasing, skill-sharing rotas, material circulation networks. Full participatory planning (production scheduling from aggregate need declarations) is Phase 3.
+Synapse is the most complex component of the Flow Engine and has the most demanding data infrastructure prerequisites. **Phase 2 scope: regional surplus/shortage visibility and allocation matching for food producers and municipalities.** This is the pilot use case. Full participatory planning (production scheduling from aggregate household need declarations) is Phase 3.
 
 ---
 
