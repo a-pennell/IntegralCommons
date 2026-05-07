@@ -46,11 +46,11 @@ export const delegations = pgTable(
   },
   (table) => ({
     idUlidCheck: check('delegations_id_ulid_length', sql`char_length(${table.id}) = 26`),
+    // Expiry is not in the predicate: now() is STABLE, not IMMUTABLE. Service
+    // layer filters out expired delegations when querying with this index.
     activeIdx: index('delegations_active_idx')
       .on(table.spaceId, table.issueId, table.capability)
-      .where(
-        sql`${table.revokedAt} IS NULL AND (${table.expiresAt} IS NULL OR ${table.expiresAt} > now())`,
-      ),
+      .where(sql`${table.revokedAt} IS NULL`),
     granteeActiveIdx: index('delegations_grantee_active_idx')
       .on(table.granteeMemberId)
       .where(sql`${table.revokedAt} IS NULL`),
