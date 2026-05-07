@@ -9,9 +9,11 @@ import { listPerspectivesForIssue, type PerspectiveWithAuthor } from '@/server/p
 import { renderMarkdown } from '@/lib/markdown';
 import { getSpaceBySlugForMember } from '@/server/spaces';
 import { listSummariesForIssue, type SummaryWithAuthor } from '@/server/civic-memory';
-import { memberHoldsCapability } from '@/server/delegations';
+import { findActiveDelegations, memberHoldsCapability } from '@/server/delegations';
+import { Button } from '@/components/ui/button';
 import { Folio } from '@/components/ui/folio';
 import { StatusStamp, type Status } from '@/components/ui/status-stamp';
+import { transitionStatusAction, volunteerFacilitatorAction } from './action';
 
 type RouteParams = { spaceSlug: string; issueSlug: string };
 
@@ -34,17 +36,23 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
 
   void recordIssueView({ issueId: issue.id, memberId: session.value.memberId });
 
-  const [perspectives, quorumRow, summaries, hasFacilitation] = await Promise.all([
-    listPerspectivesForIssue(issue.id),
-    db.select().from(quorumStates).where(eq(quorumStates.issueId, issue.id)).limit(1),
-    listSummariesForIssue(issue.id),
-    memberHoldsCapability({
-      spaceId: space.space.id,
-      issueId: issue.id,
-      memberId: session.value.memberId,
-      capability: 'facilitation',
-    }),
-  ]);
+  const [perspectives, quorumRow, summaries, hasFacilitation, activeFacilitators] =
+    await Promise.all([
+      listPerspectivesForIssue(issue.id),
+      db.select().from(quorumStates).where(eq(quorumStates.issueId, issue.id)).limit(1),
+      listSummariesForIssue(issue.id),
+      memberHoldsCapability({
+        spaceId: space.space.id,
+        issueId: issue.id,
+        memberId: session.value.memberId,
+        capability: 'facilitation',
+      }),
+      findActiveDelegations({
+        spaceId: space.space.id,
+        issueId: issue.id,
+        capability: 'facilitation',
+      }),
+    ]);
   const quorum = quorumRow[0] ?? null;
   const sections = parseSections(issue.structuredSections);
 
@@ -105,6 +113,110 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
                     Period ends {formatShortDate(quorum.deliberationPeriodEndsAt)}
                   </div>
                 ) : null}
+              </div>
+            ) : null}
+
+            {/* Volunteer to facilitate — visible when no facilitator yet */}
+            {!hasFacilitation &&
+            activeFacilitators.length === 0 &&
+            (issue.status === 'open' || issue.status === 'exploring') ? (
+              <div className="mt-6 border-t border-[color:var(--color-rule)] pt-4">
+                <div className="eyebrow text-[color:var(--color-ink)]">Facilitation</div>
+                <p className="mt-2 metadata text-[color:var(--color-muted)] italic">
+                  No facilitator yet.
+                </p>
+                <form action={volunteerFacilitatorAction} className="mt-3">
+                  <input type="hidden" name="issueId" value={issue.id} />
+                  <input type="hidden" name="spaceId" value={space.space.id} />
+                  <input type="hidden" name="spaceSlug" value={space.space.slug} />
+                  <input type="hidden" name="issueSlug" value={issue.slug} />
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="w-full text-left text-(length:--text-small)"
+                  >
+                    Volunteer to facilitate
+                  </Button>
+                </form>
+              </div>
+            ) : null}
+
+            {/* Facilitator controls */}
+            {hasFacilitation && (issue.status === 'open' || issue.status === 'exploring') ? (
+              <div className="mt-6 border-t border-[color:var(--color-rule)] pt-4">
+                <div className="eyebrow text-[color:var(--color-ink)]">Facilitator</div>
+                {issue.status === 'open' ? (
+                  <>
+                    <form action={transitionStatusAction} className="mt-3">
+                      <input type="hidden" name="issueId" value={issue.id} />
+                      <input type="hidden" name="spaceId" value={space.space.id} />
+                      <input type="hidden" name="toStatus" value="exploring" />
+                      <input type="hidden" name="spaceSlug" value={space.space.slug} />
+                      <input type="hidden" name="issueSlug" value={issue.slug} />
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        className="w-full text-left text-(length:--text-small)"
+                      >
+                        Begin deliberation →
+                      </Button>
+                      <p className="mt-2 metadata text-[color:var(--color-muted)] italic">
+                        Moves to Exploring. Members may add perspectives.
+                      </p>
+                    </form>
+                    <div className="mt-3">
+                      <a
+                        href={`/spaces/${space.space.slug}/issues/${issue.slug}/edit` as Route}
+                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                      >
+                        Edit framing →
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <form action={transitionStatusAction} className="mt-3">
+                      <input type="hidden" name="issueId" value={issue.id} />
+                      <input type="hidden" name="spaceId" value={space.space.id} />
+                      <input type="hidden" name="toStatus" value="open" />
+                      <input type="hidden" name="spaceSlug" value={space.space.slug} />
+                      <input type="hidden" name="issueSlug" value={issue.slug} />
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        className="w-full text-left text-(length:--text-small)"
+                      >
+                        ← Return to Open
+                      </Button>
+                    </form>
+                    <div className="mt-3 flex flex-col gap-2">
+                      <a
+                        href={
+                          `/spaces/${space.space.slug}/issues/${issue.slug}/decision/draft` as Route
+                        }
+                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                      >
+                        Draft Decision Record →
+                      </a>
+                      <a
+                        href={
+                          `/spaces/${space.space.slug}/issues/${issue.slug}/summary/new` as Route
+                        }
+                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                      >
+                        Publish summary →
+                      </a>
+                      <a
+                        href={
+                          `/spaces/${space.space.slug}/issues/${issue.slug}/edit` as Route
+                        }
+                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                      >
+                        Edit framing →
+                      </a>
+                    </div>
+                  </>
+                )}
               </div>
             ) : null}
 
