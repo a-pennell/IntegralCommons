@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { db, transaction } from '@/db';
-import { neighborhoods, neighborhoodMemberships } from '@/db/schema';
+import { neighborhoods } from '@/db/schema';
 import type { AppError } from '@/lib/errors';
 import { errors } from '@/lib/errors';
 import type { Result } from '@/lib/result';
@@ -10,7 +10,7 @@ import { ulid } from '@/lib/ulid';
 export type CreateNeighborhoodInput = {
   readonly createdByMemberId: string;
   readonly name: string;
-  readonly description?: string;
+  readonly description?: string | undefined;
   readonly slug: string;
   readonly linkedSpaceId?: string;
 };

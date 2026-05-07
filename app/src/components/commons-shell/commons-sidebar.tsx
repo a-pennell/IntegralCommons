@@ -5,19 +5,16 @@ import { usePathname } from 'next/navigation';
 import type { Route } from 'next';
 
 /**
- * Shell sidebar — the volume's spine and table of contents.
+ * Commons shell sidebar — the Local Commons app navigation.
  *
  * Composition:
- *   masthead    COMMONGROUND
- *   spaceblock  Space name · members · convening state
- *   sections    01 Dashboard · 02 Issues · ... (typographic, no icons)
- *   footer      member identity · switch space
- *
- * Visual: same paper as the canvas, hairline right border. The active section
- * gets a 2px terracotta vertical rule on its left edge + label weight 500.
+ *   masthead    ICOS
+ *   hoodblock   Neighborhood name · member count
+ *   sections    01 Commons · 02 Resources · 03 Needs & Offers · 04 Charter · 05 Stewardship
+ *   footer      member identity · all apps
  */
 
-type SectionKey = 'dashboard' | 'issues' | 'referenda' | 'delegations' | 'timeline' | 'settings';
+type SectionKey = 'commons' | 'resources' | 'needs-offers' | 'charter' | 'stewardship';
 
 type Section = {
   key: SectionKey;
@@ -29,68 +26,55 @@ type Section = {
 
 const sections: Section[] = [
   {
-    key: 'dashboard',
+    key: 'commons',
     number: '01',
-    label: 'Dashboard',
-    match: (p, s) => p === `/spaces/${s}`,
-    href: (s) => `/spaces/${s}` as Route,
+    label: 'Commons',
+    match: (p, s) => p === `/neighborhoods/${s}`,
+    href: (s) => `/neighborhoods/${s}` as Route,
   },
   {
-    key: 'issues',
+    key: 'resources',
     number: '02',
-    label: 'Issues',
-    match: (p, s) => p.startsWith(`/spaces/${s}/issues`),
-    href: (s) => `/spaces/${s}/issues` as Route,
+    label: 'Resources',
+    match: (p, s) => p.startsWith(`/neighborhoods/${s}/resources`),
+    href: (s) => `/neighborhoods/${s}/resources` as Route,
   },
   {
-    key: 'referenda',
+    key: 'needs-offers',
     number: '03',
-    label: 'Referenda',
-    match: (p, s) => p.startsWith(`/spaces/${s}/referenda`),
-    href: (s) => `/spaces/${s}/referenda` as Route,
+    label: 'Needs & Offers',
+    match: (p, s) => p.startsWith(`/neighborhoods/${s}/needs-offers`),
+    href: (s) => `/neighborhoods/${s}/needs-offers` as Route,
   },
   {
-    key: 'delegations',
+    key: 'charter',
     number: '04',
-    label: 'Delegations',
-    match: (p, s) => p.startsWith(`/spaces/${s}/delegations`),
-    href: (s) => `/spaces/${s}/delegations` as Route,
+    label: 'Charter',
+    match: (p, s) => p.startsWith(`/neighborhoods/${s}/charter`),
+    href: (s) => `/neighborhoods/${s}/charter` as Route,
   },
   {
-    key: 'timeline',
+    key: 'stewardship',
     number: '05',
-    label: 'Timeline',
-    // TODO: dedicated /timeline route — currently lives under issues
-    match: () => false,
-    href: (s) => `/spaces/${s}/issues` as Route,
-  },
-  {
-    key: 'settings',
-    number: '06',
-    label: 'Settings',
-    match: (p, s) => p.startsWith(`/spaces/${s}/settings`),
-    href: (s) => `/spaces/${s}/settings` as Route,
+    label: 'Stewardship',
+    match: (p, s) => p.startsWith(`/neighborhoods/${s}/stewardship`),
+    href: (s) => `/neighborhoods/${s}/stewardship` as Route,
   },
 ];
 
 type Props = {
-  spaceName: string;
-  spaceSlug: string;
+  neighborhoodName: string;
+  neighborhoodSlug: string;
   memberCount: number;
-  convening: 'in_session' | 'in_recess';
   memberHandle: string;
-  counts?: Partial<Record<SectionKey, number>>;
-  /** Called when any nav link is clicked. Used by ShellRoot to close mobile drawer. */
   onNavigate?: () => void;
 };
 
-export function Sidebar({
-  spaceName,
-  spaceSlug,
+export function CommonsSidebar({
+  neighborhoodName,
+  neighborhoodSlug,
   memberCount,
-  convening,
   memberHandle,
-  counts = {},
   onNavigate,
 }: Props) {
   const pathname = usePathname() ?? '';
@@ -98,26 +82,24 @@ export function Sidebar({
   return (
     <aside className="flex h-full w-(--container-shell-sidebar) flex-col border-r border-[color:var(--color-rule)]">
       <div className="px-6 pt-7 pb-5">
-        <div className="eyebrow">CommonGround</div>
+        <div className="eyebrow">Local Commons</div>
       </div>
 
       <div className="border-t border-[color:var(--color-rule)]" />
 
       <div className="px-6 pt-5 pb-6">
         <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
-          {spaceName}
+          {neighborhoodName}
         </h2>
         <div className="metadata mt-2 tabular">
-          {memberCount} {memberCount === 1 ? 'member' : 'members'} ·{' '}
-          {convening === 'in_session' ? 'in session' : 'in recess'}
+          {memberCount} {memberCount === 1 ? 'member' : 'members'}
         </div>
       </div>
 
-      <nav aria-label="Space sections" className="flex-1 px-3 pb-6">
+      <nav aria-label="Commons sections" className="flex-1 px-3 pb-6">
         <ul className="flex flex-col">
           {sections.map((s) => {
-            const isActive = s.match(pathname, spaceSlug);
-            const count = counts[s.key];
+            const isActive = s.match(pathname, neighborhoodSlug);
             return (
               <li key={s.key} className="relative">
                 {isActive ? (
@@ -127,7 +109,7 @@ export function Sidebar({
                   />
                 ) : null}
                 <Link
-                  href={s.href(spaceSlug)}
+                  href={s.href(neighborhoodSlug)}
                   {...(onNavigate ? { onClick: onNavigate } : {})}
                   className={`flex items-baseline justify-between px-3 py-2 transition-colors hover:bg-[color:var(--color-paper-deep)] ${
                     isActive
@@ -147,7 +129,6 @@ export function Sidebar({
                       {s.label}
                     </span>
                   </span>
-                  {count ? <span className="metadata tabular">{count}</span> : null}
                 </Link>
               </li>
             );
@@ -160,13 +141,6 @@ export function Sidebar({
       <div className="px-6 py-5">
         <div className="metadata tabular">@{memberHandle}</div>
         <Link
-          href={'/spaces' as Route}
-          {...(onNavigate ? { onClick: onNavigate } : {})}
-          className="mt-1 block text-(length:--text-small) text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-accent)]"
-        >
-          Switch space
-        </Link>
-        <Link
           href={'/' as Route}
           {...(onNavigate ? { onClick: onNavigate } : {})}
           className="mt-1 block text-(length:--text-small) text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-accent)]"
@@ -177,5 +151,3 @@ export function Sidebar({
     </aside>
   );
 }
-
-export type { SectionKey };
