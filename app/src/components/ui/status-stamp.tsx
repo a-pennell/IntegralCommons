@@ -1,14 +1,11 @@
 /**
- * StatusStamp — uppercase mono label that reads as a pre-printed stamp on a
- * filed paper. The single voice for status across CommonGround.
+ * StatusStamp — compact pill badge for status across CommonGround.
  *
  * Color rule:
- *   - terracotta:  in-progress, attention   (EXPLORING, DELIBERATING, VOTING)
- *   - oxblood:     irreversible authority   (DECIDED, CLOSED)
- *   - muted:       quiet, withdrawn         (STALLED, ARCHIVED, REVOKED, DEPARTED)
- *   - ink:         neutral default          (OPEN, GRANTED, INVITED, ACTIVE)
- *
- * Visual: hairline outline, no fill. Never colorful pill, never with an emoji.
+ *   - blue:   in-progress, active attention  (EXPLORING, DELIBERATING, VOTING, IN_SESSION)
+ *   - navy:   irreversible authority         (DECIDED, CLOSED)
+ *   - muted:  quiet, withdrawn              (STALLED, ARCHIVED, REVOKED, DEPARTED)
+ *   - ink:    neutral default               (OPEN, GRANTED, INVITED, ACTIVE)
  */
 
 type Status =
@@ -73,17 +70,17 @@ const toneFor: Record<Status, Tone> = {
 };
 
 const toneClasses: Record<Tone, string> = {
-  ink: 'border-[color:var(--color-ink-soft)] text-[color:var(--color-ink-soft)]',
-  accent: 'border-[color:var(--color-accent)] text-[color:var(--color-accent)]',
-  oxblood: 'border-[color:var(--color-oxblood)] text-[color:var(--color-oxblood)]',
-  muted: 'border-[color:var(--color-muted)] text-[color:var(--color-muted)]',
+  ink: 'bg-[color:var(--color-paper-deep)] text-[color:var(--color-ink-soft)]',
+  accent: 'bg-[color:var(--color-accent-soft)] text-[color:var(--color-accent)]',
+  oxblood: 'bg-[#e0e7ff] text-[color:var(--color-oxblood)]',
+  muted: 'bg-[color:var(--color-paper-deep)] text-[color:var(--color-muted)]',
 };
 
 export function StatusStamp({ status }: { status: Status }) {
   const tone = toneFor[status];
   return (
     <span
-      className={`inline-flex items-center border px-2 py-[3px] font-[var(--font-mono)] text-[10px] leading-none font-medium tracking-[0.18em] uppercase ${toneClasses[tone]}`}
+      className={`inline-flex items-center rounded-full px-2 py-[3px] text-[10px] leading-none font-[var(--font-mono)] font-medium tracking-[0.12em] uppercase ${toneClasses[tone]}`}
     >
       {labels[status]}
     </span>

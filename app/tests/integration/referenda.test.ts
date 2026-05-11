@@ -43,7 +43,7 @@ async function seedSpaceWithDelegation(name: string) {
         standardIssueDays: 30,
         policyChangeDays: 90,
         constitutionalAmendmentDays: 180,
-        delegationGrantDays: 1, // tighten so tests don't need to wait 90 days
+        delegationGrantDays: 30, // constitutional minimum (Zod .min(30))
       },
     },
   });
@@ -73,10 +73,10 @@ async function seedSpaceWithDelegation(name: string) {
   });
   if (!grant.ok) throw new Error('grant failed');
 
-  // Backdate the grant to skirt the 1-day stability window set above.
+  // Backdate the grant to clear the 30-day stability window.
   await db
     .update(delegations)
-    .set({ grantedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) })
+    .set({ grantedAt: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000) })
     .where(eq(delegations.id, grant.value.delegationId));
 
   return {

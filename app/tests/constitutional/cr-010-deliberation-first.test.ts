@@ -28,6 +28,7 @@ async function seedDeliberating(name: string) {
   const { createIssue } = await import('@/server/issues/create');
   const { grantDelegation } = await import('@/server/delegations/grant');
   const { initiateReferendum } = await import('@/server/referenda/initiate');
+  const { supportReferendum } = await import('@/server/referenda/support');
 
   const founderId = ulid();
   const granteeId = ulid();
@@ -43,8 +44,13 @@ async function seedDeliberating(name: string) {
     slug: name.toLowerCase(),
     bootstrapCompletedAt: new Date(),
     governanceProfile: {
-      referendumThreshold: { minimumSupporters: 1, minimumSupportersPct: 0.05 },
-      stability: { delegationGrantDays: 1 },
+      referendumThreshold: { minimumSupporters: 2, minimumSupportersPct: 0.05 },
+      stability: {
+        standardIssueDays: 30,
+        policyChangeDays: 90,
+        constitutionalAmendmentDays: 180,
+        delegationGrantDays: 30,
+      },
     },
   });
   await seedDb.insert(memberships).values([
@@ -71,7 +77,7 @@ async function seedDeliberating(name: string) {
   if (!grant.ok) throw new Error('grant failed');
   await seedDb
     .update(delegations)
-    .set({ grantedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) })
+    .set({ grantedAt: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000) })
     .where(eq(delegations.id, grant.value.delegationId));
 
   const init = await initiateReferendum({
@@ -80,6 +86,14 @@ async function seedDeliberating(name: string) {
     target: { type: 'delegation', delegationId: grant.value.delegationId },
   });
   if (!init.ok) throw new Error('init failed');
+
+  // With minimumSupporters=2 the initiator counts as 1; add granteeId to
+  // reach threshold and advance to deliberating.
+  const sup = await supportReferendum({
+    referendumId: init.value.referendumId,
+    supporterMemberId: granteeId,
+  });
+  if (!sup.ok || !sup.value.thresholdReached) throw new Error('support failed');
 
   return { spaceId, founderId, referendumId: init.value.referendumId };
 }

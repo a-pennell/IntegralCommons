@@ -75,7 +75,9 @@ export function ShellRoot({
       {/* Sidebar — fixed at lg+, drawer below */}
       <div
         className={`fixed inset-y-0 left-0 z-30 bg-[color:var(--color-paper)] transition-transform duration-200 ease-out lg:relative lg:translate-x-0 lg:transition-none ${
-          drawerOpen ? 'translate-x-0 shadow-[1px_0_0_0_var(--color-rule-strong)]' : '-translate-x-full lg:translate-x-0'
+          drawerOpen
+            ? 'translate-x-0 shadow-[1px_0_0_0_var(--color-rule-strong)]'
+            : '-translate-x-full lg:translate-x-0'
         }`}
         aria-hidden={!drawerOpen ? undefined : false}
       >

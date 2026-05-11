@@ -45,9 +45,8 @@ describe('CR-009: predicate blocks loosened rate limits', () => {
 describe('CR-009: governance profile cannot loosen rate limits', () => {
   it('applyGovernanceChangeIfNeeded rejects profile with createIssuePerDay > floor', async () => {
     const { getPool } = await import('@/db');
-    const { applyGovernanceChangeIfNeeded } = await import(
-      '@/server/governance-config/apply-change'
-    );
+    const { applyGovernanceChangeIfNeeded } =
+      await import('@/server/governance-config/apply-change');
 
     const { db } = testDb;
     const memberId = ulid();

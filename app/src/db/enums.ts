@@ -82,3 +82,104 @@ export const rateLimitedActionEnum = pgEnum('rate_limited_action', [
 ]);
 
 export const digestCadenceEnum = pgEnum('digest_cadence', ['daily', 'weekly', 'monthly', 'off']);
+
+// ─── Local Commons ────────────────────────────────────────────────────────────
+
+export const neighborhoodStatusEnum = pgEnum('neighborhood_status', ['active', 'archived']);
+
+export const neighborhoodMembershipRoleEnum = pgEnum('neighborhood_membership_role', [
+  'member',
+  'steward',
+  'anonymous',
+]);
+
+export const resourceKindEnum = pgEnum('resource_kind', [
+  'tool',
+  'space',
+  'skill',
+  'material',
+  'other',
+]);
+
+export const resourceStatusEnum = pgEnum('resource_status', [
+  'available',
+  'unavailable',
+  'removed',
+]);
+
+export const needOfferTypeEnum = pgEnum('need_offer_type', ['need', 'offer']);
+
+export const needOfferStatusEnum = pgEnum('need_offer_status', [
+  'active',
+  'fulfilled',
+  'withdrawn',
+]);
+
+export const exchangeModeEnum = pgEnum('exchange_mode', ['gift', 'time_credit']);
+
+export const exchangeRequestStatusEnum = pgEnum('exchange_request_status', [
+  'pending',
+  'accepted',
+  'declined',
+  'completed',
+  'cancelled',
+]);
+
+export const stewardshipEntryTypeEnum = pgEnum('stewardship_entry_type', [
+  'action_taken',
+  'member_care',
+  'resource_noted',
+  'charter_note',
+  'handover',
+]);
+
+export const creditTransactionTypeEnum = pgEnum('credit_transaction_type', [
+  'earned',
+  'spent',
+  'adjustment',
+  'demurrage_applied',
+]);
+
+export const charterSectionStatusEnum = pgEnum('charter_section_status', [
+  'draft',
+  'ratified',
+  'superseded',
+]);
+
+// ─── Synapse (Flow Engine) ─────────────────────────────────────────────────────
+
+export const producerStatusEnum = pgEnum('producer_status', ['active', 'archived']);
+
+export const declarationKindEnum = pgEnum('declaration_kind', ['surplus', 'shortage']);
+
+export const declarationStatusEnum = pgEnum('declaration_status', [
+  'active',
+  'fulfilled',
+  'withdrawn',
+]);
+
+export const exchangeTermsEnum = pgEnum('exchange_terms', ['free', 'exchange', 'cost_recovery']);
+
+export const synapseResourceTypeEnum = pgEnum('synapse_resource_type', [
+  'vegetables',
+  'fruit',
+  'grains',
+  'legumes',
+  'herbs',
+  'dairy',
+  'eggs',
+  'meat',
+  'honey',
+  'seeds',
+  'other',
+]);
+
+export const allocationStatusEnum = pgEnum('allocation_status', [
+  'proposed',
+  'consented',
+  'rejected',
+  'completed',
+  'cancelled',
+]);
+
+export const consentStatusEnum = pgEnum('consent_status', ['pending', 'consented', 'rejected']);

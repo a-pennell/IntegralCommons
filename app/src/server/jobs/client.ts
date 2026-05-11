@@ -1,22 +1,20 @@
-import { PgBoss } from 'pg-boss';
 import { logger } from '@/lib/logger';
 
 /**
  * Singleton pg-boss client for the Next.js web process.
  *
- * The web process enqueues jobs; the separate worker process (worker.ts)
- * consumes them. Both connect to the same Postgres; pg-boss's `SKIP LOCKED`
- * handles concurrent polling.
- *
- * Lazy-start: the first call to `getBossClient()` opens the connection and
- * applies pg-boss's own schema migrations (it manages its own `pgboss`
- * schema). Subsequent calls reuse the same instance.
+ * Dynamic import prevents webpack from statically bundling pg-boss (which uses
+ * Node.js worker threads with relative paths that break inside vendor-chunks).
+ * pg-boss is loaded at first call and stays in node_modules at runtime.
  */
 
-let instance: PgBoss | null = null;
-let startPromise: Promise<PgBoss> | null = null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type BossInstance = any;
 
-export async function getBossClient(): Promise<PgBoss> {
+let instance: BossInstance | null = null;
+let startPromise: Promise<BossInstance> | null = null;
+
+export async function getBossClient(): Promise<BossInstance> {
   if (instance) return instance;
   if (startPromise) return startPromise;
 
@@ -26,8 +24,10 @@ export async function getBossClient(): Promise<PgBoss> {
   }
 
   startPromise = (async () => {
+    // Dynamic import keeps pg-boss out of the webpack static analysis graph.
+    const { PgBoss } = await import('pg-boss');
     const boss = new PgBoss({ connectionString });
-    boss.on('error', (err) => logger.error({ err }, 'pg-boss client error'));
+    boss.on('error', (err: unknown) => logger.error({ err }, 'pg-boss client error'));
     await boss.start();
     instance = boss;
     startPromise = null;

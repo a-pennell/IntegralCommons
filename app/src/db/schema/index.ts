@@ -10,6 +10,7 @@
  * declared in `../triggers.sql` and applied post-migration.
  */
 
+export * from '../enums.ts';
 export * from './members.ts';
 export * from './spaces.ts';
 export * from './memberships.ts';
@@ -25,3 +26,18 @@ export * from './official_summaries.ts';
 export * from './rate_limit_buckets.ts';
 export * from './auth.ts';
 export * from './digest_deliveries.ts';
+
+// ─── Synapse (Flow Engine) ─────────────────────────────────────────────────────
+export * from './producers.ts';
+export * from './declarations.ts';
+export * from './allocation_proposals.ts';
+
+// ─── Local Commons ────────────────────────────────────────────────────────────
+export * from './neighborhoods.ts';
+export * from './neighborhood_memberships.ts';
+export * from './resources.ts';
+export * from './needs_offers.ts';
+export * from './exchange_requests.ts';
+export * from './stewardship_records.ts';
+export * from './time_credits.ts';
+export * from './commons_charter.ts';

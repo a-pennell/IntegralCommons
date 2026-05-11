@@ -1,72 +1,75 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Paper & ink — warm, editorial, archival. */
-  --color-paper: #f4efe3;
-  --color-paper-deep: #ede5d2;
-  --color-paper-soft: #f8f4ea;
-  --color-ink: #1c1815;
-  --color-ink-soft: #3a322c;
-  --color-rule: #c9bfa9;
-  --color-rule-strong: #5a4f3d;
-  --color-muted: #756c5b;
+  /* Surface — clean neutral, slight cool cast. */
+  --color-paper: #ffffff;
+  --color-paper-deep: #f1f5f9;
+  --color-paper-soft: #f8fafc;
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-rule: #e2e8f0;
+  --color-rule-strong: #94a3b8;
+  --color-muted: #64748b;
 
   /* Accents.
-   * - terracotta: in-progress, attention, action.
-   * - oxblood:    irreversible authority — finalized decisions, closed referenda.
-   * - stuart:     procedural metadata — countdowns, timeline timestamps. Used sparingly.
-   * - amber:      page-level highlights / selection backgrounds.
+   * - blue:      in-progress, attention, action, interactive.
+   * - navy:      irreversible authority — finalized decisions, closed referenda.
+   * - slate:     procedural metadata — countdowns, timeline timestamps.
+   * - sky:       page-level highlights / selection backgrounds.
    */
-  --color-accent: #a8431f;
-  --color-oxblood: #6b2a1f;
-  --color-stuart: #3a4a5e;
-  --color-accent-soft: #c89a5e;
+  --color-accent: #1d4ed8;
+  --color-oxblood: #1e3a8a;
+  --color-stuart: #475569;
+  --color-accent-soft: #dbeafe;
 
   /* Typography — three voices, each with a job.
    *   display  Public Sans    architectural wayfinding (display, title, heading, eyebrow, button)
-   *   body     Source Serif 4 reading (body, lede, small, caption)
+   *   body     Public Sans    UI reading — same family, lighter weight for body density
    *   mono     IBM Plex Mono  technical metadata (citations, IDs, dates, status stamps)
    */
-  --font-display: var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: var(--font-source-serif), 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-display:
+    var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:
+    var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sans: var(--font-display); /* alias for legacy callers */
-  --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono:
+    var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Editorial type scale. Display tier is HEAVY — bold sans gives the UI weight. */
-  --text-display: 56px;
-  --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.025em;
-  --text-display--font-weight: 800;
+  /* Compact type scale — dense SaaS information hierarchy. */
+  --text-display: 40px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
 
-  --text-title: 36px;
-  --text-title--line-height: 1.15;
-  --text-title--letter-spacing: -0.02em;
+  --text-title: 26px;
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.015em;
   --text-title--font-weight: 700;
 
-  --text-heading: 24px;
-  --text-heading--line-height: 1.3;
+  --text-heading: 18px;
+  --text-heading--line-height: 1.35;
   --text-heading--letter-spacing: -0.01em;
-  --text-heading--font-weight: 700;
+  --text-heading--font-weight: 600;
 
-  --text-lede: 21px;
-  --text-lede--line-height: 1.55;
+  --text-lede: 16px;
+  --text-lede--line-height: 1.6;
   --text-lede--font-weight: 400;
 
-  --text-body: 18px;
-  --text-body--line-height: 1.65;
+  --text-body: 14px;
+  --text-body--line-height: 1.6;
   --text-body--font-weight: 400;
 
-  --text-small: 15px;
-  --text-small--line-height: 1.55;
+  --text-small: 13px;
+  --text-small--line-height: 1.5;
   --text-small--font-weight: 400;
 
-  --text-caption: 13px;
-  --text-caption--line-height: 1.5;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.4;
   --text-caption--font-weight: 400;
 
-  --text-label: 11px;
+  --text-label: 10px;
   --text-label--line-height: 1.4;
-  --text-label--letter-spacing: 0.16em;
+  --text-label--letter-spacing: 0.12em;
   --text-label--font-weight: 600;
 
   /* Layout containers. */
@@ -74,7 +77,7 @@
   --container-prose: 640px;
   --container-form: 440px;
   --container-folio: 880px;
-  --container-shell-sidebar: 240px;
+  --container-shell-sidebar: 220px;
   --container-shell-topbar: 48px;
 }
 
@@ -89,7 +92,10 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
-  font-feature-settings: 'liga' 1, 'kern' 1, 'onum' 1;
+  font-feature-settings:
+    'liga' 1,
+    'kern' 1,
+    'lnum' 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -97,37 +103,41 @@ body {
 
 /* Density tiers — applied via [data-density] on a module root. */
 [data-density='editorial'] {
-  --density-section-gap: 64px;
-  --density-row-gap: 16px;
+  --density-section-gap: 48px;
+  --density-row-gap: 14px;
 }
 [data-density='standard'],
 :root {
-  --density-section-gap: 40px;
-  --density-row-gap: 12px;
+  --density-section-gap: 32px;
+  --density-row-gap: 10px;
 }
 [data-density='dense'] {
-  --density-section-gap: 24px;
-  --density-row-gap: 8px;
+  --density-section-gap: 20px;
+  --density-row-gap: 6px;
 }
 
-/* Selection — warm ink on accent paper. */
+/* Selection. */
 ::selection {
   background: var(--color-accent-soft);
   color: var(--color-ink);
 }
 
-/* Focus ring — visible but quiet. */
+/* Focus ring — clear but not loud. */
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+  border-radius: 3px;
 }
 
 /* Tabular figures for data — vote tallies, dates, counts. */
 .tabular {
-  font-feature-settings: 'tnum' 1, 'lnum' 1, 'kern' 1;
+  font-feature-settings:
+    'tnum' 1,
+    'lnum' 1,
+    'kern' 1;
 }
 
-/* Eyebrow — wayfinding label. Sans, small caps, medium weight. */
+/* Eyebrow — wayfinding label. */
 .eyebrow {
   font-family: var(--font-display);
   font-size: var(--text-label);
@@ -143,14 +153,16 @@ body {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   line-height: var(--text-caption--line-height);
-  letter-spacing: 0.02em;
-  color: var(--color-ink-soft);
-  font-feature-settings: 'tnum' 1, 'lnum' 1;
+  letter-spacing: 0.01em;
+  color: var(--color-muted);
+  font-feature-settings:
+    'tnum' 1,
+    'lnum' 1;
 }
 
 /* Drop cap for long-form perspectives / decisions. */
 .dropcap::first-letter {
-  font-size: 4.5em;
+  font-size: 4em;
   line-height: 0.85;
   float: left;
   margin: 0.05em 0.08em 0 -0.04em;

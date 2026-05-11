@@ -46,7 +46,12 @@ async function seed(name: string) {
     bootstrapCompletedAt: new Date(),
     governanceProfile: {
       referendumThreshold: { minimumSupporters: 3, minimumSupportersPct: 0.05 },
-      stability: { delegationGrantDays: 1 },
+      stability: {
+        standardIssueDays: 30,
+        policyChangeDays: 90,
+        constitutionalAmendmentDays: 180,
+        delegationGrantDays: 30,
+      },
     },
   });
   await db.insert(memberships).values([
@@ -75,7 +80,7 @@ async function seed(name: string) {
 
   await db
     .update(delegations)
-    .set({ grantedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000) })
+    .set({ grantedAt: new Date(Date.now() - 35 * 24 * 60 * 60 * 1000) })
     .where(eq(delegations.id, grant.value.delegationId));
 
   return {

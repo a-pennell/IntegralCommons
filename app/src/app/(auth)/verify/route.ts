@@ -3,7 +3,8 @@ import { verifyMagicLink, setSessionCookie } from '@/server/auth';
 
 function getPublicOrigin(request: NextRequest): string {
   const proto = request.headers.get('x-forwarded-proto') ?? 'https';
-  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? 'localhost:3000';
+  const host =
+    request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? 'localhost:3000';
   return `${proto}://${host}`;
 }
 

@@ -15,9 +15,9 @@ import { members } from './members.ts';
  * Perspective — a Member's structured contribution to an Issue. First-class,
  * not a comment. One level of nesting max (FR-021).
  *
- * The single-level-nesting CHECK uses a subquery (Postgres 16+). Service-layer
- * code must also enforce this for defence-in-depth; see
- * `app/src/server/perspectives/submit.ts`.
+ * Single-level nesting (FR-021) is enforced by a BEFORE INSERT/UPDATE trigger
+ * in triggers.sql (Postgres disallows subqueries in CHECK constraints).
+ * Service-layer code also enforces for defence-in-depth.
  */
 export const perspectives = pgTable(
   'perspectives',
@@ -50,12 +50,8 @@ export const perspectives = pgTable(
     parentIdx: index('perspectives_parent_idx')
       .on(table.parentPerspectiveId)
       .where(sql`${table.parentPerspectiveId} IS NOT NULL`),
-    // One-level nesting: parent must itself have parentPerspectiveId = NULL.
-    // Requires Postgres 16+ (subquery in CHECK). Service layer enforces too.
-    singleLevelCheck: check(
-      'perspectives_single_level_nesting',
-      sql`${table.parentPerspectiveId} IS NULL OR (SELECT p.parent_perspective_id FROM perspectives p WHERE p.id = ${table.parentPerspectiveId}) IS NULL`,
-    ),
+    // Single-level nesting (FR-021) is enforced via a BEFORE INSERT trigger
+    // in triggers.sql (subqueries are not allowed in PG CHECK constraints).
   }),
 );
 

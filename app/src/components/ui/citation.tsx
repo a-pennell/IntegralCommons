@@ -33,9 +33,7 @@ export function Citation({ type, number, date, actor, withKind = false }: Props)
   const num = typeof number === 'number' ? String(number).padStart(3, '0') : number;
   return (
     <span className="metadata tabular">
-      {withKind ? (
-        <span className="eyebrow mr-2 inline">{typeLabels[type]}</span>
-      ) : null}
+      {withKind ? <span className="eyebrow mr-2 inline">{typeLabels[type]}</span> : null}
       <span className="text-[color:var(--color-ink)]">
         {type}-{num}
       </span>

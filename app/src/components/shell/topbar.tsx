@@ -33,14 +33,14 @@ export function Topbar({
   onPaletteClick,
 }: Props) {
   return (
-    <header className="flex h-(--container-shell-topbar) items-center justify-between border-b border-[color:var(--color-rule)] px-4 sm:px-6">
-      <div className="flex items-center gap-4">
+    <header className="flex h-(--container-shell-topbar) items-center justify-between border-b border-[color:var(--color-rule)] bg-[color:var(--color-paper)] px-4 sm:px-5">
+      <div className="flex items-center gap-3">
         {onMenuClick ? (
           <button
             type="button"
             onClick={onMenuClick}
             aria-label="Open navigation menu"
-            className="flex h-8 w-8 items-center justify-center text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)] lg:hidden"
+            className="flex h-7 w-7 items-center justify-center rounded text-[color:var(--color-muted)] hover:bg-[color:var(--color-paper-deep)] hover:text-[color:var(--color-ink)] lg:hidden"
           >
             <HamburgerIcon />
           </button>
@@ -48,26 +48,26 @@ export function Topbar({
         {back ? (
           <a
             href={back.href}
-            className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink-soft)] italic hover:text-[color:var(--color-accent)]"
+            className="flex items-center gap-1 text-(length:--text-small) text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)]"
           >
-            ◂ {back.label}
+            <span aria-hidden>←</span> {back.label}
           </a>
         ) : null}
       </div>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-4">
         {paletteTrigger ??
           (onPaletteClick ? (
             <button
               type="button"
               onClick={onPaletteClick}
               aria-label="Open command palette"
-              className="metadata hidden items-center gap-1 tabular text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)] sm:flex"
+              className="metadata tabular hidden items-center gap-1 text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)] sm:flex"
             >
-              <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
+              <kbd className="rounded border border-[color:var(--color-rule)] px-[5px] py-[2px] text-[10px] font-[var(--font-mono)]">
                 ⌘
               </kbd>
-              <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
+              <kbd className="rounded border border-[color:var(--color-rule)] px-[5px] py-[2px] text-[10px] font-[var(--font-mono)]">
                 K
               </kbd>
             </button>
@@ -76,14 +76,14 @@ export function Topbar({
         {hasNotifications ? (
           <span
             aria-label="You have unread notifications"
-            className="block h-[6px] w-[6px] rounded-full bg-[color:var(--color-accent)]"
+            className="block h-1.5 w-1.5 rounded-full bg-[color:var(--color-accent)]"
           />
         ) : (
-          <span aria-hidden className="block h-[6px] w-[6px]" />
+          <span aria-hidden className="block h-1.5 w-1.5" />
         )}
 
         <span
-          className="metadata tabular text-[color:var(--color-ink)]"
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--color-accent)] text-[10px] font-[var(--font-display)] font-semibold tracking-wide text-white"
           aria-label="Your account"
         >
           {memberInitials}
