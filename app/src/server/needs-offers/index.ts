@@ -112,6 +112,10 @@ export async function requestExchange(
   if (needOffer[0].status !== 'active') {
     return err(errors.conflict('need_offer', 'This need/offer is no longer active.'));
   }
+  // Prevent self-response: requester must not be the poster.
+  if (needOffer[0].postedByMemberId === input.requesterMemberId) {
+    return err(errors.notAuthorized('respond', 'You cannot respond to your own posting.'));
+  }
 
   return transaction(async (tx) => {
     // Rate limit: max 20 exchange requests per member per 24-hour rolling window.
