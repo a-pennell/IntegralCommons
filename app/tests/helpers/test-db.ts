@@ -47,6 +47,9 @@ export async function startTestDb(): Promise<TestDatabase> {
 }
 
 export async function stopTestDb(testDb: TestDatabase): Promise<void> {
+  // Suppress FATAL "terminating connection" errors emitted on idle pool clients
+  // when the container stops — expected noise, not test failures.
+  testDb.pool.on('error', () => {});
   await testDb.pool.end();
   await testDb.container.stop({ timeout: 5 });
 }
