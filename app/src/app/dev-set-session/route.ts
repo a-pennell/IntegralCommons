@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { NextRequest } from 'next/server';
-import { SESSION_COOKIE } from '@/server/auth/session';
+import type { NextRequest } from 'next/server';
+import { SESSION_COOKIE } from '@/server/auth';
 
 /**
  * DEV ONLY — sets the session cookie directly from a URL parameter.

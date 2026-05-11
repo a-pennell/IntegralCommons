@@ -31,6 +31,7 @@ export function ResourcesView({ resources, neighborhoodSlug }: Props) {
   // Restore view from sessionStorage across navigations
   useEffect(() => {
     const stored = sessionStorage.getItem('resources-view');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored === 'map') setView('map');
   }, []);
 

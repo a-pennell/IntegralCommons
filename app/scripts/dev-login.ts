@@ -8,7 +8,7 @@
  * paste into your browser to sign in instantly. Never use in production.
  */
 
-import { createHash, randomBytes } from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 import pg from 'pg';
 
 const { Pool } = pg;
@@ -58,7 +58,6 @@ async function main() {
 
     client.release();
 
-    const cookieUrl = `http://localhost:3000/dev-login?session=${encodeURIComponent(sessionId)}`;
     console.log(`\nSession created for ${email} (member ${memberId})`);
     console.log(`\nOpen this URL in your browser:\n`);
     console.log(`  http://localhost:3000/dev-set-session?id=${sessionId}`);

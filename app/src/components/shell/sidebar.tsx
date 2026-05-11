@@ -54,9 +54,8 @@ const sections: Section[] = [
   {
     key: 'timeline',
     label: 'Timeline',
-    // TODO: dedicated /timeline route — currently lives under issues
-    match: () => false,
-    href: (s) => `/spaces/${s}/issues` as Route,
+    match: (p, s) => p.startsWith(`/spaces/${s}/timeline`),
+    href: (s) => `/spaces/${s}/timeline` as Route,
   },
   {
     key: 'settings',

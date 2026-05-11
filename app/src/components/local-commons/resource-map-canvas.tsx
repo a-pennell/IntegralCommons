@@ -24,7 +24,6 @@ const NODE_TYPES = {
 const GROUP_COLS = 2;
 const GROUP_W = 260;
 const GROUP_H_HEADER = 44;
-const NODE_W = 192; // w-48
 const NODE_H = 70;
 const NODE_GAP = 12;
 const GROUP_PAD = 16;
@@ -58,9 +57,7 @@ function buildLayout(resources: Resource[]): { nodes: Node[]; edges: Edge[] } {
   const activeKinds = KIND_ORDER.filter((k) => (byKind.get(k)?.length ?? 0) > 0);
 
   let col = 0;
-  let row = 0;
   let maxHeightInRow = 0;
-  let xOffset = 0;
   let yOffset = 0;
 
   // Track column x offsets per row to enable 2-column layout
@@ -74,7 +71,7 @@ function buildLayout(resources: Resource[]): { nodes: Node[]; edges: Edge[] } {
     const groupContentH = itemsPerCol * (NODE_H + NODE_GAP) - NODE_GAP + GROUP_PAD * 2;
     const groupH = GROUP_H_HEADER + groupContentH;
 
-    xOffset = colX[col % GROUP_COLS] ?? 0;
+    const xOffset = colX[col % GROUP_COLS] ?? 0;
     if (col % GROUP_COLS === 0 && col > 0) {
       yOffset += maxHeightInRow + GROUP_ROW_GAP;
       maxHeightInRow = 0;

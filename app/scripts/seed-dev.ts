@@ -161,7 +161,7 @@ async function main(): Promise<void> {
         'Some tools have gone missing or come back damaged with no accountability mechanism.',
       ],
       constraints: [
-        `No budget for dedicated storage — tools must live in members\' homes or the shared shed.`,
+        `No budget for dedicated storage — tools must live in members' homes or the shared shed.`,
         'Not all members are available on the same days for handoffs.',
       ],
       stakeholders: [
@@ -172,7 +172,7 @@ async function main(): Promise<void> {
       knownFacts: [
         'Priya currently manages all tool requests informally.',
         'Two drills and a circular saw have gone missing in the past year.',
-        `Devon does not have a car, making pickup from certain members\' homes difficult.`,
+        `Devon does not have a car, making pickup from certain members' homes difficult.`,
       ],
       openQuestions: [
         'Do we want a dedicated tool steward each month, or a rotating schedule?',
@@ -203,7 +203,7 @@ async function main(): Promise<void> {
         'We currently grow herbs in planter boxes — this would be a substantial expansion of scope and commitment.',
       ],
       constraints: [
-        `We don\'t have a formal lease yet — any decision depends on getting one.`,
+        `We don't have a formal lease yet — any decision depends on getting one.`,
         'The lot has known drainage issues in the southeast corner.',
         'Some members have limited time availability for regular tending.',
       ],
@@ -245,15 +245,15 @@ async function main(): Promise<void> {
         'A fee structure could make the co-op more sustainable but risks excluding lower-income members.',
       ],
       constraints: [
-        `Any fee structure must be designed so it doesn\'t gate participation.`,
-        `We don\'t yet know what our actual annual costs are — we\'d need a budget first.`,
+        `Any fee structure must be designed so it doesn't gate participation.`,
+        `We don't yet know what our actual annual costs are — we'd need a budget first.`,
       ],
       stakeholders: ['All current members', 'Future prospective members'],
       knownFacts: [],
       openQuestions: [
         'What are our actual annual costs?',
         'Should fees be sliding scale, fixed, or completely voluntary?',
-        `What happens if someone can\'t pay?`,
+        `What happens if someone can't pay?`,
       ],
     },
     decisionMethod: 'consent',
@@ -387,7 +387,7 @@ async function main(): Promise<void> {
       taxonomyType: 'risk',
       fromDirectExperience: true,
       bodyMarkdown:
-        `We need to be honest about damage. Last year\'s missing drill didn\'t disappear — it came back broken and the person who had it didn\'t say anything. Any governance model that doesn\'t include a clear, non-punitive way to report damage just means broken tools get quietly returned and the next person discovers the problem. I\'d rather have an awkward "the drill stopped working while I was using it" norm than a shame spiral.`,
+        `We need to be honest about damage. Last year's missing drill didn't disappear — it came back broken and the person who had it didn't say anything. Any governance model that doesn't include a clear, non-punitive way to report damage just means broken tools get quietly returned and the next person discovers the problem. I'd rather have an awkward "the drill stopped working while I was using it" norm than a shame spiral.`,
       createdAt: d('2026-02-10T11:00:00Z'),
     },
     {
@@ -398,7 +398,7 @@ async function main(): Promise<void> {
       fromDirectExperience: false,
       parentPerspectiveId: p_tool_sofia,
       bodyMarkdown:
-        `Agreed with Sofia. I\'d add: we should also think about what happens when something breaks through normal wear-and-tear vs. user error. We probably shouldn\'t try to assign fault — just have a small repair/replacement fund and treat it as a commons cost.`,
+        `Agreed with Sofia. I'd add: we should also think about what happens when something breaks through normal wear-and-tear vs. user error. We probably shouldn't try to assign fault — just have a small repair/replacement fund and treat it as a commons cost.`,
       createdAt: d('2026-02-11T09:00:00Z'),
     },
     {
@@ -408,7 +408,7 @@ async function main(): Promise<void> {
       taxonomyType: 'equity',
       fromDirectExperience: true,
       bodyMarkdown:
-        `I don\'t have a car, which means I can only realistically borrow tools from members within walking distance. A rotation model that always places tools at the same address, or that requires me to coordinate pickups from wherever the tool happens to be, effectively excludes me. Can we think about tool storage locations as part of this decision? Maybe the shed should be the default return point rather than people\'s homes.`,
+        `I don't have a car, which means I can only realistically borrow tools from members within walking distance. A rotation model that always places tools at the same address, or that requires me to coordinate pickups from wherever the tool happens to be, effectively excludes me. Can we think about tool storage locations as part of this decision? Maybe the shed should be the default return point rather than people's homes.`,
       createdAt: d('2026-02-12T17:00:00Z'),
     },
     {
@@ -418,7 +418,7 @@ async function main(): Promise<void> {
       taxonomyType: 'temporal',
       fromDirectExperience: false,
       bodyMarkdown:
-        `I\'ve been part of two tool libraries in other cities. Both started well and both collapsed after 18 months when the initial enthusiastic stewards burned out. Whatever we build, it needs to be designed for low enthusiasm, not high. The system should be light enough that a steward who has a hard month can fulfil their obligations without heroics.`,
+        `I've been part of two tool libraries in other cities. Both started well and both collapsed after 18 months when the initial enthusiastic stewards burned out. Whatever we build, it needs to be designed for low enthusiasm, not high. The system should be light enough that a steward who has a hard month can fulfil their obligations without heroics.`,
       createdAt: d('2026-02-15T08:00:00Z'),
     },
   ]);
@@ -448,9 +448,9 @@ async function main(): Promise<void> {
     howMethod: 'consent',
     rationaleText:
       'Six weeks of deliberation surfaced three themes that shaped this decision:\n\n' +
-      '1. **Deconcentrate coordination.** Priya\'s direct message had become an informal bottleneck. Rotating stewardship distributes both burden and authority.\n\n' +
-      '2. **Design for low enthusiasm, not high.** Tomasz\'s temporal perspective (and experience from two prior tool libraries) pushed us toward a minimal steward role that\'s sustainable even in busy months.\n\n' +
-      `3. **Shed-first logistics.** Devon\'s equity perspective was decisive in the storage question. Making the shed the default return point removes car-dependency from access.`,
+      "1. **Deconcentrate coordination.** Priya's direct message had become an informal bottleneck. Rotating stewardship distributes both burden and authority.\n\n" +
+      "2. **Design for low enthusiasm, not high.** Tomasz's temporal perspective (and experience from two prior tool libraries) pushed us toward a minimal steward role that's sustainable even in busy months.\n\n" +
+      `3. **Shed-first logistics.** Devon's equity perspective was decisive in the storage question. Making the shed the default return point removes car-dependency from access.`,
     unresolvedObjectionsText:
       'Devon raised an ongoing concern about whether the shared shed is accessible enough — it is currently locked with a combination only Priya and Marcus know. This was acknowledged as a legitimate concern but resolved to address in a follow-up issue ("Shed access policy") rather than blocking this decision.',
     reviewDate: '2026-09-01',
@@ -482,7 +482,7 @@ async function main(): Promise<void> {
       taxonomyType: 'values',
       fromDirectExperience: false,
       bodyMarkdown:
-        `Food sovereignty at neighborhood scale matters to me even if the amounts are small. Growing some of our own food together isn\'t just about efficiency — it\'s about knowing where food comes from and having some collective agency over it. I support expansion, but I want us to be honest that this is a political choice about what kind of neighborhood we want to be, not just a lifestyle project.`,
+        `Food sovereignty at neighborhood scale matters to me even if the amounts are small. Growing some of our own food together isn't just about efficiency — it's about knowing where food comes from and having some collective agency over it. I support expansion, but I want us to be honest that this is a political choice about what kind of neighborhood we want to be, not just a lifestyle project.`,
       createdAt: d('2026-03-22T10:00:00Z'),
     },
     {
@@ -492,7 +492,7 @@ async function main(): Promise<void> {
       taxonomyType: 'equity',
       fromDirectExperience: true,
       bodyMarkdown:
-        `I want to raise the question of who actually has time to tend a plot. Our current herb garden participation fell 40% in year two because the people who started with enthusiasm got busy. If we expand, I want us to design plot allocation so that people who can commit less time (caregivers, people working multiple jobs) aren\'t systematically excluded. Maybe smaller plots or a shared-maintenance option alongside individual plots.`,
+        `I want to raise the question of who actually has time to tend a plot. Our current herb garden participation fell 40% in year two because the people who started with enthusiasm got busy. If we expand, I want us to design plot allocation so that people who can commit less time (caregivers, people working multiple jobs) aren't systematically excluded. Maybe smaller plots or a shared-maintenance option alongside individual plots.`,
       createdAt: d('2026-03-24T15:00:00Z'),
     },
     {
@@ -502,7 +502,7 @@ async function main(): Promise<void> {
       taxonomyType: 'feasibility',
       fromDirectExperience: true,
       bodyMarkdown:
-        `I walked the north lot last weekend. The drainage problem in the southeast corner is real — standing water after rain. That corner is about 25% of the total lot. The rest is usable. We have two options: raised beds throughout (more expensive, solves drainage everywhere), or just avoid the southeast corner (cheaper, but we lose some area and the boundary is ambiguous). I can put together rough cost estimates for both approaches if that\'s useful.`,
+        `I walked the north lot last weekend. The drainage problem in the southeast corner is real — standing water after rain. That corner is about 25% of the total lot. The rest is usable. We have two options: raised beds throughout (more expensive, solves drainage everywhere), or just avoid the southeast corner (cheaper, but we lose some area and the boundary is ambiguous). I can put together rough cost estimates for both approaches if that's useful.`,
       createdAt: d('2026-03-26T09:00:00Z'),
     },
     {
@@ -512,7 +512,7 @@ async function main(): Promise<void> {
       taxonomyType: 'risk',
       fromDirectExperience: false,
       bodyMarkdown:
-        `The biggest risk I see isn\'t logistical — it\'s legal. We have a verbal indication from the building owner, but verbal is worth nothing if they sell the property or change their mind mid-season. Any decision to expand should be conditional on getting a written lease with at least a 2-year term. I\'d feel more comfortable starting small and extending by written agreement than planting extensively on a handshake.`,
+        `The biggest risk I see isn't logistical — it's legal. We have a verbal indication from the building owner, but verbal is worth nothing if they sell the property or change their mind mid-season. Any decision to expand should be conditional on getting a written lease with at least a 2-year term. I'd feel more comfortable starting small and extending by written agreement than planting extensively on a handshake.`,
       createdAt: d('2026-03-28T11:00:00Z'),
     },
     {
@@ -522,7 +522,7 @@ async function main(): Promise<void> {
       taxonomyType: 'relational',
       fromDirectExperience: true,
       bodyMarkdown:
-        `The three neighbors Sofia mentioned at the block meeting are exactly the kind of relationship I want us to be building. The co-op has been a bit insular — we make decisions among ourselves without much porousness. A garden that involves people outside the formal membership could change that. I\'d like us to think about whether this is a chance to pilot an "associate member" model for people who contribute to a specific commons without joining fully.`,
+        `The three neighbors Sofia mentioned at the block meeting are exactly the kind of relationship I want us to be building. The co-op has been a bit insular — we make decisions among ourselves without much porousness. A garden that involves people outside the formal membership could change that. I'd like us to think about whether this is a chance to pilot an "associate member" model for people who contribute to a specific commons without joining fully.`,
       createdAt: d('2026-04-02T18:00:00Z'),
     },
     {
@@ -532,7 +532,7 @@ async function main(): Promise<void> {
       taxonomyType: 'temporal',
       fromDirectExperience: true,
       bodyMarkdown:
-        `We planted a small herb garden last summer with a lot of enthusiasm and by October it was mostly Priya keeping it alive. I\'m not against expansion, but I think we should be honest about our track record. Before committing to a larger lot, I\'d want to see us successfully complete one full growing season with better participation in the existing herb planters. Can we make that a condition of moving forward?`,
+        `We planted a small herb garden last summer with a lot of enthusiasm and by October it was mostly Priya keeping it alive. I'm not against expansion, but I think we should be honest about our track record. Before committing to a larger lot, I'd want to see us successfully complete one full growing season with better participation in the existing herb planters. Can we make that a condition of moving forward?`,
       createdAt: d('2026-04-05T14:00:00Z'),
     },
   ]);
@@ -548,13 +548,13 @@ async function main(): Promise<void> {
     authorMemberId: devonId,
     bodyMarkdown:
       '## What we know so far\n\n' +
-      '**Points of agreement:** Members broadly support the idea of expanding the garden. The north lot is available (verbally) and most of the lot is usable. Chen\'s site assessment confirms the southeast drainage problem can be worked around.\n\n' +
+      "**Points of agreement:** Members broadly support the idea of expanding the garden. The north lot is available (verbally) and most of the lot is usable. Chen's site assessment confirms the southeast drainage problem can be worked around.\n\n" +
       '**Key unresolved questions:**\n' +
-      '1. **Legal**: Marcus\'s concern about a written lease before committing is gaining traction. No one has objected to making this a precondition.\n' +
-      '2. **Access and equity**: Layla\'s framing of who-has-time-to-tend has resonated. A shared maintenance option alongside individual plots may be the answer, but we haven\'t worked out what that looks like.\n' +
+      "1. **Legal**: Marcus's concern about a written lease before committing is gaining traction. No one has objected to making this a precondition.\n" +
+      "2. **Access and equity**: Layla's framing of who-has-time-to-tend has resonated. A shared maintenance option alongside individual plots may be the answer, but we haven't worked out what that looks like.\n" +
       '3. **Participation track record**: Tomasz proposes that we require a successful herb garden season before committing to the larger lot. This is a substantive disagreement with members who want to move forward now.\n' +
-      '4. **Associate members**: Priya\'s idea to use the garden as a pilot for a more porous membership model hasn\'t been explored yet — it may need its own issue.\n\n' +
-      `**What\'s blocking a decision:** We don\'t yet have a written lease offer or cost estimates for raised beds. Devon (that\'s me) will follow up with the building owner this week about a formal lease term.`,
+      "4. **Associate members**: Priya's idea to use the garden as a pilot for a more porous membership model hasn't been explored yet — it may need its own issue.\n\n" +
+      `**What's blocking a decision:** We don't yet have a written lease offer or cost estimates for raised beds. Devon (that's me) will follow up with the building owner this week about a formal lease term.`,
     publishedAt: d('2026-04-18T16:00:00Z'),
     contentHash: 'a3f2c8d14e7b6059a1d5f3e8c2b4a7d9e6f1c3b5a8d2e4f7c1b3a5d8e2f4c6',
   });
@@ -571,7 +571,7 @@ async function main(): Promise<void> {
       taxonomyType: 'values',
       fromDirectExperience: true,
       bodyMarkdown:
-        `I\'m raising this because I\'ve been absorbing small costs quietly for about eight months — zip ties, spray paint for the shed, a new padlock — and I noticed I was starting to resent it. That\'s not a healthy dynamic for a commons. But I also set this co-op up because I believe in access-first. Any fee structure that makes it harder for someone with less money to participate is a structural failure, not an inconvenience. We need both sustainability and access, and I don\'t want to trade one off against the other.`,
+        `I'm raising this because I've been absorbing small costs quietly for about eight months — zip ties, spray paint for the shed, a new padlock — and I noticed I was starting to resent it. That's not a healthy dynamic for a commons. But I also set this co-op up because I believe in access-first. Any fee structure that makes it harder for someone with less money to participate is a structural failure, not an inconvenience. We need both sustainability and access, and I don't want to trade one off against the other.`,
       createdAt: d('2026-04-28T10:45:00Z'),
     },
     {
@@ -581,7 +581,7 @@ async function main(): Promise<void> {
       taxonomyType: 'feasibility',
       fromDirectExperience: false,
       bodyMarkdown:
-        `Before we can design a fee structure, we need a budget. Do we know what our actual annual costs are? I\'d volunteer to put together a simple cost tracker — even just a shared spreadsheet for three months would give us real numbers to design around. Right now we\'re having a values argument about fees without knowing if we\'re talking about $20/year or $200/year per member. Those are very different conversations.`,
+        `Before we can design a fee structure, we need a budget. Do we know what our actual annual costs are? I'd volunteer to put together a simple cost tracker — even just a shared spreadsheet for three months would give us real numbers to design around. Right now we're having a values argument about fees without knowing if we're talking about $20/year or $200/year per member. Those are very different conversations.`,
       createdAt: d('2026-04-29T14:00:00Z'),
     },
   ]);

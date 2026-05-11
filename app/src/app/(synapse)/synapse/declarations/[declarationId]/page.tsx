@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import type { Route } from 'next';
 import { requireSession } from '@/server/auth';
-import { getDeclarationById, getProducerByMember, listActiveDeclarations, withdrawDeclaration } from '@/server/synapse';
+import { getDeclarationById } from '@/server/synapse';
 import { withdrawDeclarationAction } from './action';
 
 type RouteParams = { declarationId: string };
@@ -26,10 +26,7 @@ export default async function DeclarationDetailPage({
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/synapse/declarations/${declarationId}`);
 
-  const [declaration, myProducer] = await Promise.all([
-    getDeclarationById(declarationId),
-    getProducerByMember(session.value.memberId),
-  ]);
+  const declaration = await getDeclarationById(declarationId);
   if (!declaration) notFound();
 
   const isOwner = declaration.producer.managedByMemberId === session.value.memberId;
