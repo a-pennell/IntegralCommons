@@ -32,11 +32,12 @@ export async function startTestDb(): Promise<TestDatabase> {
   const pool = new Pool({ connectionString: container.getConnectionUri(), max: 5 });
   const db = drizzle(pool, { schema });
 
-  // Apply the initial migration (includes appended triggers.sql — see plan §Data Model).
-  const migrationSql = readFileSync(join(MIGRATIONS_DIR, '0000_narrow_rocket_raccoon.sql'), 'utf8');
-  // Drizzle emits `--> statement-breakpoint` between statements; pg can execute
-  // the whole blob in one query since each stmt is ;-terminated.
-  await pool.query(migrationSql.replace(/-->\s*statement-breakpoint/g, ''));
+  // Apply all migrations in order. Drizzle emits `--> statement-breakpoint` between
+  // statements; pg can execute the whole blob since each stmt is ;-terminated.
+  const strip = (sql: string) => sql.replace(/-->\s*statement-breakpoint/g, '');
+  for (const file of ['0000_deep_martin_li.sql', '0001_hard_spyke.sql']) {
+    await pool.query(strip(readFileSync(join(MIGRATIONS_DIR, file), 'utf8')));
+  }
 
   return { db, pool, container };
 }

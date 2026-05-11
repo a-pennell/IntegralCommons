@@ -25,7 +25,7 @@ export async function getBossClient(): Promise<BossInstance> {
 
   startPromise = (async () => {
     // Dynamic import keeps pg-boss out of the webpack static analysis graph.
-    const { default: PgBoss } = await import('pg-boss');
+    const { PgBoss } = await import('pg-boss');
     const boss = new PgBoss({ connectionString });
     boss.on('error', (err: unknown) => logger.error({ err }, 'pg-boss client error'));
     await boss.start();
