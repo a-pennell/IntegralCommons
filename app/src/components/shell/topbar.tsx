@@ -82,12 +82,13 @@ export function Topbar({
           <span aria-hidden className="block h-1.5 w-1.5" />
         )}
 
-        <span
-          className="flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--color-accent)] text-[10px] font-[var(--font-display)] font-semibold tracking-wide text-white"
+        <a
+          href="/account"
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--color-accent)] text-[10px] font-[var(--font-display)] font-semibold tracking-wide text-white hover:opacity-80"
           aria-label="Your account"
         >
           {memberInitials}
-        </span>
+        </a>
       </div>
     </header>
   );
