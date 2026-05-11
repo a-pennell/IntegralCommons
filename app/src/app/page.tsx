@@ -104,6 +104,16 @@ export default async function HubPage() {
         </section>
       )}
 
+      <section className="mb-12">
+        <div className="eyebrow mb-4">Flow Engine · Synapse</div>
+        <Link
+          href={'/synapse' as Route}
+          className="block px-1 py-4 font-[var(--font-display)] font-semibold text-(length:--text-body) text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
+        >
+          Synapse — regional surplus visibility
+        </Link>
+      </section>
+
       <section>
         <div className="eyebrow mb-4">Local Commons · Neighborhoods</div>
         {myNeighborhoods.length > 0 ? (

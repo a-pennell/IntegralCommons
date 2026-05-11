@@ -27,6 +27,11 @@ export * from './rate_limit_buckets.ts';
 export * from './auth.ts';
 export * from './digest_deliveries.ts';
 
+// ─── Synapse (Flow Engine) ─────────────────────────────────────────────────────
+export * from './producers.ts';
+export * from './declarations.ts';
+export * from './allocation_proposals.ts';
+
 // ─── Local Commons ────────────────────────────────────────────────────────────
 export * from './neighborhoods.ts';
 export * from './neighborhood_memberships.ts';

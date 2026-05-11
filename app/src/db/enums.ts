@@ -145,3 +145,49 @@ export const charterSectionStatusEnum = pgEnum('charter_section_status', [
   'ratified',
   'superseded',
 ]);
+
+// ─── Synapse (Flow Engine) ─────────────────────────────────────────────────────
+
+export const producerStatusEnum = pgEnum('producer_status', ['active', 'archived']);
+
+export const declarationKindEnum = pgEnum('declaration_kind', ['surplus', 'shortage']);
+
+export const declarationStatusEnum = pgEnum('declaration_status', [
+  'active',
+  'fulfilled',
+  'withdrawn',
+]);
+
+export const exchangeTermsEnum = pgEnum('exchange_terms', [
+  'free',
+  'exchange',
+  'cost_recovery',
+]);
+
+export const synapseResourceTypeEnum = pgEnum('synapse_resource_type', [
+  'vegetables',
+  'fruit',
+  'grains',
+  'legumes',
+  'herbs',
+  'dairy',
+  'eggs',
+  'meat',
+  'honey',
+  'seeds',
+  'other',
+]);
+
+export const allocationStatusEnum = pgEnum('allocation_status', [
+  'proposed',
+  'consented',
+  'rejected',
+  'completed',
+  'cancelled',
+]);
+
+export const consentStatusEnum = pgEnum('consent_status', [
+  'pending',
+  'consented',
+  'rejected',
+]);
