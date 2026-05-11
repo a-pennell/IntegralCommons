@@ -46,7 +46,8 @@ describe('CR-012: openMetaIssue creates a blocking meta-Issue', () => {
       spaceId,
       initiatorMemberId: memberId,
       conflictingPrinciples: ['CR-010 (deliberation-first)', 'CR-011 (participation-integrity)'],
-      context: 'Referendum initiated before awareness quorum reached — deliberation-first demands we wait, but quorum rules say we proceed.',
+      context:
+        'Referendum initiated before awareness quorum reached — deliberation-first demands we wait, but quorum rules say we proceed.',
     });
 
     expect(result.ok).toBe(true);

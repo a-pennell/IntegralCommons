@@ -44,13 +44,13 @@ Open http://localhost:3000. Log in with any email; the magic link is captured in
 
 See [`app/.env.example`](.env.example) for the full list. Minimum required:
 
-| Variable | Description |
-|---|---|
-| `DATABASE_URL` | `postgres://user:pass@host:5432/dbname` |
-| `SESSION_SECRET` | 32+ bytes random hex — used to sign session cookies and export URLs |
-| `EMAIL_ADAPTER` | `mailhog` (dev) \| `smtp` \| `resend` |
-| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | When `EMAIL_ADAPTER=smtp` |
-| `RESEND_API_KEY` | When `EMAIL_ADAPTER=resend` |
+| Variable                                              | Description                                                         |
+| ----------------------------------------------------- | ------------------------------------------------------------------- |
+| `DATABASE_URL`                                        | `postgres://user:pass@host:5432/dbname`                             |
+| `SESSION_SECRET`                                      | 32+ bytes random hex — used to sign session cookies and export URLs |
+| `EMAIL_ADAPTER`                                       | `mailhog` (dev) \| `smtp` \| `resend`                               |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | When `EMAIL_ADAPTER=smtp`                                           |
+| `RESEND_API_KEY`                                      | When `EMAIL_ADAPTER=resend`                                         |
 
 ### Docker Compose (single-server)
 

@@ -58,7 +58,9 @@ async function seedSpace() {
     scope: 'Authorize a full export of Space data.',
     status: 'decided',
   });
-  const reviewDateStr = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]!;
+  const reviewDateStr = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0]!;
   await db.insert(decisionRecords).values({
     id: drId,
     issueId,
@@ -142,7 +144,9 @@ describe('CR-003: space-wide export bundle is structurally complete', () => {
       scope: 'Test draft DR rejection.',
       status: 'open',
     });
-    const draftReviewDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]!;
+    const draftReviewDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split('T')[0]!;
     await db.insert(decisionRecords).values({
       id: draftDrId,
       issueId,
