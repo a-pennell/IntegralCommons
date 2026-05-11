@@ -1,0 +1,1 @@
+ALTER TABLE "issues" ADD COLUMN "has_ecological_scope" boolean DEFAULT false NOT NULL;

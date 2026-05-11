@@ -41,6 +41,7 @@ export async function startTestDb(): Promise<TestDatabase> {
     '0001_hard_spyke.sql',
     '0002_post_migration_setup.sql',
     '0003_neighborhood_boundary.sql',
+    '0004_ecological_scope_flag.sql',
   ]) {
     await pool.query(strip(readFileSync(join(MIGRATIONS_DIR, file), 'utf8')));
   }

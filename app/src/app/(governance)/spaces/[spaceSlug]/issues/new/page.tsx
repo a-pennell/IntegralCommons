@@ -135,6 +135,25 @@ export default async function NewIssuePage({
           </fieldset>
         ) : null}
 
+        {!isGovernance ? (
+          <div>
+            <label className="flex items-start gap-3 text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)]">
+              <input
+                type="checkbox"
+                name="hasEcologicalScope"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-[color:var(--color-accent)]"
+              />
+              <span>
+                <span className="font-medium">This issue has ecological scope</span>
+                <span className="mt-0.5 block text-(length:--text-caption) text-[color:var(--color-muted)]">
+                  Marks the issue as touching land use, water, species habitat, or other ecological
+                  concerns — enabling EIL data attachment when the integration is live.
+                </span>
+              </span>
+            </label>
+          </div>
+        ) : null}
+
         <div className="pt-2">
           <Button type="submit">{isGovernance ? 'Open governance Issue' : 'Open Issue'}</Button>
         </div>

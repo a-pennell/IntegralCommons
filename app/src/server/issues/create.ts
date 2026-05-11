@@ -33,6 +33,7 @@ export type CreateIssueInput = {
   readonly scopeTags?: ReadonlyArray<string>;
   readonly structuredSections?: Record<string, unknown>;
   readonly isBootstrap?: boolean;
+  readonly hasEcologicalScope?: boolean;
 };
 
 export type CreateIssueOk = {
@@ -125,9 +126,9 @@ export async function createIssue(
       await tx.query(
         `INSERT INTO issues (
            id, space_id, title, slug, scope, status, scope_tags, structured_sections,
-           is_bootstrap, created_by_member_id
+           is_bootstrap, has_ecological_scope, created_by_member_id
          )
-         VALUES ($1, $2, $3, $4, $5, 'open', $6, $7, $8, $9)`,
+         VALUES ($1, $2, $3, $4, $5, 'open', $6, $7, $8, $9, $10)`,
         [
           issueId,
           input.spaceId,
@@ -137,6 +138,7 @@ export async function createIssue(
           scopeTagsResult.value,
           input.structuredSections ?? {},
           input.isBootstrap ?? false,
+          input.hasEcologicalScope ?? false,
           input.creatorMemberId,
         ],
       );
@@ -179,6 +181,7 @@ export async function createIssue(
         slug,
         scopeTags: scopeTagsResult.value,
         isBootstrap: input.isBootstrap ?? false,
+        hasEcologicalScope: input.hasEcologicalScope ?? false,
       },
     });
 
