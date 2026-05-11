@@ -8,8 +8,8 @@ import { startTestDb, stopTestDb, type TestDatabase } from '../helpers/test-db';
  * CR-008 — Temporal stability.
  *
  * A delegation cannot be challenged within the stability window after
- * grant. Default is 30 days; Phase 1 tightens to 1 day in these tests so
- * the backdate trick is obvious.
+ * grant. Default delegationGrantDays is 90; tests use the default and
+ * backdate past it to verify the guard clears.
  */
 
 let testDb: TestDatabase;
@@ -41,7 +41,7 @@ async function seedFreshlyGrantedDelegation(name: string) {
     name,
     slug: name.toLowerCase(),
     bootstrapCompletedAt: new Date(),
-    // Stability window: 30 days (default). Grant is fresh so guard fires.
+    // Stability window: 90 days (default). Grant is fresh so guard fires.
   });
   await db.insert(memberships).values([
     { id: ulid(), spaceId, memberId: founderId, status: 'active' },
@@ -91,10 +91,10 @@ describe('CR-008 — temporal stability', () => {
     const { initiateReferendum } = await import('@/server/referenda/initiate');
     const { founderId, spaceId, delegationId } = await seedFreshlyGrantedDelegation('cr008-b');
 
-    // Backdate grant beyond the 30-day default floor.
+    // Backdate grant beyond the 90-day default floor.
     await db
       .update(delegations)
-      .set({ grantedAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000) })
+      .set({ grantedAt: new Date(Date.now() - 95 * 24 * 60 * 60 * 1000) })
       .where(eq(delegations.id, delegationId));
 
     const init = await initiateReferendum({

@@ -70,14 +70,14 @@ async function seedDelegation(name: string) {
   });
   if (!g.ok) throw new Error('grant failed');
 
-  return { delegationId: g.value.delegationId, issueId: issue.value.issueId, spaceId };
+  return { delegationId: g.value.delegationId, issueId: issue.value.issueId, spaceId, founderId };
 }
 
 describe('CR-005 — revocability', () => {
   it('revoke flips revoked_at from null to now()', async () => {
     const { db } = testDb;
     const { revokeDelegation } = await import('@/server/delegations/revoke');
-    const { delegationId } = await seedDelegation('cr005-a');
+    const { delegationId, founderId } = await seedDelegation('cr005-a');
 
     const before = await db
       .select({ revokedAt: delegations.revokedAt })
@@ -88,7 +88,7 @@ describe('CR-005 — revocability', () => {
 
     const r = await revokeDelegation({
       delegationId,
-      actorMemberId: 'does-not-matter-here-26char00',
+      actorMemberId: founderId,
     });
     expect(r.ok).toBe(true);
     if (!r.ok) return;
@@ -104,17 +104,17 @@ describe('CR-005 — revocability', () => {
 
   it('second revoke is a no-op (idempotent)', async () => {
     const { revokeDelegation } = await import('@/server/delegations/revoke');
-    const { delegationId } = await seedDelegation('cr005-b');
+    const { delegationId, founderId } = await seedDelegation('cr005-b');
 
     const first = await revokeDelegation({
       delegationId,
-      actorMemberId: 'actor-26-char-ulid-00000000',
+      actorMemberId: founderId,
     });
     expect(first.ok && !first.value.alreadyRevoked).toBe(true);
 
     const second = await revokeDelegation({
       delegationId,
-      actorMemberId: 'actor-26-char-ulid-00000000',
+      actorMemberId: founderId,
     });
     expect(second.ok).toBe(true);
     if (!second.ok) return;
@@ -133,7 +133,7 @@ describe('CR-005 — revocability', () => {
   it('findActiveDelegations excludes revoked rows', async () => {
     const { revokeDelegation } = await import('@/server/delegations/revoke');
     const { findActiveDelegations } = await import('@/server/delegations/holder-for');
-    const { delegationId, issueId, spaceId } = await seedDelegation('cr005-d');
+    const { delegationId, issueId, spaceId, founderId } = await seedDelegation('cr005-d');
 
     const before = await findActiveDelegations({
       spaceId,
@@ -144,7 +144,7 @@ describe('CR-005 — revocability', () => {
 
     await revokeDelegation({
       delegationId,
-      actorMemberId: 'actor-26-char-ulid-00000000',
+      actorMemberId: founderId,
     });
 
     const after = await findActiveDelegations({

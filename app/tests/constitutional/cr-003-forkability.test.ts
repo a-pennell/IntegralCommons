@@ -56,7 +56,6 @@ async function seedSpace() {
     title: 'Export authorization',
     slug: `export-auth-${issueId.slice(-6)}`,
     scope: 'Authorize a full export of Space data.',
-    status: 'decided',
   });
   const reviewDateStr = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     .toISOString()
@@ -167,6 +166,6 @@ describe('CR-003: space-wide export bundle is structurally complete', () => {
 
     expect(result.ok).toBe(false);
     if (result.ok) return;
-    expect(result.error.kind).toBe('not_authorized');
+    expect(result.error.kind).toBe('NotAuthorized');
   });
 });

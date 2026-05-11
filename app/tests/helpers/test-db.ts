@@ -47,9 +47,13 @@ export async function startTestDb(): Promise<TestDatabase> {
 }
 
 export async function stopTestDb(testDb: TestDatabase): Promise<void> {
-  // Suppress FATAL "terminating connection" errors emitted on idle pool clients
-  // when the container stops — expected noise, not test failures.
+  // Register before container.stop() so the idle-listener path (client error
+  // → pool.emit('error')) is suppressed while clients are still attached.
   testDb.pool.on('error', () => {});
-  await testDb.pool.end();
+  // Stop the container first — this sends 57P01 FATAL to all open sockets
+  // while idle listeners are still attached to the pool clients, so errors
+  // route through pool.emit('error') and are caught by the handler above.
+  // Ending the pool afterwards is then a no-op (all clients already gone).
   await testDb.container.stop({ timeout: 5 });
+  await testDb.pool.end();
 }
