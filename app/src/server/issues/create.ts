@@ -33,6 +33,7 @@ export type CreateIssueInput = {
   readonly scopeTags?: ReadonlyArray<string>;
   readonly structuredSections?: Record<string, unknown>;
   readonly isBootstrap?: boolean;
+  readonly hasEcologicalScope?: boolean;
 };
 
 export type CreateIssueOk = {
@@ -121,24 +122,42 @@ export async function createIssue(
     }
 
     const issueId = ulid();
-    await tx.query(
-      `INSERT INTO issues (
-         id, space_id, title, slug, scope, status, scope_tags, structured_sections,
-         is_bootstrap, created_by_member_id
-       )
-       VALUES ($1, $2, $3, $4, $5, 'open', $6, $7, $8, $9)`,
-      [
-        issueId,
-        input.spaceId,
-        trimmedTitle,
-        slug,
-        trimmedScope,
-        scopeTagsResult.value,
-        input.structuredSections ?? {},
-        input.isBootstrap ?? false,
-        input.creatorMemberId,
-      ],
-    );
+    try {
+      await tx.query(
+        `INSERT INTO issues (
+           id, space_id, title, slug, scope, status, scope_tags, structured_sections,
+           is_bootstrap, has_ecological_scope, created_by_member_id
+         )
+         VALUES ($1, $2, $3, $4, $5, 'open', $6, $7, $8, $9, $10)`,
+        [
+          issueId,
+          input.spaceId,
+          trimmedTitle,
+          slug,
+          trimmedScope,
+          scopeTagsResult.value,
+          input.structuredSections ?? {},
+          input.isBootstrap ?? false,
+          input.hasEcologicalScope ?? false,
+          input.creatorMemberId,
+        ],
+      );
+    } catch (e) {
+      // The partial unique index allows exactly one bootstrap Issue per Space (CR-004).
+      if (
+        typeof e === 'object' &&
+        e !== null &&
+        'code' in e &&
+        (e as { code: string }).code === '23505' &&
+        'constraint' in e &&
+        (e as { constraint: string }).constraint === 'issues_space_bootstrap_uniq'
+      ) {
+        return err(
+          errors.constitutional('CR-004', 'A bootstrap Issue already exists for this Space.'),
+        );
+      }
+      throw e;
+    }
 
     // Quorum snapshot.
     const snap = await snapshotQuorumThresholds(tx, {
@@ -162,6 +181,7 @@ export async function createIssue(
         slug,
         scopeTags: scopeTagsResult.value,
         isBootstrap: input.isBootstrap ?? false,
+        hasEcologicalScope: input.hasEcologicalScope ?? false,
       },
     });
 

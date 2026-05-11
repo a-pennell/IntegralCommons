@@ -1,8 +1,5 @@
 import type { PoolClient } from 'pg';
-import {
-  GovernanceProfileSchema,
-  type GovernanceProfile,
-} from './schema.ts';
+import { GovernanceProfileSchema, type GovernanceProfile } from './schema.ts';
 import { cr009WouldLoosenRateLimits } from '@/server/constitution';
 
 // Constitutional floors (must match governance-config/schema.ts DEFAULTS).
@@ -45,6 +42,29 @@ export async function applyGovernanceChangeIfNeeded(
   }
 
   const raw = sections.proposedProfile;
+
+  // CR-009 pre-check: run before full schema validation so the violation is
+  // tagged with cr:'CR-009' even when Zod's .max() constraint rejects the
+  // same value (they enforce the same floor).
+  const rawRateLimits = (raw as { rateLimits?: Record<string, unknown> } | null)?.rateLimits;
+  if (rawRateLimits) {
+    const { createIssuePerDay, initiateReferendumPerRollingWeek } = rawRateLimits;
+    if (typeof createIssuePerDay === 'number') {
+      const v = cr009WouldLoosenRateLimits({
+        proposedLimit: createIssuePerDay,
+        floorLimit: RATE_LIMIT_FLOOR.createIssuePerDay,
+      });
+      if (v) return { ok: false, reason: v.explanation, cr: 'CR-009' };
+    }
+    if (typeof initiateReferendumPerRollingWeek === 'number') {
+      const v = cr009WouldLoosenRateLimits({
+        proposedLimit: initiateReferendumPerRollingWeek,
+        floorLimit: RATE_LIMIT_FLOOR.initiateReferendumPerRollingWeek,
+      });
+      if (v) return { ok: false, reason: v.explanation, cr: 'CR-009' };
+    }
+  }
+
   const parsed = GovernanceProfileSchema.safeParse(raw);
   if (!parsed.success) {
     return {

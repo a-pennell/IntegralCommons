@@ -1,66 +1,89 @@
-import { requestMagicLinkAction } from './action';
 import type { Route } from 'next';
+import { Button } from '@/components/ui/button';
+import { Field } from '@/components/ui/field';
+import { Note } from '@/components/ui/note';
+import { PageHeader } from '@/components/ui/page-header';
+import { requestMagicLinkAction } from './action';
 
-type SearchParams = { sent?: string; error?: string; next?: string };
+type SearchParams = { sent?: string; error?: string; next?: string; deleted?: string };
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const sentTo = params.sent;
   const errorKind = params.error;
   const nextPath = params.next;
+  const isDeleted = params.deleted === 'true';
 
   return (
-    <main className="mx-auto max-w-md p-8">
-      <h1 className="mb-6 text-3xl font-[var(--font-display)]">Sign in</h1>
+    <main className="mx-auto w-full max-w-(--container-form) px-6 py-20">
+      <PageHeader
+        eyebrow="Sign in"
+        title="Welcome back"
+        lede="No passwords. We send a single-use sign-in link to your email."
+      />
+
+      {isDeleted ? (
+        <div className="mb-8">
+          <Note tone="info">
+            Your account has been deleted. Your email and name have been removed. Thank you for
+            being part of the community.
+          </Note>
+        </div>
+      ) : null}
 
       {sentTo ? (
-        <div className="mb-6 border-l-2 border-[color:var(--color-accent)] pl-4">
-          <p>
-            A sign-in link has been sent to <strong>{sentTo}</strong>. It expires in 15 minutes and
-            can be used once.
-          </p>
-          <p className="mt-2 text-sm text-[color:var(--color-muted)]">
-            Not seeing it? Check your spam folder, or{' '}
-            <a className="underline" href={'/login' satisfies Route}>
-              request another link
+        <div className="mb-8">
+          <Note>
+            A sign-in link has been sent to <strong className="font-medium">{sentTo}</strong>. It
+            expires in 15 minutes and can be used once.{' '}
+            <a
+              className="underline decoration-[color:var(--color-accent)] underline-offset-4"
+              href={'/login' satisfies Route}
+            >
+              Send another
             </a>
             .
-          </p>
+          </Note>
         </div>
       ) : null}
 
       {errorKind ? (
-        <p className="mb-4 text-sm text-[color:var(--color-accent)]">
-          {renderErrorMessage(errorKind)}
-        </p>
+        <div className="mb-8">
+          <Note tone="error">{renderErrorMessage(errorKind)}</Note>
+        </div>
       ) : null}
 
-      <form action={requestMagicLinkAction} className="flex flex-col gap-3">
-        <label htmlFor="email" className="text-sm">
-          Email address
-        </label>
-        <input
+      <form action={requestMagicLinkAction} className="flex flex-col gap-8">
+        <Field
           id="email"
           name="email"
+          label="Email address"
           type="email"
           required
           autoComplete="email"
           inputMode="email"
-          className="border border-[color:var(--color-rule)] bg-white p-2"
+          placeholder="you@example.com"
         />
         {nextPath ? <input type="hidden" name="next" value={nextPath} /> : null}
-        <button
-          type="submit"
-          className="mt-2 bg-[color:var(--color-ink)] px-4 py-2 text-[color:var(--color-paper)]"
-        >
-          Send sign-in link
-        </button>
+        <div className="pt-2">
+          <Button type="submit">Send sign-in link</Button>
+        </div>
       </form>
 
-      <p className="mt-8 text-sm text-[color:var(--color-muted)]">
-        CommonGround uses magic-link sign-in — no passwords. Every link is single-use and expires
-        after 15 minutes.
-      </p>
+      <footer className="mt-16 border-t border-[color:var(--color-rule)] pt-8">
+        <p className="text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-muted)] italic">
+          CommonGround uses magic-link sign-in. Every link is single-use and expires after fifteen
+          minutes.
+        </p>
+        <p className="mt-4 text-(length:--text-small) leading-(--text-small--line-height)">
+          <a
+            href="/framework"
+            className="text-[color:var(--color-ink-soft)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+          >
+            Read the Governance Framework
+          </a>
+        </p>
+      </footer>
     </main>
   );
 }
@@ -73,6 +96,8 @@ function renderErrorMessage(kind: string): string {
       return 'The email could not be sent right now. Please try again in a moment.';
     case 'invalid_email':
       return 'That email address does not look valid.';
+    case 'invalid_token':
+      return 'That sign-in link is no longer valid. Magic links are single-use and expire fifteen minutes after they are sent.';
     default:
       return 'Something went wrong. Please try again.';
   }

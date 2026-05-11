@@ -12,7 +12,7 @@ CommonGround is a modular, open-source collective sense-making system for groups
 
 The product embeds a constitutional governance framework — 11 principles with a two-tier hierarchy — that ensures power remains visible, contextual, and revocable. There are no fixed roles. Authority is delegated per-issue by the group and can be recalled at any time through referendum.
 
-CommonGround is the focused MVP product within the broader Integral Commons OS (ICOS) vision. ICOS envisions a federated ecosystem spanning personal vaults, ecological stewardship, mutual aid, and more. CommonGround delivers the foundation: a system where groups can think together well enough to govern themselves.
+CommonGround is the governance engine within the broader Integral Commons ecosystem — the layer that lets any group think together well enough to govern themselves. It is the foundation the other layers build on.
 
 ---
 
@@ -447,7 +447,7 @@ AI outputs are:
 - Delegation visibility and analytics
 - Federation between groups
 - Cooperative hosting partnerships
-- Bridges to the broader ICOS ecosystem
+- Bridges to the broader Integral Commons ecosystem
 
 ---
 
@@ -489,7 +489,7 @@ The reference implementation of the governance framework.
 
 ---
 
-## Future Vision: Integral Commons OS (ICOS)
+## Future Vision: Integral Commons Ecosystem
 
 CommonGround is the foundation layer of a broader ecosystem:
 

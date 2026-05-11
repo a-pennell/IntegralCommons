@@ -27,7 +27,9 @@ async function seedSpaceWithVocabulary(vocabulary: ReadonlyArray<string>) {
   const { db } = testDb;
   const founderId = ulid();
   const spaceId = ulid();
-  await db.insert(members).values({ id: founderId, email: 'cr007@test.test' });
+  await db
+    .insert(members)
+    .values({ id: founderId, email: `cr007-${founderId.slice(-8)}@test.test` });
   await db.insert(spaces).values({
     id: spaceId,
     name: 'Scoped Space',

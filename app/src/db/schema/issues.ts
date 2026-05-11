@@ -53,6 +53,7 @@ export const issues = pgTable(
     decisionMethod: text('decision_method'),
     reviewDate: date('review_date'),
     isBootstrap: boolean('is_bootstrap').notNull().default(false),
+    hasEcologicalScope: boolean('has_ecological_scope').notNull().default(false),
     reopenReason: text('reopen_reason'),
     createdByMemberId: text('created_by_member_id')
       .notNull()

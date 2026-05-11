@@ -102,7 +102,37 @@ END
 $$;
 
 -- ----------------------------------------------------------------------------
--- 4. Referendum immutability on close (CR-010 integrity).
+-- 4. Perspectives single-level nesting (FR-021).
+--    Postgres does not allow subqueries in CHECK constraints, so this is a
+--    trigger. The service layer also enforces for defence-in-depth.
+-- ----------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION perspectives_single_level_nesting_fn()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.parent_perspective_id IS NOT NULL THEN
+    IF EXISTS (
+      SELECT 1 FROM perspectives
+      WHERE id = NEW.parent_perspective_id
+        AND parent_perspective_id IS NOT NULL
+    ) THEN
+      RAISE EXCEPTION 'perspectives: nesting is limited to one level (FR-021)'
+        USING ERRCODE = 'check_violation';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS perspectives_single_level_nesting_trigger ON perspectives;
+
+CREATE TRIGGER perspectives_single_level_nesting_trigger
+  BEFORE INSERT OR UPDATE ON perspectives
+  FOR EACH ROW
+  EXECUTE FUNCTION perspectives_single_level_nesting_fn();
+
+-- ----------------------------------------------------------------------------
+-- 5. Referendum immutability on close (CR-010 integrity).
 --    Closed referenda may not be updated or deleted.
 -- ----------------------------------------------------------------------------
 

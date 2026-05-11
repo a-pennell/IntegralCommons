@@ -23,6 +23,9 @@ export async function enqueueEmailDispatch(
   boss: PgBoss,
   payload: EmailDispatchJobPayload,
 ): Promise<void> {
+  // createQueue is idempotent — safe to call on every enqueue so the web
+  // process doesn't depend on the worker having run first.
+  await boss.createQueue(QUEUE_NAME);
   await boss.send(QUEUE_NAME, payload, {
     singletonKey: payload.messageId,
     retryLimit: 5,
