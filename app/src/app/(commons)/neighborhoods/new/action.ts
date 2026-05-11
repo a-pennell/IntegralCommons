@@ -49,5 +49,5 @@ export async function createNeighborhoodAction(formData: FormData): Promise<void
   // Seed template charter sections for the new neighborhood.
   await seedTemplateCharter(result.value.neighborhoodId);
 
-  redirect(`/neighborhoods/${result.value.slug}`);
+  redirect(`/neighborhoods/${result.value.slug}?onboarding=true`);
 }

@@ -7,9 +7,18 @@ import { listActiveNeedsOffers } from '@/server/needs-offers';
 import { listTransactionsForMember, computeBalance } from '@/server/time-credits';
 
 type RouteParams = { neighborhoodSlug: string };
+type SearchParams = { onboarding?: string };
 
-export default async function NeighborhoodPage({ params }: { params: Promise<RouteParams> }) {
+export default async function NeighborhoodPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<RouteParams>;
+  searchParams: Promise<SearchParams>;
+}) {
   const { neighborhoodSlug } = await params;
+  const { onboarding } = await searchParams;
+  const isOnboarding = onboarding === 'true';
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}`);
 
@@ -67,6 +76,83 @@ export default async function NeighborhoodPage({ params }: { params: Promise<Rou
           </Link>
         ) : null}
       </header>
+
+      {/* Pre-seed onboarding checklist — shown once right after creation */}
+      {isOnboarding && result.membership.role === 'steward' ? (
+        <div className="mb-8 rounded border border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)] p-5">
+          <div className="eyebrow mb-1 text-[color:var(--color-accent)]">Launch checklist</div>
+          <h2 className="mb-3 text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
+            Seed your neighborhood before you invite anyone
+          </h2>
+          <p className="mb-4 text-(length:--text-small) text-[color:var(--color-ink-soft)]">
+            An empty Registry signals abandonment. A seeded one signals possibility. Aim for 10–15
+            resources before your first invite goes out.
+          </p>
+          <ol className="mb-5 space-y-3 text-(length:--text-small) text-[color:var(--color-ink)]">
+            <li className="flex items-start gap-3">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[color:var(--color-accent)] text-(length:--text-caption) font-bold text-[color:var(--color-accent)]">
+                1
+              </span>
+              <span>
+                <Link
+                  href={`/neighborhoods/${neighborhoodSlug}/resources/new`}
+                  className="font-medium text-[color:var(--color-accent)] hover:underline"
+                >
+                  Add your first resources
+                </Link>{' '}
+                — tools, skills, spaces, and materials you can share. Common starting points: drill,
+                ladder, sewing machine, meeting space, a skill you enjoy teaching.
+                {resources.length > 0 ? (
+                  <span className="ml-2 text-[color:var(--color-muted)]">
+                    ({resources.length} added so far)
+                  </span>
+                ) : null}
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[color:var(--color-accent)] text-(length:--text-caption) font-bold text-[color:var(--color-accent)]">
+                2
+              </span>
+              <span>
+                <strong>Share the join link</strong> with close neighbors first — people you&apos;ve
+                already confirmed resources with.{' '}
+                <span className="text-(length:--text-caption) font-[var(--font-mono)] text-[color:var(--color-muted)]">
+                  /neighborhoods/{neighborhoodSlug}/join
+                </span>
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[color:var(--color-accent)] text-(length:--text-caption) font-bold text-[color:var(--color-accent)]">
+                3
+              </span>
+              <span>
+                <Link
+                  href={`/neighborhoods/${neighborhoodSlug}/charter`}
+                  className="font-medium text-[color:var(--color-accent)] hover:underline"
+                >
+                  Review the template charter
+                </Link>{' '}
+                — it was pre-seeded for you. Edit sections to match your neighborhood&apos;s
+                agreements, then ratify together at your launch event.
+              </span>
+            </li>
+          </ol>
+          <div className="flex gap-3">
+            <Link
+              href={`/neighborhoods/${neighborhoodSlug}/resources/new`}
+              className="rounded bg-[color:var(--color-accent)] px-4 py-2 text-(length:--text-small) font-[var(--font-display)] font-medium text-white hover:bg-[color:var(--color-oxblood)]"
+            >
+              Add first resource →
+            </Link>
+            <Link
+              href={`/neighborhoods/${neighborhoodSlug}`}
+              className="rounded border border-[color:var(--color-rule)] px-4 py-2 text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink-soft)] hover:bg-[color:var(--color-paper-deep)]"
+            >
+              Dismiss
+            </Link>
+          </div>
+        </div>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-3">
         <SummaryCard
