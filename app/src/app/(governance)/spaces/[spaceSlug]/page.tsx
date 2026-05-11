@@ -11,11 +11,7 @@ import { StatusStamp, type Status } from '@/components/ui/status-stamp';
 
 type RouteParams = { spaceSlug: string };
 
-export default async function SpaceDashboardPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function SpaceDashboardPage({ params }: { params: Promise<RouteParams> }) {
   const session = await requireSession();
   if (!session.ok) {
     const { spaceSlug } = await params;
@@ -64,13 +60,11 @@ export default async function SpaceDashboardPage({
       <header className="mb-12 flex items-baseline justify-between border-b-2 border-[color:var(--color-ink)] pb-4">
         <div>
           <div className="eyebrow">Dashboard</div>
-          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
             {isPreBootstrap ? 'Awaiting bootstrap' : 'In session'}
           </h1>
         </div>
-        <div className="metadata tabular text-right">
-          {formatDateline(new Date())}
-        </div>
+        <div className="metadata tabular text-right">{formatDateline(new Date())}</div>
       </header>
 
       {/* Bootstrap call-to-attention, if applicable */}
@@ -78,14 +72,13 @@ export default async function SpaceDashboardPage({
         <section className="mb-14">
           <SectionHeader label="Awaiting your attention" count={1} />
           <div className="border-l-2 border-[color:var(--color-accent)] pl-5">
-            <div className="metadata mb-2 tabular">Bootstrap required</div>
-            <h3 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+            <div className="metadata tabular mb-2">Bootstrap required</div>
+            <h3 className="text-(length:--text-heading) leading-(--text-heading--line-height) font-[var(--font-display)] font-bold tracking-(--text-heading--letter-spacing) text-[color:var(--color-ink)]">
               Decide how decisions get made
             </h3>
             <p className="mt-2 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)]">
-              Before this Space can decide other questions, it must first decide its
-              governance — the Bootstrap Issue. It closes via the hardcoded consent
-              meta-method.
+              Before this Space can decide other questions, it must first decide its governance —
+              the Bootstrap Issue. It closes via the hardcoded consent meta-method.
             </p>
             <a
               href={`/spaces/${space.slug}/issues/${bootstrapIssueSlug}` as Route}
@@ -144,7 +137,11 @@ export default async function SpaceDashboardPage({
         <dl className="grid grid-cols-2 gap-x-10 gap-y-4 sm:grid-cols-3">
           <Vital label="Active issues" value={activeIssues.length} />
           <Vital label="Open referenda" value={openReferenda.length} />
-          <Vital label="Stalled" value={stalledCount} tone={stalledCount > 0 ? 'attention' : 'quiet'} />
+          <Vital
+            label="Stalled"
+            value={stalledCount}
+            tone={stalledCount > 0 ? 'attention' : 'quiet'}
+          />
         </dl>
       </section>
     </main>
@@ -166,13 +163,7 @@ function IssueRow({ issue, spaceSlug }: { issue: Issue; spaceSlug: string }) {
   );
 }
 
-function ReferendumRow({
-  referendum,
-  spaceSlug,
-}: {
-  referendum: Referendum;
-  spaceSlug: string;
-}) {
+function ReferendumRow({ referendum, spaceSlug }: { referendum: Referendum; spaceSlug: string }) {
   return (
     <li className="border-b border-[color:var(--color-rule)]">
       <a
@@ -202,8 +193,10 @@ function Vital({
     <div className="border-l border-[color:var(--color-rule)] pl-4">
       <dt className="eyebrow">{label}</dt>
       <dd
-        className={`mt-1 font-[var(--font-display)] text-(length:--text-heading) font-bold tabular ${
-          tone === 'attention' ? 'text-[color:var(--color-accent)]' : 'text-[color:var(--color-ink)]'
+        className={`tabular mt-1 text-(length:--text-heading) font-[var(--font-display)] font-bold ${
+          tone === 'attention'
+            ? 'text-[color:var(--color-accent)]'
+            : 'text-[color:var(--color-ink)]'
         }`}
       >
         {value}

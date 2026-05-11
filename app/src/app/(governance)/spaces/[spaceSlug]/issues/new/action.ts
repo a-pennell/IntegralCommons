@@ -100,7 +100,7 @@ export async function createGovernanceIssueAction(formData: FormData): Promise<v
     spaceId,
     creatorMemberId: session.value.memberId,
     title: title || 'Governance change proposal',
-    scope: scope || 'Propose a change to this Space\'s governance profile.',
+    scope: scope || "Propose a change to this Space's governance profile.",
     scopeTags: rawScopeTags,
     structuredSections: sections,
   });

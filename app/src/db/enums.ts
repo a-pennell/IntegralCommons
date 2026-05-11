@@ -158,11 +158,7 @@ export const declarationStatusEnum = pgEnum('declaration_status', [
   'withdrawn',
 ]);
 
-export const exchangeTermsEnum = pgEnum('exchange_terms', [
-  'free',
-  'exchange',
-  'cost_recovery',
-]);
+export const exchangeTermsEnum = pgEnum('exchange_terms', ['free', 'exchange', 'cost_recovery']);
 
 export const synapseResourceTypeEnum = pgEnum('synapse_resource_type', [
   'vegetables',
@@ -186,8 +182,4 @@ export const allocationStatusEnum = pgEnum('allocation_status', [
   'cancelled',
 ]);
 
-export const consentStatusEnum = pgEnum('consent_status', [
-  'pending',
-  'consented',
-  'rejected',
-]);
+export const consentStatusEnum = pgEnum('consent_status', ['pending', 'consented', 'rejected']);

@@ -39,7 +39,7 @@ export default async function NewIssuePage({
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">{isGovernance ? 'Governance change · New' : 'Issue · New'}</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           {isGovernance ? 'Open a governance change' : 'Open an issue'}
         </h1>
       </header>
@@ -112,7 +112,7 @@ export default async function NewIssuePage({
         {profile.scopeTagVocabulary.length > 0 ? (
           <fieldset>
             <legend className="eyebrow mb-2">Scope tags</legend>
-            <p className="mb-4 max-w-prose font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+            <p className="mb-4 max-w-prose text-(length:--text-caption) leading-(--text-caption--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
               Members tagged with any of these will be auto-included if this Issue becomes a
               referendum.
             </p>
@@ -120,7 +120,7 @@ export default async function NewIssuePage({
               {profile.scopeTagVocabulary.map((tag) => (
                 <label
                   key={tag}
-                  className="flex items-center gap-2 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)]"
+                  className="flex items-center gap-2 text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)]"
                 >
                   <input
                     type="checkbox"
@@ -141,7 +141,7 @@ export default async function NewIssuePage({
       </form>
 
       {!isGovernance ? (
-        <p className="mt-12 font-[var(--font-body)] text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+        <p className="mt-12 text-(length:--text-caption) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
           Want to change how this Space governs itself?{' '}
           <a
             href="?type=governance"
@@ -154,7 +154,7 @@ export default async function NewIssuePage({
       ) : null}
 
       <footer className="mt-16 border-t border-[color:var(--color-rule)] pt-6">
-        <p className="font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-muted)] italic">
+        <p className="text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
           The first event written to this Issue&rsquo;s Civic Memory is{' '}
           <code className="metadata not-italic">issue_created</code>. The timeline is append-only —
           the record never disappears, even if the Issue is later archived.

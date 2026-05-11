@@ -31,8 +31,8 @@ export default async function SettingsPage({ params }: { params: Promise<RoutePa
         margin={
           <>
             <div className="eyebrow text-[color:var(--color-ink)]">Settings</div>
-            <div className="metadata mt-1 tabular">Governance · v1</div>
-            <div className="mt-6 metadata tabular text-[color:var(--color-muted)] italic">
+            <div className="metadata tabular mt-1">Governance · v1</div>
+            <div className="metadata tabular mt-6 text-[color:var(--color-muted)] italic">
               Read-only. Every change routes through a governance Issue.
             </div>
             <nav className="mt-8 flex flex-col gap-2">
@@ -61,10 +61,10 @@ export default async function SettingsPage({ params }: { params: Promise<RoutePa
       >
         <header className="mb-12">
           <div className="eyebrow">Governance</div>
-          <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+          <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) font-[var(--font-display)] font-extrabold tracking-(--text-display--letter-spacing) text-[color:var(--color-ink)]">
             The active rules
           </h1>
-          <p className="mt-4 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          <p className="mt-4 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
             How this Space governs itself, today. Each parameter was either set at bootstrap or
             adjusted through a finalized Decision Record.
           </p>
@@ -105,8 +105,8 @@ export default async function SettingsPage({ params }: { params: Promise<RoutePa
           <Row label="Rate limits (constitutional floors)">
             <Numbered>
               <li>
-                <span className="metadata tabular">{profile.rateLimits.createIssuePerDay}</span>{' '}
-                new issues per member per day
+                <span className="metadata tabular">{profile.rateLimits.createIssuePerDay}</span> new
+                issues per member per day
               </li>
               <li>
                 <span className="metadata tabular">
@@ -121,9 +121,7 @@ export default async function SettingsPage({ params }: { params: Promise<RoutePa
             <Numbered>
               <li>
                 Standard issue ·{' '}
-                <span className="metadata tabular">
-                  {profile.stability.standardIssueDays}d
-                </span>{' '}
+                <span className="metadata tabular">{profile.stability.standardIssueDays}d</span>{' '}
                 before the same decision can be challenged without a 2/3 supermajority
               </li>
               <li>
@@ -162,7 +160,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   return (
     <div>
       <dt className="eyebrow mb-2">{label}</dt>
-      <dd className="font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)]">
+      <dd className="text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-body)] text-[color:var(--color-ink)]">
         {children}
       </dd>
     </div>
@@ -170,7 +168,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 function Numbered({ children }: { children: React.ReactNode }) {
-  return <ol className="ml-0 mt-1 list-none space-y-2">{children}</ol>;
+  return <ol className="mt-1 ml-0 list-none space-y-2">{children}</ol>;
 }
 
 function Pct({ value }: { value: number }) {

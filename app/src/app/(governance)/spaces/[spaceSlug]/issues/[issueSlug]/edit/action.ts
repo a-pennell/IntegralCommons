@@ -48,8 +48,7 @@ export async function updateIssueAction(formData: FormData): Promise<void> {
   });
 
   if (!result.ok) {
-    const kind =
-      result.error.kind === 'ValidationError' ? 'validation' : 'error';
+    const kind = result.error.kind === 'ValidationError' ? 'validation' : 'error';
     redirect(`${back}?error=${kind}`);
   }
 

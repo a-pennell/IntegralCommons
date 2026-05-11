@@ -15,11 +15,7 @@ export async function listActiveProducers(): Promise<Producer[]> {
 }
 
 export async function getProducerById(producerId: string): Promise<Producer | null> {
-  const rows = await db
-    .select()
-    .from(producers)
-    .where(eq(producers.id, producerId))
-    .limit(1);
+  const rows = await db.select().from(producers).where(eq(producers.id, producerId)).limit(1);
   return rows[0] ?? null;
 }
 

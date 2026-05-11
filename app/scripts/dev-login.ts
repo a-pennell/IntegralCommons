@@ -29,7 +29,12 @@ function ulid(): string {
   // Minimal ULID: timestamp (10 chars) + random (16 chars)
   const ts = Date.now();
   const tsPart = ts.toString(32).toUpperCase().padStart(10, '0').slice(-10);
-  const randPart = randomBytes(10).toString('base64url').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 16).padEnd(16, '0');
+  const randPart = randomBytes(10)
+    .toString('base64url')
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, '')
+    .slice(0, 16)
+    .padEnd(16, '0');
   return (tsPart + randPart).slice(0, 26);
 }
 
@@ -51,10 +56,11 @@ async function main() {
     // Create session
     const sessionId = ulid();
     const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-    await client.query(
-      `INSERT INTO sessions (id, member_id, expires_at) VALUES ($1, $2, $3)`,
-      [sessionId, memberId, expiresAt],
-    );
+    await client.query(`INSERT INTO sessions (id, member_id, expires_at) VALUES ($1, $2, $3)`, [
+      sessionId,
+      memberId,
+      expiresAt,
+    ]);
 
     client.release();
 
@@ -68,4 +74,7 @@ async function main() {
   }
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

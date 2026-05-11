@@ -7,7 +7,10 @@
  */
 
 export { listTimelineEventsForIssue } from './list-events.ts';
-export { listTimelineEventsForSpace, type TimelineEventWithIssue } from './list-events-for-space.ts';
+export {
+  listTimelineEventsForSpace,
+  type TimelineEventWithIssue,
+} from './list-events-for-space.ts';
 export { writeTimelineEvent, type WriteTimelineEventInput } from './write-event.ts';
 export {
   publishSummary,

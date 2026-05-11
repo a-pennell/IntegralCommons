@@ -78,10 +78,10 @@ export function CommonsSidebar({
       <div className="border-t border-[color:var(--color-rule)]" />
 
       <div className="px-5 pt-4 pb-5">
-        <h2 className="text-(length:--text-small) font-[var(--font-display)] font-semibold leading-snug text-[color:var(--color-ink)]">
+        <h2 className="text-(length:--text-small) leading-snug font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
           {neighborhoodName}
         </h2>
-        <div className="metadata mt-1 tabular">
+        <div className="metadata tabular mt-1">
           {memberCount} {memberCount === 1 ? 'member' : 'members'}
         </div>
       </div>

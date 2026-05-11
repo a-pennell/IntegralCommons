@@ -61,21 +61,21 @@ export default async function IssueTimelinePage({ params }: { params: Promise<Ro
         <div className="eyebrow">
           Civic Memory
           {' · '}
-          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+          <span className="tracking-normal text-[color:var(--color-ink-soft)] normal-case italic">
             {issue[0].title}
           </span>
         </div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           The record
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           Every event written to this issue, in the order it happened. The record is append-only —
           entries are never deleted or rewritten, even when the issue is archived.
         </p>
       </header>
 
       {events.length === 0 ? (
-        <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+        <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
           This issue has no Civic Memory entries yet. Entries appear as the issue is discussed,
           decided, and revisited.
         </p>
@@ -96,18 +96,18 @@ export default async function IssueTimelinePage({ params }: { params: Promise<Ro
                         {formatDayTime(event.occurredAt)}
                       </time>
                       <div>
-                        <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+                        <div className="text-(length:--text-body) leading-tight font-[var(--font-body)] text-[color:var(--color-ink)]">
                           {humanReadableEventType(event.eventType)}
                         </div>
                         {event.actorMemberId ? (
-                          <div className="metadata mt-1 tabular">
+                          <div className="metadata tabular mt-1">
                             by{' '}
                             <span className="text-[color:var(--color-ink)]">
                               {actorMap.get(event.actorMemberId) ?? '[removed]'}
                             </span>
                           </div>
                         ) : (
-                          <div className="metadata mt-1 tabular italic">by the system</div>
+                          <div className="metadata tabular mt-1 italic">by the system</div>
                         )}
                       </div>
                     </li>

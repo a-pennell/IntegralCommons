@@ -70,7 +70,7 @@ export default async function HubPage() {
                   href={`/spaces/${s.slug}` as Route}
                   className="flex items-baseline justify-between px-1 py-4 transition-colors hover:bg-[color:var(--color-paper-deep)]"
                 >
-                  <span className="font-[var(--font-display)] font-semibold text-(length:--text-body) text-[color:var(--color-ink)]">
+                  <span className="text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
                     {s.name}
                   </span>
                   <span className="metadata text-[color:var(--color-muted)]">
@@ -108,7 +108,7 @@ export default async function HubPage() {
         <div className="eyebrow mb-4">Flow Engine · Synapse</div>
         <Link
           href={'/synapse' as Route}
-          className="block px-1 py-4 font-[var(--font-display)] font-semibold text-(length:--text-body) text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
+          className="block px-1 py-4 text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
         >
           Synapse — regional surplus visibility
         </Link>
@@ -123,7 +123,7 @@ export default async function HubPage() {
                 <li key={n.slug}>
                   <Link
                     href={`/neighborhoods/${n.slug}` as Route}
-                    className="block px-1 py-4 font-[var(--font-display)] font-semibold text-(length:--text-body) text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
+                    className="block px-1 py-4 text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
                   >
                     {n.name}
                   </Link>

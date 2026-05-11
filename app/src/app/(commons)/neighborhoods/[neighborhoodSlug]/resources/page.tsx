@@ -6,11 +6,7 @@ import { ResourcesView } from '@/components/local-commons/resources-view';
 
 type RouteParams = { neighborhoodSlug: string };
 
-export default async function ResourcesPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function ResourcesPage({ params }: { params: Promise<RouteParams> }) {
   const { neighborhoodSlug } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}/resources`);

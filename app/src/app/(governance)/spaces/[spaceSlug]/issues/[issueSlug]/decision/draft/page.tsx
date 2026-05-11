@@ -57,14 +57,14 @@ export default async function DecisionDraftPage({
         <div className="eyebrow">
           Decision record · Draft
           {' · '}
-          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+          <span className="tracking-normal text-[color:var(--color-ink-soft)] normal-case italic">
             {issue.title}
           </span>
         </div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Draft a decision record
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           A decision record is the official artifact of a decided issue. It captures the outcome,
           the reasons, and what remains unresolved — so the group remembers not just what was
           decided, but why.
@@ -119,8 +119,8 @@ export default async function DecisionDraftPage({
               hint={
                 <>
                   Write &ldquo;none&rdquo; if there are no objections. Stand-asides belong here too.
-                  Use the literal keyword{' '}
-                  <code className="metadata not-italic">BLOCKED</code> to pause finalization.
+                  Use the literal keyword <code className="metadata not-italic">BLOCKED</code> to
+                  pause finalization.
                 </>
               }
             />
@@ -134,9 +134,9 @@ export default async function DecisionDraftPage({
                 type="date"
                 name="reviewDate"
                 required
-                className="border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 font-[var(--font-mono)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
+                className="border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-mono)] text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
               />
-              <p className="font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+              <p className="text-(length:--text-caption) leading-(--text-caption--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
                 Must be in the future. The decision will resurface for review on this date.
               </p>
             </div>
@@ -149,19 +149,16 @@ export default async function DecisionDraftPage({
           <section className="mt-20 border-t-2 border-[color:var(--color-ink)] pt-8">
             <header className="mb-6">
               <div className="eyebrow">Finalize</div>
-              <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+              <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) font-[var(--font-display)] font-bold tracking-(--text-heading--letter-spacing) text-[color:var(--color-ink)]">
                 Finalize an existing draft
               </h2>
-              <p className="mt-2 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-muted)] italic">
+              <p className="mt-2 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
                 Paste the Decision Record ID to finalize. Finalization transitions the issue to{' '}
                 <code className="metadata not-italic">decided</code> and writes the record to Civic
                 Memory. <strong className="font-medium not-italic">Irreversible.</strong>
               </p>
             </header>
-            <form
-              action={finalizeAction}
-              className="flex flex-col gap-4 sm:flex-row sm:items-end"
-            >
+            <form action={finalizeAction} className="flex flex-col gap-4 sm:flex-row sm:items-end">
               <input type="hidden" name="spaceSlug" value={space.space.slug} />
               <input type="hidden" name="issueSlug" value={issue.slug} />
               <div className="flex flex-1 flex-col gap-2">
@@ -174,7 +171,7 @@ export default async function DecisionDraftPage({
                   required
                   minLength={26}
                   maxLength={26}
-                  className="border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 font-[var(--font-mono)] text-(length:--text-small) leading-(--text-body--line-height) text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
+                  className="border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 text-(length:--text-small) leading-(--text-body--line-height) font-[var(--font-mono)] text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
                 />
               </div>
               <Button type="submit" variant="secondary">

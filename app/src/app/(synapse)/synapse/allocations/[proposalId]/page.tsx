@@ -16,16 +16,20 @@ const STATUS_LABEL: Record<string, string> = {
 };
 
 const RESOURCE_LABEL: Record<string, string> = {
-  vegetables: 'Vegetables', fruit: 'Fruit', grains: 'Grains', legumes: 'Legumes',
-  herbs: 'Herbs', dairy: 'Dairy', eggs: 'Eggs', meat: 'Meat', honey: 'Honey',
-  seeds: 'Seeds', other: 'Other',
+  vegetables: 'Vegetables',
+  fruit: 'Fruit',
+  grains: 'Grains',
+  legumes: 'Legumes',
+  herbs: 'Herbs',
+  dairy: 'Dairy',
+  eggs: 'Eggs',
+  meat: 'Meat',
+  honey: 'Honey',
+  seeds: 'Seeds',
+  other: 'Other',
 };
 
-export default async function ProposalDetailPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function ProposalDetailPage({ params }: { params: Promise<RouteParams> }) {
   const { proposalId } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/synapse/allocations/${proposalId}`);
@@ -35,9 +39,7 @@ export default async function ProposalDetailPage({
 
   const surplusDecl = await getDeclarationById(proposal.surplusDeclarationId);
 
-  const myConsent = proposal.consents.find(
-    (c) => c.consentingMemberId === session.value.memberId,
-  );
+  const myConsent = proposal.consents.find((c) => c.consentingMemberId === session.value.memberId);
 
   return (
     <main
@@ -54,9 +56,11 @@ export default async function ProposalDetailPage({
         <div className="mb-2 flex items-center gap-2">
           <span
             className={`inline-flex items-center rounded-full px-2 py-0.5 text-(length:--text-caption) font-medium ${
-              proposal.status === 'consented' ? 'bg-green-50 text-green-700'
-              : proposal.status === 'rejected' ? 'bg-red-50 text-red-700'
-              : 'bg-amber-50 text-amber-700'
+              proposal.status === 'consented'
+                ? 'bg-green-50 text-green-700'
+                : proposal.status === 'rejected'
+                  ? 'bg-red-50 text-red-700'
+                  : 'bg-amber-50 text-amber-700'
             }`}
           >
             {STATUS_LABEL[proposal.status] ?? proposal.status}
@@ -130,12 +134,18 @@ export default async function ProposalDetailPage({
               </div>
               <span
                 className={`text-(length:--text-caption) font-medium ${
-                  c.status === 'consented' ? 'text-green-600'
-                  : c.status === 'rejected' ? 'text-red-600'
-                  : 'text-amber-600'
+                  c.status === 'consented'
+                    ? 'text-green-600'
+                    : c.status === 'rejected'
+                      ? 'text-red-600'
+                      : 'text-amber-600'
                 }`}
               >
-                {c.status === 'consented' ? 'Consented' : c.status === 'rejected' ? 'Rejected' : 'Pending'}
+                {c.status === 'consented'
+                  ? 'Consented'
+                  : c.status === 'rejected'
+                    ? 'Rejected'
+                    : 'Pending'}
               </span>
             </li>
           ))}

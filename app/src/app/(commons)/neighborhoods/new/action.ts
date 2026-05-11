@@ -8,7 +8,13 @@ import { seedTemplateCharter } from '@/server/commons-charter';
 
 const Schema = z.object({
   name: z.string().min(1).max(200).trim(),
-  slug: z.string().min(1).max(80).trim().toLowerCase().regex(/^[a-z0-9-]+$/),
+  slug: z
+    .string()
+    .min(1)
+    .max(80)
+    .trim()
+    .toLowerCase()
+    .regex(/^[a-z0-9-]+$/),
   description: z.string().max(300).trim().optional(),
 });
 

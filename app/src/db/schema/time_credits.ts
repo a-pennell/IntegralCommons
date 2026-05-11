@@ -47,10 +47,7 @@ export const creditTransactions = pgTable(
     occurredAt: timestamp('occurred_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => ({
-    idUlidCheck: check(
-      'credit_transactions_id_ulid_length',
-      sql`char_length(${table.id}) = 26`,
-    ),
+    idUlidCheck: check('credit_transactions_id_ulid_length', sql`char_length(${table.id}) = 26`),
     memberNeighborhoodOccurredIdx: index('credit_transactions_member_neighborhood_idx').on(
       table.neighborhoodId,
       table.memberId,

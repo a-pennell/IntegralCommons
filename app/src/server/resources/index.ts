@@ -42,27 +42,16 @@ export async function createResource(
   return ok({ resourceId });
 }
 
-export async function listResourcesForNeighborhood(
-  neighborhoodId: string,
-): Promise<Resource[]> {
+export async function listResourcesForNeighborhood(neighborhoodId: string): Promise<Resource[]> {
   return db
     .select()
     .from(resources)
-    .where(
-      and(
-        eq(resources.neighborhoodId, neighborhoodId),
-        eq(resources.status, 'available'),
-      ),
-    )
+    .where(and(eq(resources.neighborhoodId, neighborhoodId), eq(resources.status, 'available')))
     .orderBy(resources.createdAt);
 }
 
 export async function getResourceById(resourceId: string): Promise<Resource | null> {
-  const rows = await db
-    .select()
-    .from(resources)
-    .where(eq(resources.id, resourceId))
-    .limit(1);
+  const rows = await db.select().from(resources).where(eq(resources.id, resourceId)).limit(1);
   return rows[0] ?? null;
 }
 

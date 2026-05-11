@@ -110,7 +110,8 @@ export default async function AddResourcePage({
             htmlFor="description"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            Description <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+            Description{' '}
+            <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
           </label>
           <textarea
             id="description"
@@ -128,7 +129,8 @@ export default async function AddResourcePage({
             htmlFor="locationHint"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            Location hint <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+            Location hint{' '}
+            <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
           </label>
           <input
             id="locationHint"
@@ -146,7 +148,10 @@ export default async function AddResourcePage({
             htmlFor="tags"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            Tags <span className="font-normal text-[color:var(--color-muted)]">(optional, comma-separated)</span>
+            Tags{' '}
+            <span className="font-normal text-[color:var(--color-muted)]">
+              (optional, comma-separated)
+            </span>
           </label>
           <input
             id="tags"

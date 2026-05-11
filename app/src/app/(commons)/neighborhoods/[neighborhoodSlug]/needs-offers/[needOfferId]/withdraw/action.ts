@@ -33,7 +33,8 @@ export async function withdrawAction(formData: FormData): Promise<void> {
 
   const item = rows[0];
   if (!item) redirect(back);
-  if (item.postedByMemberId !== session.value.memberId) redirect(`${back}/${needOfferId}?error=not_yours`);
+  if (item.postedByMemberId !== session.value.memberId)
+    redirect(`${back}/${needOfferId}?error=not_yours`);
   if (item.status !== 'active') redirect(`${back}/${needOfferId}`);
 
   await db

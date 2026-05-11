@@ -42,7 +42,7 @@ export default async function NewSummaryPage({ params }: Props) {
       >
         <header className="mb-8 border-b-2 border-[color:var(--color-ink)] pb-4">
           <div className="eyebrow">Summary · Restricted</div>
-          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
             Publish a summary
           </h1>
         </header>
@@ -71,14 +71,14 @@ export default async function NewSummaryPage({ params }: Props) {
         <div className="eyebrow">
           Official summary · New
           {' · '}
-          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+          <span className="tracking-normal text-[color:var(--color-ink-soft)] normal-case italic">
             {issue.title}
           </span>
         </div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Publish an official summary
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           Summaries are versioned and immutable once published. Revisions create a new version;
           prior versions remain in Civic Memory.
         </p>

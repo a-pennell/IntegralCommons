@@ -31,7 +31,9 @@ export async function createNeighborhood(
   }
   if (!/^[a-z0-9-]+$/.test(slug)) {
     return err(
-      errors.validation([{ path: 'slug', message: 'Slug must be lowercase letters, numbers, and hyphens only.' }]),
+      errors.validation([
+        { path: 'slug', message: 'Slug must be lowercase letters, numbers, and hyphens only.' },
+      ]),
     );
   }
 

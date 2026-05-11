@@ -26,12 +26,12 @@ export function Textarea({ id, label, hint, mono = false, className = '', ...pro
         {...props}
         className={`min-h-[6em] resize-y border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 leading-(--text-body--line-height) text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] placeholder:italic focus:border-[color:var(--color-accent)] focus:outline-none ${
           mono
-            ? 'font-[var(--font-mono)] text-(length:--text-small)'
-            : 'font-[var(--font-body)] text-(length:--text-body)'
+            ? 'text-(length:--text-small) font-[var(--font-mono)]'
+            : 'text-(length:--text-body) font-[var(--font-body)]'
         } ${className}`}
       />
       {hint ? (
-        <p className="font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
           {hint}
         </p>
       ) : null}

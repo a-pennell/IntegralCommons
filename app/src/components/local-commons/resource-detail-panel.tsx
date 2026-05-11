@@ -47,11 +47,11 @@ export function ResourceDetailPanel({ resource, neighborhoodSlug, onClose }: Pro
   return (
     <div
       ref={panelRef}
-      className="absolute right-0 top-0 h-full w-72 overflow-y-auto border-l border-[color:var(--color-rule)] bg-white p-5 shadow-lg"
+      className="absolute top-0 right-0 h-full w-72 overflow-y-auto border-l border-[color:var(--color-rule)] bg-white p-5 shadow-lg"
     >
       <div className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-2">
-          <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+          <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
             {KIND_LABEL[resource.kind] ?? resource.kind}
           </span>
         </div>
@@ -62,12 +62,17 @@ export function ResourceDetailPanel({ resource, neighborhoodSlug, onClose }: Pro
           className="rounded p-1 text-[color:var(--color-muted)] hover:bg-[color:var(--color-paper-deep)] hover:text-[color:var(--color-ink)]"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-            <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path
+              d="M1 1l12 12M13 1L1 13"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       </div>
 
-      <h2 className="text-(length:--text-small) font-[var(--font-display)] font-semibold leading-snug text-[color:var(--color-ink)]">
+      <h2 className="text-(length:--text-small) leading-snug font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
         {resource.title}
       </h2>
 

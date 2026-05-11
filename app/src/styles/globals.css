@@ -27,10 +27,13 @@
    *   body     Public Sans    UI reading — same family, lighter weight for body density
    *   mono     IBM Plex Mono  technical metadata (citations, IDs, dates, status stamps)
    */
-  --font-display: var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display:
+    var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body:
+    var(--font-public-sans), 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sans: var(--font-display); /* alias for legacy callers */
-  --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono:
+    var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Compact type scale — dense SaaS information hierarchy. */
   --text-display: 40px;
@@ -89,7 +92,10 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: var(--text-body--line-height);
-  font-feature-settings: 'liga' 1, 'kern' 1, 'lnum' 1;
+  font-feature-settings:
+    'liga' 1,
+    'kern' 1,
+    'lnum' 1;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -125,7 +131,10 @@ body {
 
 /* Tabular figures for data — vote tallies, dates, counts. */
 .tabular {
-  font-feature-settings: 'tnum' 1, 'lnum' 1, 'kern' 1;
+  font-feature-settings:
+    'tnum' 1,
+    'lnum' 1,
+    'kern' 1;
 }
 
 /* Eyebrow — wayfinding label. */
@@ -146,7 +155,9 @@ body {
   line-height: var(--text-caption--line-height);
   letter-spacing: 0.01em;
   color: var(--color-muted);
-  font-feature-settings: 'tnum' 1, 'lnum' 1;
+  font-feature-settings:
+    'tnum' 1,
+    'lnum' 1;
 }
 
 /* Drop cap for long-form perspectives / decisions. */

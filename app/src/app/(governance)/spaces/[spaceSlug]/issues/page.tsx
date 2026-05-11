@@ -59,13 +59,13 @@ export default async function IssuesIndexPage({
       <header className="mb-10 flex items-baseline justify-between border-b-2 border-[color:var(--color-ink)] pb-4">
         <div>
           <div className="eyebrow">Issues</div>
-          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
             All issues
           </h1>
         </div>
         <a
           href={`/spaces/${space.slug}/issues/new` as Route}
-          className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
+          className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
         >
           + Open an issue
         </a>
@@ -89,7 +89,7 @@ export default async function IssuesIndexPage({
                 ) : null}
                 <a
                   href={href}
-                  className={`font-[var(--font-display)] text-(length:--text-small) ${
+                  className={`text-(length:--text-small) font-[var(--font-display)] ${
                     isActive
                       ? 'font-semibold text-[color:var(--color-accent)] underline underline-offset-4'
                       : 'font-normal text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-ink)]'
@@ -136,10 +136,10 @@ function IssueRow({ issue, spaceSlug }: { issue: Issue; spaceSlug: string }) {
       >
         <Citation type="ISS" number={shortId(issue.id)} />
         <div>
-          <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+          <div className="text-(length:--text-body) leading-tight font-[var(--font-body)] text-[color:var(--color-ink)]">
             {issue.title}
           </div>
-          <div className="metadata mt-1 tabular">
+          <div className="metadata tabular mt-1">
             opened {opened}
             {issue.scopeTags.length > 0 ? (
               <>

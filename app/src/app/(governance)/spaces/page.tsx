@@ -20,7 +20,7 @@ export default async function SpacesLibraryPage() {
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">CommonGround · Library</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Your spaces
         </h1>
       </header>
@@ -46,9 +46,7 @@ export default async function SpacesLibraryPage() {
         ) : (
           <ul className="border-t border-[color:var(--color-rule)]">
             {spaces.map(({ space, membership }) => {
-              const convening: Status = space.bootstrapCompletedAt
-                ? 'in_session'
-                : 'in_recess';
+              const convening: Status = space.bootstrapCompletedAt ? 'in_session' : 'in_recess';
               return (
                 <li key={space.id} className="border-b border-[color:var(--color-rule)]">
                   <a
@@ -56,7 +54,7 @@ export default async function SpacesLibraryPage() {
                     className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 py-5 transition-colors hover:bg-[color:var(--color-paper-soft)]"
                   >
                     <div>
-                      <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+                      <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) font-[var(--font-display)] font-bold tracking-(--text-heading--letter-spacing) text-[color:var(--color-ink)]">
                         {space.name}
                       </h2>
                       {space.description ? (
@@ -64,7 +62,7 @@ export default async function SpacesLibraryPage() {
                           {space.description}
                         </p>
                       ) : null}
-                      <div className="metadata mt-2 tabular">
+                      <div className="metadata tabular mt-2">
                         Member since{' '}
                         {membership.joinedAt
                           ? formatShortDate(membership.joinedAt)

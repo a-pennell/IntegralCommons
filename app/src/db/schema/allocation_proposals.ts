@@ -23,8 +23,10 @@ export const allocationProposals = pgTable(
     surplusDeclarationId: text('surplus_declaration_id')
       .notNull()
       .references(() => surplusShortageDeclarations.id, { onDelete: 'restrict' }),
-    shortageDeclarationId: text('shortage_declaration_id')
-      .references(() => surplusShortageDeclarations.id, { onDelete: 'restrict' }),
+    shortageDeclarationId: text('shortage_declaration_id').references(
+      () => surplusShortageDeclarations.id,
+      { onDelete: 'restrict' },
+    ),
     quantity: numeric('quantity', { precision: 10, scale: 2 }),
     notes: text('notes'),
     status: allocationStatusEnum('status').notNull().default('proposed'),
@@ -48,8 +50,9 @@ export const allocationConsents = pgTable(
     consentingMemberId: text('consenting_member_id')
       .notNull()
       .references(() => members.id, { onDelete: 'restrict' }),
-    representingProducerId: text('representing_producer_id')
-      .references(() => producers.id, { onDelete: 'restrict' }),
+    representingProducerId: text('representing_producer_id').references(() => producers.id, {
+      onDelete: 'restrict',
+    }),
     status: consentStatusEnum('status').notNull().default('pending'),
     notes: text('notes'),
     respondedAt: timestamp('responded_at', { withTimezone: true }),

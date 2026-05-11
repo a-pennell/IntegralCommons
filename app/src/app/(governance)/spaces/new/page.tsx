@@ -27,13 +27,12 @@ export default async function NewSpacePage({
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">CommonGround · Charter</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Charter a new Space
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
-          A Space is a small republic — a group that governs something shared. You become its
-          first member. Your next step will be to complete the Bootstrap Issue: how this Space
-          decides.
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+          A Space is a small republic — a group that governs something shared. You become its first
+          member. Your next step will be to complete the Bootstrap Issue: how this Space decides.
         </p>
       </header>
 
@@ -44,7 +43,15 @@ export default async function NewSpacePage({
       ) : null}
 
       <form action={createSpaceAction} className="space-y-10">
-        <Field id="name" name="name" label="Name" type="text" required minLength={1} maxLength={100} />
+        <Field
+          id="name"
+          name="name"
+          label="Name"
+          type="text"
+          required
+          minLength={1}
+          maxLength={100}
+        />
 
         <Textarea
           id="description"

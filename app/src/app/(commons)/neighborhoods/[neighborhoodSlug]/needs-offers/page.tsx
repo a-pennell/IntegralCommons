@@ -80,7 +80,7 @@ export default async function NeedsOffersPage({
               >
                 <div className="flex items-center gap-2">
                   {item.isUrgent ? (
-                    <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-red-600">
+                    <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium tracking-wider text-red-600 uppercase">
                       Urgent
                     </span>
                   ) : null}

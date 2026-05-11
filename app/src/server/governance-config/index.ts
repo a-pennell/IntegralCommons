@@ -15,5 +15,9 @@ export {
 } from './schema.ts';
 
 export { resolveScopeTags } from './resolve-scope-tags.ts';
-export { proposeGovernanceChange, type GovernanceChangeSections, type ProfileDiff } from './propose-change.ts';
+export {
+  proposeGovernanceChange,
+  type GovernanceChangeSections,
+  type ProfileDiff,
+} from './propose-change.ts';
 export { applyGovernanceChangeIfNeeded, type ApplyChangeResult } from './apply-change.ts';

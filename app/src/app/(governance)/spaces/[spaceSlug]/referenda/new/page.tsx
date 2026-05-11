@@ -38,12 +38,12 @@ export default async function NewReferendumPage({
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Referendum · New</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Initiate a referendum
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
-          Phase 1 supports referenda against active delegations. Revoking a delegation by
-          referendum is the canonical expression of the Bounded Referendum Right.
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+          Phase 1 supports referenda against active delegations. Revoking a delegation by referendum
+          is the canonical expression of the Bounded Referendum Right.
         </p>
       </header>
 
@@ -66,10 +66,7 @@ export default async function NewReferendumPage({
             <legend className="eyebrow mb-3">Target delegation</legend>
             <ul className="border-t border-[color:var(--color-rule)]">
               {active.map((d) => (
-                <li
-                  key={d.id}
-                  className="border-b border-[color:var(--color-rule)]"
-                >
+                <li key={d.id} className="border-b border-[color:var(--color-rule)]">
                   <label className="flex items-baseline gap-4 py-4 hover:bg-[color:var(--color-paper-soft)]">
                     <input
                       type="radio"
@@ -79,11 +76,11 @@ export default async function NewReferendumPage({
                       className="mt-1 h-4 w-4 accent-[color:var(--color-accent)]"
                     />
                     <span className="flex flex-1 items-baseline justify-between gap-4">
-                      <span className="font-[var(--font-body)] text-(length:--text-body) text-[color:var(--color-ink)]">
+                      <span className="text-(length:--text-body) font-[var(--font-body)] text-[color:var(--color-ink)]">
                         <strong className="font-medium">
                           {d.granteeDisplayName ?? '[removed member]'}
                         </strong>
-                        <span className="ml-3 metadata tabular text-[color:var(--color-muted)]">
+                        <span className="metadata tabular ml-3 text-[color:var(--color-muted)]">
                           {d.capability.toUpperCase()}
                         </span>
                       </span>

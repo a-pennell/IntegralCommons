@@ -12,10 +12,10 @@ export default async function NewNeighborhoodPage() {
     <main className="mx-auto max-w-xl px-6 py-16 sm:px-10 sm:py-20">
       <header className="mb-10 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Local Commons</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Start a neighborhood
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           You become the first steward. A template charter is seeded automatically.
         </p>
       </header>

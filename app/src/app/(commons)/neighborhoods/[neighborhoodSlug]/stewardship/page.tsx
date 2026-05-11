@@ -14,11 +14,7 @@ const ENTRY_LABEL: Record<string, string> = {
   handover: 'Steward handover',
 };
 
-export default async function StewardshipPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function StewardshipPage({ params }: { params: Promise<RouteParams> }) {
   const { neighborhoodSlug } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}/stewardship`);
@@ -75,7 +71,7 @@ export default async function StewardshipPage({
             <li key={e.id} className="relative">
               <span
                 aria-hidden
-                className="absolute -left-[calc(1.25rem+0.5px)] top-[5px] h-2 w-2 rounded-full border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]"
+                className="absolute top-[5px] -left-[calc(1.25rem+0.5px)] h-2 w-2 rounded-full border border-[color:var(--color-rule)] bg-[color:var(--color-paper)]"
               />
               <div className="metadata text-[color:var(--color-muted)]">
                 {ENTRY_LABEL[e.entryType] ?? e.entryType} ·{' '}

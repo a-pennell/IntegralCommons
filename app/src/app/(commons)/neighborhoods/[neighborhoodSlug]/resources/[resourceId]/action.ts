@@ -27,7 +27,8 @@ export async function updateResourceStatusAction(formData: FormData): Promise<vo
 
   const resource = await getResourceById(resourceId);
   if (!resource) redirect(back);
-  if (resource.offeredByMemberId !== session.value.memberId) redirect(`${back}/${resourceId}?error=not_yours`);
+  if (resource.offeredByMemberId !== session.value.memberId)
+    redirect(`${back}/${resourceId}?error=not_yours`);
 
   await updateResourceStatus(resourceId, status);
 

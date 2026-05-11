@@ -88,12 +88,16 @@ export async function requestExchange(
 ): Promise<Result<{ requestId: string }, AppError>> {
   if (input.mode === 'time_credit' && !input.creditAmount) {
     return err(
-      errors.validation([{ path: 'creditAmount', message: 'Credit amount required for time-credit exchanges.' }]),
+      errors.validation([
+        { path: 'creditAmount', message: 'Credit amount required for time-credit exchanges.' },
+      ]),
     );
   }
   if (input.mode === 'gift' && input.creditAmount) {
     return err(
-      errors.validation([{ path: 'creditAmount', message: 'Credit amount must be empty for gift exchanges.' }]),
+      errors.validation([
+        { path: 'creditAmount', message: 'Credit amount must be empty for gift exchanges.' },
+      ]),
     );
   }
 

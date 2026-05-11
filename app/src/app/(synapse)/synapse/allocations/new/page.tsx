@@ -6,9 +6,17 @@ import { createProposalAction } from './action';
 type SearchParams = { surplusId?: string; error?: string };
 
 const RESOURCE_LABEL: Record<string, string> = {
-  vegetables: 'Vegetables', fruit: 'Fruit', grains: 'Grains', legumes: 'Legumes',
-  herbs: 'Herbs', dairy: 'Dairy', eggs: 'Eggs', meat: 'Meat', honey: 'Honey',
-  seeds: 'Seeds', other: 'Other',
+  vegetables: 'Vegetables',
+  fruit: 'Fruit',
+  grains: 'Grains',
+  legumes: 'Legumes',
+  herbs: 'Herbs',
+  dairy: 'Dairy',
+  eggs: 'Eggs',
+  meat: 'Meat',
+  honey: 'Honey',
+  seeds: 'Seeds',
+  other: 'Other',
 };
 
 export default async function NewProposalPage({
@@ -41,8 +49,8 @@ export default async function NewProposalPage({
           Propose allocation
         </h1>
         <p className="mt-1 text-(length:--text-small) text-[color:var(--color-muted)]">
-          A proposal is not a commitment. The surplus producer and your community must both
-          consent before anything is confirmed.
+          A proposal is not a commitment. The surplus producer and your community must both consent
+          before anything is confirmed.
         </p>
       </header>
 
@@ -65,7 +73,8 @@ export default async function NewProposalPage({
           {surplusDecl ? (
             <div>
               <div className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]">
-                {surplusDecl.resourceDetail ?? RESOURCE_LABEL[surplusDecl.resourceType]} · {surplusDecl.producer.orgName}
+                {surplusDecl.resourceDetail ?? RESOURCE_LABEL[surplusDecl.resourceType]} ·{' '}
+                {surplusDecl.producer.orgName}
               </div>
               <div className="metadata mt-0.5 text-[color:var(--color-muted)]">
                 {surplusDecl.producer.locationDescription}
@@ -74,7 +83,10 @@ export default async function NewProposalPage({
           ) : (
             <p className="text-(length:--text-small) text-[color:var(--color-muted)]">
               No surplus selected. Go to a{' '}
-              <a href="/synapse/declarations" className="text-[color:var(--color-accent)] hover:underline">
+              <a
+                href="/synapse/declarations"
+                className="text-[color:var(--color-accent)] hover:underline"
+              >
                 declaration
               </a>{' '}
               and click "Propose allocation".
@@ -133,8 +145,7 @@ export default async function NewProposalPage({
             htmlFor="notes"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            Notes{' '}
-            <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+            Notes <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
           </label>
           <textarea
             id="notes"

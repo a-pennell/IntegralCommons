@@ -8,11 +8,27 @@ type RouteParams = { neighborhoodSlug: string };
 type SearchParams = { error?: string };
 
 const ENTRY_TYPES = [
-  { value: 'action_taken', label: 'Action taken', description: 'Something you did for the neighborhood' },
+  {
+    value: 'action_taken',
+    label: 'Action taken',
+    description: 'Something you did for the neighborhood',
+  },
   { value: 'member_care', label: 'Care check', description: 'Checking in with a member' },
-  { value: 'resource_noted', label: 'Resource noted', description: 'An observation about a shared resource' },
-  { value: 'charter_note', label: 'Charter note', description: 'Relating to the neighborhood\'s governing agreements' },
-  { value: 'handover', label: 'Steward handover', description: 'Transitioning steward responsibilities' },
+  {
+    value: 'resource_noted',
+    label: 'Resource noted',
+    description: 'An observation about a shared resource',
+  },
+  {
+    value: 'charter_note',
+    label: 'Charter note',
+    description: "Relating to the neighborhood's governing agreements",
+  },
+  {
+    value: 'handover',
+    label: 'Steward handover',
+    description: 'Transitioning steward responsibilities',
+  },
 ] as const;
 
 export default async function NewStewardshipEntryPage({

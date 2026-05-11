@@ -32,19 +32,19 @@ export default async function ReferendaIndexPage({ params }: { params: Promise<R
       <header className="mb-10 flex items-baseline justify-between border-b-2 border-[color:var(--color-ink)] pb-4">
         <div>
           <div className="eyebrow">Referenda</div>
-          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
             All referenda
           </h1>
         </div>
         <a
           href={`/spaces/${space.space.slug}/referenda/new` as Route}
-          className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
+          className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
         >
           + Initiate
         </a>
       </header>
 
-      <p className="mb-12 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+      <p className="mb-12 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
         Referenda are the instrument for revoking a delegation, overturning a Decision Record, or
         proposing a governance change. Use them sparingly. Each carries a deliberation floor before
         voting opens.
@@ -53,7 +53,7 @@ export default async function ReferendaIndexPage({ params }: { params: Promise<R
       <section className="mb-14">
         <SectionHeader label="Open" count={open.length} />
         {open.length === 0 ? (
-          <p className="border-t border-[color:var(--color-rule)] py-6 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+          <p className="border-t border-[color:var(--color-rule)] py-6 text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
             No referenda are currently open in this Space.
           </p>
         ) : (
@@ -79,7 +79,13 @@ export default async function ReferendaIndexPage({ params }: { params: Promise<R
   );
 }
 
-function ReferendumRow({ referendum: r, spaceSlug }: { referendum: Referendum; spaceSlug: string }) {
+function ReferendumRow({
+  referendum: r,
+  spaceSlug,
+}: {
+  referendum: Referendum;
+  spaceSlug: string;
+}) {
   return (
     <li className="border-b border-[color:var(--color-rule)]">
       <a
@@ -88,10 +94,10 @@ function ReferendumRow({ referendum: r, spaceSlug }: { referendum: Referendum; s
       >
         <Citation type="REF" number={r.id.slice(-5).toUpperCase()} />
         <div>
-          <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+          <div className="text-(length:--text-body) leading-tight font-[var(--font-body)] text-[color:var(--color-ink)]">
             On {targetLabel(r.targetType)}
           </div>
-          <div className="metadata mt-1 tabular">
+          <div className="metadata tabular mt-1">
             initiated {formatShortDate(r.createdAt)}
             {r.outcome ? (
               <>

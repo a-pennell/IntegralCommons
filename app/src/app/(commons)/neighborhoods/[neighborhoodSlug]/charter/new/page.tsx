@@ -78,7 +78,8 @@ export default async function NewCharterSectionPage({
             className="rounded border border-[color:var(--color-rule)] bg-transparent px-3 py-2 text-(length:--text-small) font-[var(--font-mono)] text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] focus:border-[color:var(--color-accent)] focus:outline-none"
           />
           <p className="text-(length:--text-caption) text-[color:var(--color-muted)]">
-            Lowercase letters, digits, and underscores only. Used to link drafts to ratified versions.
+            Lowercase letters, digits, and underscores only. Used to link drafts to ratified
+            versions.
           </p>
         </div>
 

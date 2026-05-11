@@ -38,10 +38,7 @@ export const stewardshipEntries = pgTable(
     occurredAt: timestamp('occurred_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => ({
-    idUlidCheck: check(
-      'stewardship_entries_id_ulid_length',
-      sql`char_length(${table.id}) = 26`,
-    ),
+    idUlidCheck: check('stewardship_entries_id_ulid_length', sql`char_length(${table.id}) = 26`),
     neighborhoodOccurredIdx: index('stewardship_entries_neighborhood_occurred_idx').on(
       table.neighborhoodId,
       table.occurredAt,

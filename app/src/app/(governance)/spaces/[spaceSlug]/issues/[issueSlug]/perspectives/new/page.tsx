@@ -51,14 +51,14 @@ export default async function NewPerspectivePage({
         <div className="eyebrow">
           {isReply ? 'Perspective · Reply' : 'Perspective · New'}
           {' · '}
-          <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+          <span className="tracking-normal text-[color:var(--color-ink-soft)] normal-case italic">
             {issue.title}
           </span>
         </div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           {isReply ? 'Respond to a perspective' : 'Add a perspective'}
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           A perspective is a first-class contribution, not a comment. It carries one taxonomy and
           may speak from direct experience.
         </p>
@@ -76,7 +76,7 @@ export default async function NewPerspectivePage({
 
         <fieldset>
           <legend className="eyebrow mb-2">Taxonomy</legend>
-          <p className="mb-4 max-w-prose font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)] italic">
+          <p className="mb-4 max-w-prose text-(length:--text-caption) leading-(--text-caption--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
             Each perspective carries one taxonomy. Pick the one that best matches the angle you're
             bringing.
           </p>
@@ -84,7 +84,7 @@ export default async function NewPerspectivePage({
             {profile.taxonomyVocabulary.map((t, i) => (
               <label
                 key={t}
-                className="flex items-center gap-2 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)]"
+                className="flex items-center gap-2 text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)]"
               >
                 <input
                   type="radio"
@@ -111,7 +111,7 @@ export default async function NewPerspectivePage({
           hint="Markdown accepted. Generous typography is part of the point — write what's worth saying."
         />
 
-        <label className="flex items-start gap-3 font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height)">
+        <label className="flex items-start gap-3 text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)]">
           <input
             type="checkbox"
             name="fromDirectExperience"

@@ -21,9 +21,17 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 const RESOURCE_LABEL: Record<string, string> = {
-  vegetables: 'Vegetables', fruit: 'Fruit', grains: 'Grains', legumes: 'Legumes',
-  herbs: 'Herbs', dairy: 'Dairy', eggs: 'Eggs', meat: 'Meat', honey: 'Honey',
-  seeds: 'Seeds', other: 'Other',
+  vegetables: 'Vegetables',
+  fruit: 'Fruit',
+  grains: 'Grains',
+  legumes: 'Legumes',
+  herbs: 'Herbs',
+  dairy: 'Dairy',
+  eggs: 'Eggs',
+  meat: 'Meat',
+  honey: 'Honey',
+  seeds: 'Seeds',
+  other: 'Other',
 };
 
 export default async function AllocationsPage() {
@@ -43,14 +51,18 @@ export default async function AllocationsPage() {
           Allocation proposals
         </h1>
         <p className="mt-1 text-(length:--text-small) text-[color:var(--color-muted)]">
-          Proposed routings of surplus to need. No allocation is confirmed without consent from all parties.
+          Proposed routings of surplus to need. No allocation is confirmed without consent from all
+          parties.
         </p>
       </header>
 
       {proposals.length === 0 ? (
         <p className="text-(length:--text-small) text-[color:var(--color-muted)]">
           No proposals yet. Browse{' '}
-          <Link href="/synapse/declarations" className="text-[color:var(--color-accent)] hover:underline">
+          <Link
+            href="/synapse/declarations"
+            className="text-[color:var(--color-accent)] hover:underline"
+          >
             declarations
           </Link>{' '}
           and propose an allocation from a surplus detail page.
@@ -78,7 +90,7 @@ export default async function AllocationsPage() {
                         {p.surplusProducerName}
                       </span>
                     </div>
-                    <div className="metadata mt-1 tabular text-[color:var(--color-muted)]">
+                    <div className="metadata tabular mt-1 text-[color:var(--color-muted)]">
                       Proposed by {p.proposerDisplayName ?? 'unknown'}
                       {p.quantity ? ` · ${p.quantity}` : ''}
                     </div>

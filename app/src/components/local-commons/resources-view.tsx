@@ -8,7 +8,12 @@ import { ResourceDetailPanel } from './resource-detail-panel';
 // Dynamic import keeps the heavy xyflow bundle out of the initial page load.
 const ResourceMapCanvas = dynamic(
   () => import('./resource-map-canvas').then((m) => m.ResourceMapCanvas),
-  { ssr: false, loading: () => <div className="h-[560px] animate-pulse rounded border border-[color:var(--color-rule)] bg-[color:var(--color-paper-soft)]" /> },
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[560px] animate-pulse rounded border border-[color:var(--color-rule)] bg-[color:var(--color-paper-soft)]" />
+    ),
+  },
 );
 
 const KIND_LABEL: Record<string, string> = {
@@ -93,7 +98,7 @@ export function ResourcesView({ resources, neighborhoodSlug }: Props) {
                   className="group block"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+                    <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
                       {KIND_LABEL[r.kind] ?? r.kind}
                     </span>
                     <span className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)]">
@@ -106,7 +111,9 @@ export function ResourcesView({ resources, neighborhoodSlug }: Props) {
                     </p>
                   ) : null}
                   {r.locationHint ? (
-                    <p className="metadata mt-1 text-[color:var(--color-muted)]">{r.locationHint}</p>
+                    <p className="metadata mt-1 text-[color:var(--color-muted)]">
+                      {r.locationHint}
+                    </p>
                   ) : null}
                 </a>
               </li>

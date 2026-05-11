@@ -1,8 +1,5 @@
 import type { PoolClient } from 'pg';
-import {
-  GovernanceProfileSchema,
-  type GovernanceProfile,
-} from './schema.ts';
+import { GovernanceProfileSchema, type GovernanceProfile } from './schema.ts';
 import { cr009WouldLoosenRateLimits } from '@/server/constitution';
 
 // Constitutional floors (must match governance-config/schema.ts DEFAULTS).

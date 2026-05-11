@@ -8,7 +8,10 @@ import { getDeclarationById, createProposal } from '@/server/synapse';
 const Schema = z.object({
   surplusDeclarationId: z.string().min(1),
   shortageDeclarationId: z.string().min(1).optional(),
-  quantity: z.string().regex(/^\d+(\.\d+)?$/).optional(),
+  quantity: z
+    .string()
+    .regex(/^\d+(\.\d+)?$/)
+    .optional(),
   notes: z.string().max(1000).optional(),
 });
 

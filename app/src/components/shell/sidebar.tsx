@@ -96,10 +96,10 @@ export function Sidebar({
       <div className="border-t border-[color:var(--color-rule)]" />
 
       <div className="px-5 pt-4 pb-5">
-        <h2 className="text-(length:--text-small) font-[var(--font-display)] font-semibold leading-snug text-[color:var(--color-ink)]">
+        <h2 className="text-(length:--text-small) leading-snug font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
           {spaceName}
         </h2>
-        <div className="metadata mt-1 tabular">
+        <div className="metadata tabular mt-1">
           {memberCount} {memberCount === 1 ? 'member' : 'members'} ·{' '}
           {convening === 'in_session' ? 'in session' : 'in recess'}
         </div>
@@ -146,7 +146,12 @@ export function Sidebar({
           >
             Switch space
           </Link>
-          <span aria-hidden className="text-(length:--text-caption) text-[color:var(--color-rule-strong)]">·</span>
+          <span
+            aria-hidden
+            className="text-(length:--text-caption) text-[color:var(--color-rule-strong)]"
+          >
+            ·
+          </span>
           <Link
             href={'/' as Route}
             {...(onNavigate ? { onClick: onNavigate } : {})}

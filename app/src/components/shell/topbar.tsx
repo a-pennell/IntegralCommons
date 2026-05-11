@@ -62,12 +62,12 @@ export function Topbar({
               type="button"
               onClick={onPaletteClick}
               aria-label="Open command palette"
-              className="metadata hidden items-center gap-1 tabular text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)] sm:flex"
+              className="metadata tabular hidden items-center gap-1 text-[color:var(--color-muted)] hover:text-[color:var(--color-ink)] sm:flex"
             >
-              <kbd className="rounded border border-[color:var(--color-rule)] px-[5px] py-[2px] font-[var(--font-mono)] text-[10px]">
+              <kbd className="rounded border border-[color:var(--color-rule)] px-[5px] py-[2px] text-[10px] font-[var(--font-mono)]">
                 ⌘
               </kbd>
-              <kbd className="rounded border border-[color:var(--color-rule)] px-[5px] py-[2px] font-[var(--font-mono)] text-[10px]">
+              <kbd className="rounded border border-[color:var(--color-rule)] px-[5px] py-[2px] text-[10px] font-[var(--font-mono)]">
                 K
               </kbd>
             </button>
@@ -83,7 +83,7 @@ export function Topbar({
         )}
 
         <span
-          className="flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--color-accent)] font-[var(--font-display)] text-[10px] font-semibold tracking-wide text-white"
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-[color:var(--color-accent)] text-[10px] font-[var(--font-display)] font-semibold tracking-wide text-white"
           aria-label="Your account"
         >
           {memberInitials}

@@ -80,7 +80,7 @@ export function StatusStamp({ status }: { status: Status }) {
   const tone = toneFor[status];
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-[3px] font-[var(--font-mono)] text-[10px] leading-none font-medium tracking-[0.12em] uppercase ${toneClasses[tone]}`}
+      className={`inline-flex items-center rounded-full px-2 py-[3px] text-[10px] leading-none font-[var(--font-mono)] font-medium tracking-[0.12em] uppercase ${toneClasses[tone]}`}
     >
       {labels[status]}
     </span>

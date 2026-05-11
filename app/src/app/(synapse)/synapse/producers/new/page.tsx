@@ -34,8 +34,8 @@ export default async function RegisterProducerPage({
           Register as a producer
         </h1>
         <p className="mt-1 text-(length:--text-small) text-[color:var(--color-muted)]">
-          Farms, cooperatives, and food-system actors. Your profile is public by default —
-          only your declared surpluses and shortages, not personal details.
+          Farms, cooperatives, and food-system actors. Your profile is public by default — only your
+          declared surpluses and shortages, not personal details.
         </p>
       </header>
 
@@ -87,8 +87,7 @@ export default async function RegisterProducerPage({
             htmlFor="bio"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            About{' '}
-            <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+            About <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
           </label>
           <textarea
             id="bio"

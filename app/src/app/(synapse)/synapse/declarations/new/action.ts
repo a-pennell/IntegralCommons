@@ -7,20 +7,40 @@ import { getProducerByMember, createDeclaration } from '@/server/synapse';
 import type { SurplusShortageDeclaration } from '@/db/schema';
 
 const RESOURCE_TYPES: SurplusShortageDeclaration['resourceType'][] = [
-  'vegetables', 'fruit', 'grains', 'legumes', 'herbs',
-  'dairy', 'eggs', 'meat', 'honey', 'seeds', 'other',
+  'vegetables',
+  'fruit',
+  'grains',
+  'legumes',
+  'herbs',
+  'dairy',
+  'eggs',
+  'meat',
+  'honey',
+  'seeds',
+  'other',
 ];
 
 const EXCHANGE_TERMS = ['free', 'exchange', 'cost_recovery'] as const;
 
 const Schema = z.object({
   kind: z.enum(['surplus', 'shortage']),
-  resourceType: z.enum(RESOURCE_TYPES as [SurplusShortageDeclaration['resourceType'], ...SurplusShortageDeclaration['resourceType'][]]),
+  resourceType: z.enum(
+    RESOURCE_TYPES as [
+      SurplusShortageDeclaration['resourceType'],
+      ...SurplusShortageDeclaration['resourceType'][],
+    ],
+  ),
   resourceDetail: z.string().max(200).optional(),
-  quantity: z.string().regex(/^\d+(\.\d+)?$/).optional(),
+  quantity: z
+    .string()
+    .regex(/^\d+(\.\d+)?$/)
+    .optional(),
   unit: z.string().max(30).optional(),
   availableFrom: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  availableUntil: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  availableUntil: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional(),
   locationDescription: z.string().max(300).optional(),
   exchangeTerms: z.enum(EXCHANGE_TERMS),
   conditions: z.string().max(1000).optional(),
@@ -47,8 +67,18 @@ export async function createDeclarationAction(formData: FormData): Promise<void>
   });
   if (!parsed.success) redirect('?error=invalid');
 
-  const { kind, resourceType, availableFrom, exchangeTerms,
-    resourceDetail, quantity, unit, availableUntil, locationDescription, conditions } = parsed.data;
+  const {
+    kind,
+    resourceType,
+    availableFrom,
+    exchangeTerms,
+    resourceDetail,
+    quantity,
+    unit,
+    availableUntil,
+    locationDescription,
+    conditions,
+  } = parsed.data;
 
   const result = await createDeclaration({
     producerId: producer.id,

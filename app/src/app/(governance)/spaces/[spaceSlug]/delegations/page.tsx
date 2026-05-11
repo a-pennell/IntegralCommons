@@ -30,12 +30,12 @@ export default async function DelegationsPage({ params }: { params: Promise<Rout
     >
       <header className="mb-10 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Delegations</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           The roll
         </h1>
       </header>
 
-      <p className="mb-12 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+      <p className="mb-12 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
         Active capabilities held by members on specific issues or space-wide. Every delegation is
         revocable. To grant a new one, open an issue and drive it to a Decision Record.
       </p>
@@ -44,7 +44,7 @@ export default async function DelegationsPage({ params }: { params: Promise<Rout
         <SectionHeader label="Active" count={activeDelegations.length} />
 
         {activeDelegations.length === 0 ? (
-          <p className="border-t border-[color:var(--color-rule)] py-6 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+          <p className="border-t border-[color:var(--color-rule)] py-6 text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
             No active delegations. During Bootstrap, the founder implicitly holds facilitation for
             the Bootstrap Issue — once that Issue is decided, subsequent delegations must be granted
             via a Decision Record.
@@ -61,15 +61,15 @@ export default async function DelegationsPage({ params }: { params: Promise<Rout
                     DEL-{d.id.slice(-5).toUpperCase()}
                   </span>
                   <div className="flex-1">
-                    <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+                    <div className="text-(length:--text-body) leading-tight font-[var(--font-body)] text-[color:var(--color-ink)]">
                       <strong className="font-medium">
                         {d.granteeDisplayName ?? '[removed member]'}
                       </strong>
-                      <span className="metadata ml-3 tabular text-[color:var(--color-accent)]">
+                      <span className="metadata tabular ml-3 text-[color:var(--color-accent)]">
                         {d.capability.toUpperCase()}
                       </span>
                     </div>
-                    <div className="metadata mt-1 tabular">
+                    <div className="metadata tabular mt-1">
                       {d.issueId ? 'per-issue' : 'space-wide'} · granted via{' '}
                       <span className="text-[color:var(--color-ink-soft)]">
                         {d.grantedByType.replace(/_/g, ' ')}
@@ -88,7 +88,11 @@ export default async function DelegationsPage({ params }: { params: Promise<Rout
                 <form action={revokeDelegationAction}>
                   <input type="hidden" name="delegationId" value={d.id} />
                   <input type="hidden" name="spaceSlug" value={space.space.slug} />
-                  <Button type="submit" variant="secondary" className="px-4 py-2 text-(length:--text-small)">
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="px-4 py-2 text-(length:--text-small)"
+                  >
                     Revoke
                   </Button>
                 </form>

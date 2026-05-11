@@ -8,11 +8,7 @@ import { listTransactionsForMember, computeBalance } from '@/server/time-credits
 
 type RouteParams = { neighborhoodSlug: string };
 
-export default async function NeighborhoodPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function NeighborhoodPage({ params }: { params: Promise<RouteParams> }) {
   const { neighborhoodSlug } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}`);
@@ -54,7 +50,7 @@ export default async function NeighborhoodPage({
             href={`/neighborhoods/${neighborhoodSlug}/credits`}
             className="flex items-center gap-1.5 rounded border border-[color:var(--color-rule)] px-3 py-1.5 transition-colors hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
           >
-            <span className="font-[var(--font-mono)] text-(length:--text-small) font-medium tabular text-[color:var(--color-ink)]">
+            <span className="tabular text-(length:--text-small) font-[var(--font-mono)] font-medium text-[color:var(--color-ink)]">
               {balance.toFixed(1)}
             </span>
             <span className="text-(length:--text-caption) text-[color:var(--color-muted)]">
@@ -104,7 +100,7 @@ function SummaryCard({
       href={href}
       className="block rounded border border-[color:var(--color-rule)] p-4 transition-colors hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
     >
-      <div className="tabular font-[var(--font-display)] text-[28px] font-semibold leading-none text-[color:var(--color-ink)]">
+      <div className="tabular text-[28px] leading-none font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
         {count}
       </div>
       <div className="mt-2 text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]">

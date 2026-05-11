@@ -150,8 +150,7 @@ async function main(): Promise<void> {
     spaceId,
     title: 'How should we govern the shared tool library?',
     slug: 'tool-library-governance',
-    scope:
-      `Policies for borrowing, returning, maintaining, and expanding the co-op's shared tool collection. Excludes large machinery and vehicles.`,
+    scope: `Policies for borrowing, returning, maintaining, and expanding the co-op's shared tool collection. Excludes large machinery and vehicles.`,
     status: 'exploring',
     createdByMemberId: priyaId,
     scopeTags: ['tools', 'shared-resources', 'stewardship'],
@@ -366,8 +365,7 @@ async function main(): Promise<void> {
       authorId: priyaId,
       taxonomyType: 'values',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `I started this library because I was tired of watching neighbors buy the same drill five times when we could share one. But right now I'm the informal gatekeeper, and that's not sustainable or fair. Whatever we decide, it needs to take the informal coordination burden off any one person — including me. We should be designing for a co-op that works when I'm on vacation.`,
+      bodyMarkdown: `I started this library because I was tired of watching neighbors buy the same drill five times when we could share one. But right now I'm the informal gatekeeper, and that's not sustainable or fair. Whatever we decide, it needs to take the informal coordination burden off any one person — including me. We should be designing for a co-op that works when I'm on vacation.`,
       createdAt: d('2026-02-06T09:30:00Z'),
     },
     {
@@ -386,8 +384,7 @@ async function main(): Promise<void> {
       authorId: sofiaId,
       taxonomyType: 'risk',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `We need to be honest about damage. Last year's missing drill didn't disappear — it came back broken and the person who had it didn't say anything. Any governance model that doesn't include a clear, non-punitive way to report damage just means broken tools get quietly returned and the next person discovers the problem. I'd rather have an awkward "the drill stopped working while I was using it" norm than a shame spiral.`,
+      bodyMarkdown: `We need to be honest about damage. Last year's missing drill didn't disappear — it came back broken and the person who had it didn't say anything. Any governance model that doesn't include a clear, non-punitive way to report damage just means broken tools get quietly returned and the next person discovers the problem. I'd rather have an awkward "the drill stopped working while I was using it" norm than a shame spiral.`,
       createdAt: d('2026-02-10T11:00:00Z'),
     },
     {
@@ -397,8 +394,7 @@ async function main(): Promise<void> {
       taxonomyType: 'risk',
       fromDirectExperience: false,
       parentPerspectiveId: p_tool_sofia,
-      bodyMarkdown:
-        `Agreed with Sofia. I'd add: we should also think about what happens when something breaks through normal wear-and-tear vs. user error. We probably shouldn't try to assign fault — just have a small repair/replacement fund and treat it as a commons cost.`,
+      bodyMarkdown: `Agreed with Sofia. I'd add: we should also think about what happens when something breaks through normal wear-and-tear vs. user error. We probably shouldn't try to assign fault — just have a small repair/replacement fund and treat it as a commons cost.`,
       createdAt: d('2026-02-11T09:00:00Z'),
     },
     {
@@ -407,8 +403,7 @@ async function main(): Promise<void> {
       authorId: devonId,
       taxonomyType: 'equity',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `I don't have a car, which means I can only realistically borrow tools from members within walking distance. A rotation model that always places tools at the same address, or that requires me to coordinate pickups from wherever the tool happens to be, effectively excludes me. Can we think about tool storage locations as part of this decision? Maybe the shed should be the default return point rather than people's homes.`,
+      bodyMarkdown: `I don't have a car, which means I can only realistically borrow tools from members within walking distance. A rotation model that always places tools at the same address, or that requires me to coordinate pickups from wherever the tool happens to be, effectively excludes me. Can we think about tool storage locations as part of this decision? Maybe the shed should be the default return point rather than people's homes.`,
       createdAt: d('2026-02-12T17:00:00Z'),
     },
     {
@@ -417,8 +412,7 @@ async function main(): Promise<void> {
       authorId: tomaszId,
       taxonomyType: 'temporal',
       fromDirectExperience: false,
-      bodyMarkdown:
-        `I've been part of two tool libraries in other cities. Both started well and both collapsed after 18 months when the initial enthusiastic stewards burned out. Whatever we build, it needs to be designed for low enthusiasm, not high. The system should be light enough that a steward who has a hard month can fulfil their obligations without heroics.`,
+      bodyMarkdown: `I've been part of two tool libraries in other cities. Both started well and both collapsed after 18 months when the initial enthusiastic stewards burned out. Whatever we build, it needs to be designed for low enthusiasm, not high. The system should be light enough that a steward who has a hard month can fulfil their obligations without heroics.`,
       createdAt: d('2026-02-15T08:00:00Z'),
     },
   ]);
@@ -481,8 +475,7 @@ async function main(): Promise<void> {
       authorId: anikaId,
       taxonomyType: 'values',
       fromDirectExperience: false,
-      bodyMarkdown:
-        `Food sovereignty at neighborhood scale matters to me even if the amounts are small. Growing some of our own food together isn't just about efficiency — it's about knowing where food comes from and having some collective agency over it. I support expansion, but I want us to be honest that this is a political choice about what kind of neighborhood we want to be, not just a lifestyle project.`,
+      bodyMarkdown: `Food sovereignty at neighborhood scale matters to me even if the amounts are small. Growing some of our own food together isn't just about efficiency — it's about knowing where food comes from and having some collective agency over it. I support expansion, but I want us to be honest that this is a political choice about what kind of neighborhood we want to be, not just a lifestyle project.`,
       createdAt: d('2026-03-22T10:00:00Z'),
     },
     {
@@ -491,8 +484,7 @@ async function main(): Promise<void> {
       authorId: laylaId,
       taxonomyType: 'equity',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `I want to raise the question of who actually has time to tend a plot. Our current herb garden participation fell 40% in year two because the people who started with enthusiasm got busy. If we expand, I want us to design plot allocation so that people who can commit less time (caregivers, people working multiple jobs) aren't systematically excluded. Maybe smaller plots or a shared-maintenance option alongside individual plots.`,
+      bodyMarkdown: `I want to raise the question of who actually has time to tend a plot. Our current herb garden participation fell 40% in year two because the people who started with enthusiasm got busy. If we expand, I want us to design plot allocation so that people who can commit less time (caregivers, people working multiple jobs) aren't systematically excluded. Maybe smaller plots or a shared-maintenance option alongside individual plots.`,
       createdAt: d('2026-03-24T15:00:00Z'),
     },
     {
@@ -501,8 +493,7 @@ async function main(): Promise<void> {
       authorId: chenId,
       taxonomyType: 'feasibility',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `I walked the north lot last weekend. The drainage problem in the southeast corner is real — standing water after rain. That corner is about 25% of the total lot. The rest is usable. We have two options: raised beds throughout (more expensive, solves drainage everywhere), or just avoid the southeast corner (cheaper, but we lose some area and the boundary is ambiguous). I can put together rough cost estimates for both approaches if that's useful.`,
+      bodyMarkdown: `I walked the north lot last weekend. The drainage problem in the southeast corner is real — standing water after rain. That corner is about 25% of the total lot. The rest is usable. We have two options: raised beds throughout (more expensive, solves drainage everywhere), or just avoid the southeast corner (cheaper, but we lose some area and the boundary is ambiguous). I can put together rough cost estimates for both approaches if that's useful.`,
       createdAt: d('2026-03-26T09:00:00Z'),
     },
     {
@@ -511,8 +502,7 @@ async function main(): Promise<void> {
       authorId: marcusId,
       taxonomyType: 'risk',
       fromDirectExperience: false,
-      bodyMarkdown:
-        `The biggest risk I see isn't logistical — it's legal. We have a verbal indication from the building owner, but verbal is worth nothing if they sell the property or change their mind mid-season. Any decision to expand should be conditional on getting a written lease with at least a 2-year term. I'd feel more comfortable starting small and extending by written agreement than planting extensively on a handshake.`,
+      bodyMarkdown: `The biggest risk I see isn't logistical — it's legal. We have a verbal indication from the building owner, but verbal is worth nothing if they sell the property or change their mind mid-season. Any decision to expand should be conditional on getting a written lease with at least a 2-year term. I'd feel more comfortable starting small and extending by written agreement than planting extensively on a handshake.`,
       createdAt: d('2026-03-28T11:00:00Z'),
     },
     {
@@ -521,8 +511,7 @@ async function main(): Promise<void> {
       authorId: priyaId,
       taxonomyType: 'relational',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `The three neighbors Sofia mentioned at the block meeting are exactly the kind of relationship I want us to be building. The co-op has been a bit insular — we make decisions among ourselves without much porousness. A garden that involves people outside the formal membership could change that. I'd like us to think about whether this is a chance to pilot an "associate member" model for people who contribute to a specific commons without joining fully.`,
+      bodyMarkdown: `The three neighbors Sofia mentioned at the block meeting are exactly the kind of relationship I want us to be building. The co-op has been a bit insular — we make decisions among ourselves without much porousness. A garden that involves people outside the formal membership could change that. I'd like us to think about whether this is a chance to pilot an "associate member" model for people who contribute to a specific commons without joining fully.`,
       createdAt: d('2026-04-02T18:00:00Z'),
     },
     {
@@ -531,8 +520,7 @@ async function main(): Promise<void> {
       authorId: tomaszId,
       taxonomyType: 'temporal',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `We planted a small herb garden last summer with a lot of enthusiasm and by October it was mostly Priya keeping it alive. I'm not against expansion, but I think we should be honest about our track record. Before committing to a larger lot, I'd want to see us successfully complete one full growing season with better participation in the existing herb planters. Can we make that a condition of moving forward?`,
+      bodyMarkdown: `We planted a small herb garden last summer with a lot of enthusiasm and by October it was mostly Priya keeping it alive. I'm not against expansion, but I think we should be honest about our track record. Before committing to a larger lot, I'd want to see us successfully complete one full growing season with better participation in the existing herb planters. Can we make that a condition of moving forward?`,
       createdAt: d('2026-04-05T14:00:00Z'),
     },
   ]);
@@ -570,8 +558,7 @@ async function main(): Promise<void> {
       authorId: anikaId,
       taxonomyType: 'values',
       fromDirectExperience: true,
-      bodyMarkdown:
-        `I'm raising this because I've been absorbing small costs quietly for about eight months — zip ties, spray paint for the shed, a new padlock — and I noticed I was starting to resent it. That's not a healthy dynamic for a commons. But I also set this co-op up because I believe in access-first. Any fee structure that makes it harder for someone with less money to participate is a structural failure, not an inconvenience. We need both sustainability and access, and I don't want to trade one off against the other.`,
+      bodyMarkdown: `I'm raising this because I've been absorbing small costs quietly for about eight months — zip ties, spray paint for the shed, a new padlock — and I noticed I was starting to resent it. That's not a healthy dynamic for a commons. But I also set this co-op up because I believe in access-first. Any fee structure that makes it harder for someone with less money to participate is a structural failure, not an inconvenience. We need both sustainability and access, and I don't want to trade one off against the other.`,
       createdAt: d('2026-04-28T10:45:00Z'),
     },
     {
@@ -580,8 +567,7 @@ async function main(): Promise<void> {
       authorId: chenId,
       taxonomyType: 'feasibility',
       fromDirectExperience: false,
-      bodyMarkdown:
-        `Before we can design a fee structure, we need a budget. Do we know what our actual annual costs are? I'd volunteer to put together a simple cost tracker — even just a shared spreadsheet for three months would give us real numbers to design around. Right now we're having a values argument about fees without knowing if we're talking about $20/year or $200/year per member. Those are very different conversations.`,
+      bodyMarkdown: `Before we can design a fee structure, we need a budget. Do we know what our actual annual costs are? I'd volunteer to put together a simple cost tracker — even just a shared spreadsheet for three months would give us real numbers to design around. Right now we're having a values argument about fees without knowing if we're talking about $20/year or $200/year per member. Those are very different conversations.`,
       createdAt: d('2026-04-29T14:00:00Z'),
     },
   ]);
@@ -637,7 +623,11 @@ async function main(): Promise<void> {
       issueId: toolIssueId,
       eventType: 'delegation_granted',
       actorMemberId: priyaId,
-      payload: { delegationId: toolDelegationId, granteeMemberId: marcusId, capability: 'facilitation' },
+      payload: {
+        delegationId: toolDelegationId,
+        granteeMemberId: marcusId,
+        capability: 'facilitation',
+      },
       occurredAt: d('2026-02-05T12:00:00Z'),
     },
     {
@@ -705,7 +695,11 @@ async function main(): Promise<void> {
       issueId: gardenIssueId,
       eventType: 'delegation_granted',
       actorMemberId: sofiaId,
-      payload: { delegationId: gardenDelegationId, granteeMemberId: devonId, capability: 'facilitation' },
+      payload: {
+        delegationId: gardenDelegationId,
+        granteeMemberId: devonId,
+        capability: 'facilitation',
+      },
       occurredAt: d('2026-03-21T10:00:00Z'),
     },
     {
@@ -802,14 +796,16 @@ async function main(): Promise<void> {
     },
   ]);
 
-  console.log([
-    `seeded space=${spaceId}`,
-    `  8 members: priya=${priyaId} marcus=${marcusId} sofia=${sofiaId} devon=${devonId}`,
-    `             anika=${anikaId} tomasz=${tomaszId} layla=${laylaId} chen=${chenId}`,
-    `  issue[decided]=${toolIssueId}  (tool library — DR=${toolDrId})`,
-    `  issue[exploring]=${gardenIssueId}  (garden expansion)`,
-    `  issue[open]=${feeIssueId}  (fee structure)`,
-  ].join('\n'));
+  console.log(
+    [
+      `seeded space=${spaceId}`,
+      `  8 members: priya=${priyaId} marcus=${marcusId} sofia=${sofiaId} devon=${devonId}`,
+      `             anika=${anikaId} tomasz=${tomaszId} layla=${laylaId} chen=${chenId}`,
+      `  issue[decided]=${toolIssueId}  (tool library — DR=${toolDrId})`,
+      `  issue[exploring]=${gardenIssueId}  (garden expansion)`,
+      `  issue[open]=${feeIssueId}  (fee structure)`,
+    ].join('\n'),
+  );
 }
 
 main().catch((err) => {

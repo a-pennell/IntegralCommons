@@ -64,15 +64,15 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
             <div className="eyebrow">
               Decision record
               {' · '}
-              <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+              <span className="tracking-normal text-[color:var(--color-ink-soft)] normal-case italic">
                 {issue.title}
               </span>
             </div>
-            <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+            <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
               No record on file
             </h1>
           </header>
-          <p className="font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink-soft)] italic">
+          <p className="text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
             No Decision Record has been finalized for this issue yet.{' '}
             <a
               href={`/spaces/${space.space.slug}/issues/${issue.slug}/decision/draft` as Route}
@@ -89,7 +89,7 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
           margin={
             <>
               <div className="eyebrow text-[color:var(--color-ink)]">Decision Record</div>
-              <div className="metadata mt-1 tabular text-[color:var(--color-ink)]">
+              <div className="metadata tabular mt-1 text-[color:var(--color-ink)]">
                 DR-{current.id.slice(-5).toUpperCase()}
               </div>
 
@@ -99,21 +99,19 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
 
               <div className="mt-6">
                 <div className="eyebrow">Method</div>
-                <div className="metadata mt-1 tabular">{current.howMethod}</div>
+                <div className="metadata tabular mt-1">{current.howMethod}</div>
               </div>
 
               <div className="mt-6">
                 <div className="eyebrow">Finalized</div>
-                <div className="metadata mt-1 tabular">
-                  {current.finalizedAt
-                    ? formatLongDate(current.finalizedAt)
-                    : '—'}
+                <div className="metadata tabular mt-1">
+                  {current.finalizedAt ? formatLongDate(current.finalizedAt) : '—'}
                 </div>
               </div>
 
               <div className="mt-6">
                 <div className="eyebrow">Review on</div>
-                <div className="metadata mt-1 tabular text-[color:var(--color-stuart)]">
+                <div className="metadata tabular mt-1 text-[color:var(--color-stuart)]">
                   {current.reviewDate}
                 </div>
               </div>
@@ -121,9 +119,7 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
               {chain.length > 1 ? (
                 <div className="mt-6">
                   <div className="eyebrow">Supersession</div>
-                  <div className="metadata mt-1 tabular">
-                    {chain.length}-record chain
-                  </div>
+                  <div className="metadata tabular mt-1">{chain.length}-record chain</div>
                 </div>
               ) : null}
 
@@ -138,9 +134,7 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
                   </a>
                   {' · '}
                   <a
-                    href={
-                      `/spaces/${space.space.slug}/issues/${issue.slug}/timeline` as Route
-                    }
+                    href={`/spaces/${space.space.slug}/issues/${issue.slug}/timeline` as Route}
                     className="underline underline-offset-4 hover:text-[color:var(--color-accent)]"
                   >
                     Civic Memory
@@ -154,11 +148,11 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
             <div className="eyebrow">
               Decision record
               {' · '}
-              <span className="text-[color:var(--color-ink-soft)] normal-case tracking-normal italic">
+              <span className="tracking-normal text-[color:var(--color-ink-soft)] normal-case italic">
                 {issue.title}
               </span>
             </div>
-            <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+            <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) font-[var(--font-display)] font-extrabold tracking-(--text-display--letter-spacing) text-[color:var(--color-ink)]">
               The record
             </h1>
           </header>
@@ -177,7 +171,7 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
             <section className="mt-20 border-t-2 border-[color:var(--color-ink)] pt-8">
               <header className="mb-5">
                 <div className="eyebrow">Supersession chain</div>
-                <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+                <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) font-[var(--font-display)] font-bold tracking-(--text-heading--letter-spacing) text-[color:var(--color-ink)]">
                   Predecessors
                 </h2>
               </header>
@@ -190,7 +184,7 @@ export default async function DecisionPage({ params }: { params: Promise<RoutePa
                     <span className="metadata tabular text-[color:var(--color-ink)]">
                       {i === 0 ? 'current' : `v${chain.length - i}`}
                     </span>
-                    <span className="font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink)]">
+                    <span className="text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-ink)]">
                       {dr.whatText.slice(0, 120)}
                       {dr.whatText.length > 120 ? '…' : ''}
                     </span>
@@ -232,11 +226,11 @@ function DrSection({ title, html, empty }: { title: string; html: string; empty?
       <h2 className="eyebrow mb-3 text-[color:var(--color-ink)]">{title}</h2>
       {html ? (
         <div
-          className="prose prose-sm max-w-prose font-[var(--font-body)] text-(length:--text-body)"
+          className="prose prose-sm max-w-prose text-(length:--text-body) font-[var(--font-body)]"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
-        <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+        <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
           {empty ?? '—'}
         </p>
       )}

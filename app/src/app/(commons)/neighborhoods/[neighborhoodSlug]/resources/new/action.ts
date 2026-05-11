@@ -37,7 +37,10 @@ export async function addResourceAction(formData: FormData): Promise<void> {
   if (!result) redirect(back);
 
   const tagList = tags
-    ? tags.split(',').map((t) => t.trim()).filter(Boolean)
+    ? tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean)
     : [];
 
   const outcome = await createResource({

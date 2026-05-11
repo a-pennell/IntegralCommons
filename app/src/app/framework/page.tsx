@@ -46,9 +46,9 @@ export default function FrameworkPage() {
           margin={
             <>
               <div className="eyebrow">CommonGround</div>
-              <div className="metadata mt-1 tabular">v1.0 · 14 Apr 2026</div>
-              <div className="metadata mt-4 tabular">Status · Draft</div>
-              <div className="metadata mt-4 tabular">
+              <div className="metadata tabular mt-1">v1.0 · 14 Apr 2026</div>
+              <div className="metadata tabular mt-4">Status · Draft</div>
+              <div className="metadata tabular mt-4">
                 Source ·{' '}
                 <a
                   href="https://github.com/a-pennell/ICOS/blob/main/docs/commonground-governance-framework.md"
@@ -60,33 +60,31 @@ export default function FrameworkPage() {
             </>
           }
         >
-          <h1 className="text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+          <h1 className="text-(length:--text-display) leading-(--text-display--line-height) font-[var(--font-display)] font-extrabold tracking-(--text-display--letter-spacing) text-[color:var(--color-ink)]">
             The Governance Framework
           </h1>
-          <p className="mt-6 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
-            Eleven constitutional principles for groups that govern shared resources. They
-            are embedded in the CommonGround software but exist independently of it — they
-            describe how groups can govern themselves while ensuring power remains visible,
-            contextual, and revocable.
+          <p className="mt-6 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+            Eleven constitutional principles for groups that govern shared resources. They are
+            embedded in the CommonGround software but exist independently of it — they describe how
+            groups can govern themselves while ensuring power remains visible, contextual, and
+            revocable.
           </p>
         </Folio>
 
         {/* Core premise */}
-        <Folio
-          margin={<div className="eyebrow">Core premise</div>}
-        >
-          <p className="max-w-prose font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)]">
-            Groups are sovereign. They can delegate authority but can never permanently
-            surrender it. All governance is visible, all power is contextual, and the
-            infrastructure that enables governance cannot itself be captured.
+        <Folio margin={<div className="eyebrow">Core premise</div>}>
+          <p className="max-w-prose text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-body)] text-[color:var(--color-ink)]">
+            Groups are sovereign. They can delegate authority but can never permanently surrender
+            it. All governance is visible, all power is contextual, and the infrastructure that
+            enables governance cannot itself be captured.
           </p>
         </Folio>
 
         {/* Tier 1 */}
         <SectionDivider label="Tier 1 — Inviolable" />
-        <p className="mb-12 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)] italic">
-          These principles cannot be overridden by any group decision. They protect the
-          commons, individual rights, and the group's capacity for self-governance.
+        <p className="mb-12 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+          These principles cannot be overridden by any group decision. They protect the commons,
+          individual rights, and the group's capacity for self-governance.
         </p>
 
         <Principle
@@ -114,10 +112,9 @@ export default function FrameworkPage() {
 
         {/* Tier 2 */}
         <SectionDivider label="Tier 2 — Deliberable" />
-        <p className="mb-12 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)] italic">
-          These principles are defaults that groups can adjust through their own governance
-          process. Adjustments are recorded as Decision Records in Civic Memory, creating
-          visible precedent.
+        <p className="mb-12 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+          These principles are defaults that groups can adjust through their own governance process.
+          Adjustments are recorded as Decision Records in Civic Memory, creating visible precedent.
         </p>
 
         <Principle
@@ -180,12 +177,12 @@ export default function FrameworkPage() {
         {/* Footer */}
         <SectionDivider label="On this document" />
         <Folio margin={<div className="eyebrow">Canonical text</div>}>
-          <p className="max-w-prose font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)]">
-            The full canonical text — including conflict-resolution rules, the bootstrap
-            process, decision-method architecture, and amendment process — lives in the
-            CommonGround repository:
+          <p className="max-w-prose text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-body)] text-[color:var(--color-ink)]">
+            The full canonical text — including conflict-resolution rules, the bootstrap process,
+            decision-method architecture, and amendment process — lives in the CommonGround
+            repository:
           </p>
-          <p className="metadata mt-4 tabular">
+          <p className="metadata tabular mt-4">
             <a
               href="https://github.com/a-pennell/ICOS/blob/main/docs/commonground-governance-framework.md"
               className="underline underline-offset-4 hover:text-[color:var(--color-accent)]"
@@ -193,11 +190,11 @@ export default function FrameworkPage() {
               docs/commonground-governance-framework.md
             </a>
           </p>
-          <p className="mt-6 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)] italic">
-            CommonGround is licensed under the GNU Affero General Public License v3.0.
-            The Framework is available under the same license; you are free to fork it,
-            adapt it for your own group, and republish — provided you preserve the
-            commitments to revocability, transparency, and forkability that define it.
+          <p className="mt-6 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+            CommonGround is licensed under the GNU Affero General Public License v3.0. The Framework
+            is available under the same license; you are free to fork it, adapt it for your own
+            group, and republish — provided you preserve the commitments to revocability,
+            transparency, and forkability that define it.
           </p>
         </Folio>
       </main>
@@ -235,24 +232,20 @@ function Principle({
       margin={
         <>
           <div className="eyebrow text-[color:var(--color-ink)]">Principle {num}</div>
-          <div className="metadata mt-1 tabular">
-            {tier === 'inviolable' ? 'Tier 1' : 'Tier 2'}
-          </div>
+          <div className="metadata tabular mt-1">{tier === 'inviolable' ? 'Tier 1' : 'Tier 2'}</div>
           {supreme ? (
-            <div className="metadata mt-4 tabular text-[color:var(--color-oxblood)]">
-              Supreme
-            </div>
+            <div className="metadata tabular mt-4 text-[color:var(--color-oxblood)]">Supreme</div>
           ) : null}
         </>
       }
     >
-      <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+      <h2 className="text-(length:--text-heading) leading-(--text-heading--line-height) font-[var(--font-display)] font-bold tracking-(--text-heading--letter-spacing) text-[color:var(--color-ink)]">
         {title}
       </h2>
-      <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)]">
+      <p className="mt-3 max-w-prose text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-body)] text-[color:var(--color-ink)]">
         {summary}
       </p>
-      <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-muted)] italic">
+      <p className="mt-3 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
         <span className="not-italic">Rationale.</span> {rationale}
       </p>
     </Folio>

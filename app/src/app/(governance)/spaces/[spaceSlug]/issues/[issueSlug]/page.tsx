@@ -63,9 +63,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
     }),
   );
 
-  const summaryHtml = summaries[0]
-    ? await renderMarkdown(summaries[0].bodyMarkdown)
-    : null;
+  const summaryHtml = summaries[0] ? await renderMarkdown(summaries[0].bodyMarkdown) : null;
 
   const canContribute = issue.status !== 'decided' && issue.status !== 'archived';
 
@@ -81,7 +79,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
           <>
             {/* Citation block */}
             <div className="eyebrow text-[color:var(--color-ink)]">Issue</div>
-            <div className="metadata mt-1 tabular text-[color:var(--color-ink)]">
+            <div className="metadata tabular mt-1 text-[color:var(--color-ink)]">
               ISS-{shortId(issue.id)}
             </div>
 
@@ -93,23 +91,21 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
             {/* Provenance */}
             <div className="mt-6">
               <div className="eyebrow">Opened</div>
-              <div className="metadata mt-1 tabular">
-                {formatLongDate(issue.createdAt)}
-              </div>
+              <div className="metadata tabular mt-1">{formatLongDate(issue.createdAt)}</div>
             </div>
 
             {/* Quorum */}
             {quorum ? (
               <div className="mt-6">
                 <div className="eyebrow">Quorum</div>
-                <div className="metadata mt-1 tabular">
+                <div className="metadata tabular mt-1">
                   Awareness {quorum.awarenessCount} of {quorum.awarenessRequired}
                 </div>
                 <div className="metadata tabular">
                   Participation {quorum.participationCount} of {quorum.participationRequired}
                 </div>
                 {quorum.deliberationPeriodEndsAt ? (
-                  <div className="metadata mt-2 tabular text-[color:var(--color-stuart)]">
+                  <div className="metadata tabular mt-2 text-[color:var(--color-stuart)]">
                     Period ends {formatShortDate(quorum.deliberationPeriodEndsAt)}
                   </div>
                 ) : null}
@@ -122,7 +118,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
             (issue.status === 'open' || issue.status === 'exploring') ? (
               <div className="mt-6 border-t border-[color:var(--color-rule)] pt-4">
                 <div className="eyebrow text-[color:var(--color-ink)]">Facilitation</div>
-                <p className="mt-2 metadata text-[color:var(--color-muted)] italic">
+                <p className="metadata mt-2 text-[color:var(--color-muted)] italic">
                   No facilitator yet.
                 </p>
                 <form action={volunteerFacilitatorAction} className="mt-3">
@@ -160,14 +156,14 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
                       >
                         Begin deliberation →
                       </Button>
-                      <p className="mt-2 metadata text-[color:var(--color-muted)] italic">
+                      <p className="metadata mt-2 text-[color:var(--color-muted)] italic">
                         Moves to Exploring. Members may add perspectives.
                       </p>
                     </form>
                     <div className="mt-3">
                       <a
                         href={`/spaces/${space.space.slug}/issues/${issue.slug}/edit` as Route}
-                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                        className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
                       >
                         Edit framing →
                       </a>
@@ -194,7 +190,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
                         href={
                           `/spaces/${space.space.slug}/issues/${issue.slug}/decision/draft` as Route
                         }
-                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                        className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
                       >
                         Draft Decision Record →
                       </a>
@@ -202,15 +198,13 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
                         href={
                           `/spaces/${space.space.slug}/issues/${issue.slug}/summary/new` as Route
                         }
-                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                        className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
                       >
                         Publish summary →
                       </a>
                       <a
-                        href={
-                          `/spaces/${space.space.slug}/issues/${issue.slug}/edit` as Route
-                        }
-                        className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
+                        href={`/spaces/${space.space.slug}/issues/${issue.slug}/edit` as Route}
+                        className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] underline underline-offset-4 hover:text-[color:var(--color-accent)]"
                       >
                         Edit framing →
                       </a>
@@ -224,7 +218,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
             {issue.scopeTags.length > 0 ? (
               <div className="mt-6">
                 <div className="eyebrow">Tags</div>
-                <div className="metadata mt-1 tabular">{issue.scopeTags.join(', ')}</div>
+                <div className="metadata tabular mt-1">{issue.scopeTags.join(', ')}</div>
               </div>
             ) : null}
 
@@ -245,10 +239,10 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
       >
         {/* Title block */}
         <header className="mb-10">
-          <h1 className="text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+          <h1 className="text-(length:--text-display) leading-(--text-display--line-height) font-[var(--font-display)] font-extrabold tracking-(--text-display--letter-spacing) text-[color:var(--color-ink)]">
             {issue.title}
           </h1>
-          <p className="mt-5 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          <p className="mt-5 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
             {issue.scope}
           </p>
         </header>
@@ -258,7 +252,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
             <div className="eyebrow text-[color:var(--color-oxblood)]">
               Stalled — insufficient awareness
             </div>
-            <p className="mt-2 max-w-prose font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)]">
+            <p className="mt-2 max-w-prose text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)]">
               This issue cannot proceed to a decision until more members have viewed it. Current
               awareness: {quorum.awarenessCount} of {quorum.awarenessRequired} required (
               {Math.round((quorum.awarenessCount / Math.max(quorum.awarenessRequired, 1)) * 100)}
@@ -281,7 +275,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
               <div>
                 <div className="eyebrow text-[color:var(--color-ink)]">Official summary</div>
                 {summaries[0] ? (
-                  <div className="metadata mt-1 tabular">
+                  <div className="metadata tabular mt-1">
                     v{summaries[0].version} · {summaries[0].authorDisplayName ?? '[removed]'} ·{' '}
                     {formatShortDate(summaries[0].publishedAt)}
                   </div>
@@ -290,7 +284,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
               {hasFacilitation ? (
                 <a
                   href={`/spaces/${space.space.slug}/issues/${issue.slug}/summary/new` as Route}
-                  className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
+                  className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
                 >
                   {summaries.length > 0 ? 'Publish revision' : 'Publish first summary'}
                 </a>
@@ -298,16 +292,16 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
             </header>
             {summaryHtml ? (
               <div
-                className="prose prose-sm max-w-prose font-[var(--font-body)] text-(length:--text-body)"
+                className="prose prose-sm max-w-prose text-(length:--text-body) font-[var(--font-body)]"
                 dangerouslySetInnerHTML={{ __html: summaryHtml }}
               />
             ) : (
-              <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+              <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
                 No summary published yet.
               </p>
             )}
             {summaries.length > 1 ? (
-              <details className="mt-4 metadata tabular">
+              <details className="metadata tabular mt-4">
                 <summary className="cursor-pointer">
                   {summaries.length - 1} prior version{summaries.length > 2 ? 's' : ''}
                 </summary>
@@ -333,10 +327,8 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
             </div>
             {canContribute ? (
               <a
-                href={
-                  `/spaces/${space.space.slug}/issues/${issue.slug}/perspectives/new` as Route
-                }
-                className="font-[var(--font-display)] text-(length:--text-small) font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
+                href={`/spaces/${space.space.slug}/issues/${issue.slug}/perspectives/new` as Route}
+                className="text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)] hover:text-[color:var(--color-accent)]"
               >
                 + Add a perspective
               </a>
@@ -344,7 +336,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
           </header>
 
           {perspectives.length === 0 ? (
-            <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+            <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
               No perspectives yet. Each perspective is a first-class contribution, not a comment.
             </p>
           ) : (
@@ -390,13 +382,13 @@ function PerspectiveBlock({
       }
     >
       <header className="mb-3 flex items-baseline justify-between gap-4">
-        <div className="font-[var(--font-body)] text-(length:--text-small) italic text-[color:var(--color-ink)]">
+        <div className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)] italic">
           {p.authorDisplayName ?? '[removed member]'}
-          <span className="metadata not-italic ml-3 tabular text-[color:var(--color-muted)]">
+          <span className="metadata tabular ml-3 text-[color:var(--color-muted)] not-italic">
             {p.taxonomyType.toUpperCase()}
           </span>
           {p.fromDirectExperience ? (
-            <span className="metadata not-italic ml-2 tabular text-[color:var(--color-accent)]">
+            <span className="metadata tabular ml-2 text-[color:var(--color-accent)] not-italic">
               · direct experience
             </span>
           ) : null}
@@ -406,7 +398,7 @@ function PerspectiveBlock({
         </time>
       </header>
       <div
-        className="prose prose-sm max-w-prose font-[var(--font-body)] text-(length:--text-body)"
+        className="prose prose-sm max-w-prose text-(length:--text-body) font-[var(--font-body)]"
         dangerouslySetInnerHTML={{ __html: bodyHtml }}
       />
       {canReply ? (
@@ -432,7 +424,7 @@ function StructuredSection({ title, items }: { title: string; items: string[] })
         {items.map((line, i) => (
           <li
             key={i}
-            className="font-[var(--font-body)] text-(length:--text-body) leading-(--text-body--line-height) text-[color:var(--color-ink)]"
+            className="text-(length:--text-body) leading-(--text-body--line-height) font-[var(--font-body)] text-[color:var(--color-ink)]"
           >
             <span className="metadata tabular mr-3 text-[color:var(--color-muted)]">
               {String(i + 1).padStart(2, '0')}

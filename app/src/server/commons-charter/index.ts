@@ -8,9 +8,7 @@ import type { Result } from '@/lib/result';
 import { err, ok } from '@/lib/result';
 import { ulid } from '@/lib/ulid';
 
-export async function getCharterSections(
-  neighborhoodId: string,
-): Promise<CommonsCharterSection[]> {
+export async function getCharterSections(neighborhoodId: string): Promise<CommonsCharterSection[]> {
   return db
     .select()
     .from(commonsCharterSections)

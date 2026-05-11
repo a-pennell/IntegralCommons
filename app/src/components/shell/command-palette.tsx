@@ -202,14 +202,14 @@ export function CommandPalette({ spaceSlug, onClose }: Props) {
               setSelectedIdx(0);
             }}
             placeholder="Find or do…"
-            className="w-full bg-transparent font-[var(--font-body)] text-(length:--text-lede) text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] placeholder:italic focus:outline-none"
+            className="w-full bg-transparent text-(length:--text-lede) font-[var(--font-body)] text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] placeholder:italic focus:outline-none"
             aria-label="Search commands"
           />
         </div>
 
         <div ref={listRef} className="max-h-[60vh] overflow-y-auto py-2">
           {filtered.length === 0 ? (
-            <p className="px-5 py-6 font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+            <p className="px-5 py-6 text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
               No matches for &ldquo;{query}&rdquo;.
             </p>
           ) : (
@@ -288,7 +288,7 @@ function CommandSection({
                     : 'text-[color:var(--color-ink-soft)] hover:bg-[color:var(--color-paper-deep)]'
                 }`}
               >
-                <span className="font-[var(--font-display)] text-(length:--text-body) font-medium">
+                <span className="text-(length:--text-body) font-[var(--font-display)] font-medium">
                   {c.label}
                 </span>
                 {selected ? (
@@ -307,8 +307,8 @@ function CommandSection({
 
 function KbdHint({ label, desc }: { label: string; desc: string }) {
   return (
-    <span className="metadata flex items-center gap-1 tabular text-[color:var(--color-muted)]">
-      <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] font-[var(--font-mono)] text-[10px]">
+    <span className="metadata tabular flex items-center gap-1 text-[color:var(--color-muted)]">
+      <kbd className="border border-[color:var(--color-rule)] px-[5px] py-[1px] text-[10px] font-[var(--font-mono)]">
         {label}
       </kbd>
       <span>{desc}</span>

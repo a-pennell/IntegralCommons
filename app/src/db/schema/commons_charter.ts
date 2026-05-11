@@ -57,10 +57,7 @@ export const commonsCharterSections = pgTable(
         OR ${table.status} != 'ratified'
       `,
     ),
-    versionPositive: check(
-      'commons_charter_sections_version_positive',
-      sql`${table.version} >= 1`,
-    ),
+    versionPositive: check('commons_charter_sections_version_positive', sql`${table.version} >= 1`),
   }),
 );
 

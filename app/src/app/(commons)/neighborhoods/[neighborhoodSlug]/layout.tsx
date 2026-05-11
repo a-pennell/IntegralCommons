@@ -54,9 +54,17 @@ export default async function CommonsShellLayout({
 
 function handleFor(email: string, displayName: string | null): string {
   if (displayName) {
-    return displayName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+    return displayName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_|_$/g, '');
   }
-  return email.split('@')[0]?.replace(/[^a-z0-9]+/gi, '_').toLowerCase() ?? 'member';
+  return (
+    email
+      .split('@')[0]
+      ?.replace(/[^a-z0-9]+/gi, '_')
+      .toLowerCase() ?? 'member'
+  );
 }
 
 function initialsFor(email: string, displayName: string | null): string {

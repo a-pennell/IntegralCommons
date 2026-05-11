@@ -102,8 +102,7 @@ export default async function PostNeedOfferPage({
             htmlFor="body"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            Details{' '}
-            <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+            Details <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
           </label>
           <textarea
             id="body"
@@ -121,8 +120,7 @@ export default async function PostNeedOfferPage({
             htmlFor="expiresAt"
             className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
           >
-            Expires{' '}
-            <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+            Expires <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
           </label>
           <input
             id="expiresAt"

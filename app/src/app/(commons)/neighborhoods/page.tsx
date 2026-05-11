@@ -15,10 +15,7 @@ export default async function NeighborhoodsPage() {
   const available = neighborhoods.filter((n) => !n.isMember);
 
   return (
-    <main
-      data-density="standard"
-      className="mx-auto w-full max-w-2xl px-6 py-10 sm:px-10 sm:py-12"
-    >
+    <main data-density="standard" className="mx-auto w-full max-w-2xl px-6 py-10 sm:px-10 sm:py-12">
       <header className="mb-8 flex items-start justify-between">
         <div>
           <div className="eyebrow mb-1">Local Commons</div>
@@ -54,7 +51,7 @@ export default async function NeighborhoodsPage() {
                       </div>
                     ) : null}
                   </div>
-                  <div className="metadata shrink-0 tabular text-[color:var(--color-muted)]">
+                  <div className="metadata tabular shrink-0 text-[color:var(--color-muted)]">
                     {n.memberCount} {n.memberCount === 1 ? 'member' : 'members'}
                   </div>
                 </Link>
@@ -81,11 +78,11 @@ export default async function NeighborhoodsPage() {
                       {n.description}
                     </div>
                   ) : null}
-                  <div className="metadata mt-0.5 tabular text-[color:var(--color-muted)]">
+                  <div className="metadata tabular mt-0.5 text-[color:var(--color-muted)]">
                     {n.memberCount} {n.memberCount === 1 ? 'member' : 'members'}
                   </div>
                 </div>
-                <form action={joinNeighborhoodAction} className="shrink-0 ml-4">
+                <form action={joinNeighborhoodAction} className="ml-4 shrink-0">
                   <input type="hidden" name="neighborhoodId" value={n.id} />
                   <input type="hidden" name="neighborhoodSlug" value={n.slug} />
                   <button

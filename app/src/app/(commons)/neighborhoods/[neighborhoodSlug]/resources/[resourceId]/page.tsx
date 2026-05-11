@@ -26,7 +26,8 @@ export default async function ResourceDetailPage({
   const { neighborhoodSlug, resourceId } = await params;
   const { error } = await searchParams;
   const session = await requireSession();
-  if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}/resources/${resourceId}`);
+  if (!session.ok)
+    redirect(`/login?next=/neighborhoods/${neighborhoodSlug}/resources/${resourceId}`);
 
   const result = await getNeighborhoodBySlugForMember(neighborhoodSlug, session.value.memberId);
   if (!result) notFound();
@@ -51,11 +52,11 @@ export default async function ResourceDetailPage({
 
       <div className="rounded border border-[color:var(--color-rule)] bg-[color:var(--color-paper-soft)] p-6">
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+          <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
             {KIND_LABEL[resource.kind] ?? resource.kind}
           </span>
           {resource.status !== 'available' ? (
-            <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+            <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
               {resource.status}
             </span>
           ) : null}

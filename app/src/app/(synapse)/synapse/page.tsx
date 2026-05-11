@@ -24,8 +24,8 @@ export default async function SynapseOverviewPage() {
           Synapse
         </h1>
         <p className="mt-1 max-w-prose text-(length:--text-small) text-[color:var(--color-muted)]">
-          Regional surplus and shortage visibility for food producers. Not a marketplace —
-          a coordination layer.
+          Regional surplus and shortage visibility for food producers. Not a marketplace — a
+          coordination layer.
         </p>
       </header>
 
@@ -58,10 +58,10 @@ export default async function SynapseOverviewPage() {
 
       <div className="mt-8 rounded border border-[color:var(--color-rule)] px-5 py-4">
         <p className="text-(length:--text-small) text-[color:var(--color-muted)]">
-          Synapse surfaces what's available and what's needed across the region.
-          Producers declare their surpluses and shortages. Anyone can propose an allocation —
-          a routing of surplus to need. No allocation becomes a commitment without the
-          explicit consent of all parties involved.
+          Synapse surfaces what's available and what's needed across the region. Producers declare
+          their surpluses and shortages. Anyone can propose an allocation — a routing of surplus to
+          need. No allocation becomes a commitment without the explicit consent of all parties
+          involved.
         </p>
       </div>
     </main>
@@ -84,7 +84,7 @@ function SummaryCard({
       href={href as Route}
       className="block rounded border border-[color:var(--color-rule)] p-4 transition-colors hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-accent-soft)]"
     >
-      <div className="tabular font-[var(--font-display)] text-[28px] font-semibold leading-none text-[color:var(--color-ink)]">
+      <div className="tabular text-[28px] leading-none font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
         {count}
       </div>
       <div className="mt-2 text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]">

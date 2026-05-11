@@ -29,8 +29,7 @@ export async function unstallIssue(args: {
       `SELECT current_decision_record_id FROM issues WHERE id = $1 LIMIT 1`,
       [args.issueId],
     );
-    const revertStatus =
-      issueRow.rows[0]?.current_decision_record_id ? 'exploring' : 'open';
+    const revertStatus = issueRow.rows[0]?.current_decision_record_id ? 'exploring' : 'open';
 
     await client.query(
       `UPDATE quorum_states

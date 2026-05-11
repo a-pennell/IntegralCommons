@@ -18,12 +18,16 @@ export function SynapseShellRoot({ children, memberHandle, memberInitials }: Pro
     if (!drawerOpen) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = original; };
+    return () => {
+      document.body.style.overflow = original;
+    };
   }, [drawerOpen]);
 
   useEffect(() => {
     if (!drawerOpen) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setDrawerOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDrawerOpen(false);
+    };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [drawerOpen]);
@@ -32,7 +36,9 @@ export function SynapseShellRoot({ children, memberHandle, memberInitials }: Pro
     <div className="flex h-screen w-full bg-[color:var(--color-paper)]">
       <div
         className={`fixed inset-y-0 left-0 z-30 bg-[color:var(--color-paper)] transition-transform duration-200 ease-out lg:relative lg:translate-x-0 lg:transition-none ${
-          drawerOpen ? 'translate-x-0 shadow-[1px_0_0_0_var(--color-rule-strong)]' : '-translate-x-full lg:translate-x-0'
+          drawerOpen
+            ? 'translate-x-0 shadow-[1px_0_0_0_var(--color-rule-strong)]'
+            : '-translate-x-full lg:translate-x-0'
         }`}
         aria-hidden={!drawerOpen ? undefined : false}
       >

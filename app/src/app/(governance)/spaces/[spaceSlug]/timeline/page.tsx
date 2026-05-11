@@ -47,17 +47,17 @@ export default async function SpaceTimelinePage({ params }: { params: Promise<Ro
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Civic Memory</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           The record
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           Every event written across all issues in this space, in the order it happened. The record
           is append-only — entries are never deleted or rewritten.
         </p>
       </header>
 
       {events.length === 0 ? (
-        <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+        <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
           No events yet. They appear as issues are discussed, decided, and revisited.
         </p>
       ) : (
@@ -77,10 +77,10 @@ export default async function SpaceTimelinePage({ params }: { params: Promise<Ro
                         {formatDayTime(event.occurredAt)}
                       </time>
                       <div>
-                        <div className="font-[var(--font-body)] text-(length:--text-body) leading-tight text-[color:var(--color-ink)]">
+                        <div className="text-(length:--text-body) leading-tight font-[var(--font-body)] text-[color:var(--color-ink)]">
                           {humanReadableEventType(event.eventType)}
                         </div>
-                        <div className="metadata mt-1 tabular">
+                        <div className="metadata tabular mt-1">
                           {event.actorMemberId ? (
                             <>
                               {'by '}

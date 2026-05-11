@@ -8,20 +8,26 @@ import { withdrawDeclarationAction } from './action';
 type RouteParams = { declarationId: string };
 
 const RESOURCE_LABEL: Record<string, string> = {
-  vegetables: 'Vegetables', fruit: 'Fruit', grains: 'Grains', legumes: 'Legumes',
-  herbs: 'Herbs', dairy: 'Dairy', eggs: 'Eggs', meat: 'Meat', honey: 'Honey',
-  seeds: 'Seeds', other: 'Other',
+  vegetables: 'Vegetables',
+  fruit: 'Fruit',
+  grains: 'Grains',
+  legumes: 'Legumes',
+  herbs: 'Herbs',
+  dairy: 'Dairy',
+  eggs: 'Eggs',
+  meat: 'Meat',
+  honey: 'Honey',
+  seeds: 'Seeds',
+  other: 'Other',
 };
 
 const TERMS_LABEL: Record<string, string> = {
-  free: 'Free', exchange: 'Exchange', cost_recovery: 'Cost recovery',
+  free: 'Free',
+  exchange: 'Exchange',
+  cost_recovery: 'Cost recovery',
 };
 
-export default async function DeclarationDetailPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function DeclarationDetailPage({ params }: { params: Promise<RouteParams> }) {
   const { declarationId } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/synapse/declarations/${declarationId}`);
@@ -104,7 +110,9 @@ export default async function DeclarationDetailPage({
           <dt className="metadata text-[color:var(--color-muted)]">Availability</dt>
           <dd className="mt-0.5 text-(length:--text-small) text-[color:var(--color-ink)]">
             From {declaration.availableFrom}
-            {declaration.availableUntil ? ` · Until ${declaration.availableUntil}` : ' · No end date'}
+            {declaration.availableUntil
+              ? ` · Until ${declaration.availableUntil}`
+              : ' · No end date'}
           </dd>
         </div>
 

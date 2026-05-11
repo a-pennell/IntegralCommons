@@ -12,11 +12,7 @@ const ROLE_LABEL: Record<string, string> = {
   anonymous: 'Anonymous',
 };
 
-export default async function StewardshipMembersPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function StewardshipMembersPage({ params }: { params: Promise<RouteParams> }) {
   const { neighborhoodSlug } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}/stewardship/members`);

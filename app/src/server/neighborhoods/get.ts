@@ -33,10 +33,7 @@ export async function listAllNeighborhoods(memberId: string): Promise<Neighborho
       .select({ neighborhoodId: neighborhoodMemberships.neighborhoodId })
       .from(neighborhoodMemberships)
       .where(
-        and(
-          eq(neighborhoodMemberships.memberId, memberId),
-          isNull(neighborhoodMemberships.leftAt),
-        ),
+        and(eq(neighborhoodMemberships.memberId, memberId), isNull(neighborhoodMemberships.leftAt)),
       ),
     db
       .select({
@@ -61,11 +58,7 @@ export async function listAllNeighborhoods(memberId: string): Promise<Neighborho
 }
 
 export async function getNeighborhoodBySlug(slug: string): Promise<Neighborhood | null> {
-  const rows = await db
-    .select()
-    .from(neighborhoods)
-    .where(eq(neighborhoods.slug, slug))
-    .limit(1);
+  const rows = await db.select().from(neighborhoods).where(eq(neighborhoods.slug, slug)).limit(1);
   return rows[0] ?? null;
 }
 

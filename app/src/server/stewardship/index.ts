@@ -12,7 +12,12 @@ export type WriteEntryInput = {
   readonly neighborhoodId: string;
   readonly actorMemberId: string;
   readonly subjectMemberId?: string;
-  readonly entryType: 'action_taken' | 'member_care' | 'resource_noted' | 'charter_note' | 'handover';
+  readonly entryType:
+    | 'action_taken'
+    | 'member_care'
+    | 'resource_noted'
+    | 'charter_note'
+    | 'handover';
   readonly notes?: string;
   readonly linkedResourceId?: string;
 };
@@ -33,7 +38,9 @@ export async function writeStdEntry(
     .limit(1);
 
   if (!membership[0] || membership[0].role !== 'steward') {
-    return err(errors.notAuthorized('steward role', 'Only stewards can write stewardship entries.'));
+    return err(
+      errors.notAuthorized('steward role', 'Only stewards can write stewardship entries.'),
+    );
   }
 
   const entryId = ulid();

@@ -7,13 +7,23 @@ import { listActiveDeclarations, getProducerByMember } from '@/server/synapse';
 type SearchParams = { kind?: string };
 
 const RESOURCE_LABEL: Record<string, string> = {
-  vegetables: 'Vegetables', fruit: 'Fruit', grains: 'Grains', legumes: 'Legumes',
-  herbs: 'Herbs', dairy: 'Dairy', eggs: 'Eggs', meat: 'Meat', honey: 'Honey',
-  seeds: 'Seeds', other: 'Other',
+  vegetables: 'Vegetables',
+  fruit: 'Fruit',
+  grains: 'Grains',
+  legumes: 'Legumes',
+  herbs: 'Herbs',
+  dairy: 'Dairy',
+  eggs: 'Eggs',
+  meat: 'Meat',
+  honey: 'Honey',
+  seeds: 'Seeds',
+  other: 'Other',
 };
 
 const TERMS_LABEL: Record<string, string> = {
-  free: 'Free', exchange: 'Exchange', cost_recovery: 'Cost recovery',
+  free: 'Free',
+  exchange: 'Exchange',
+  cost_recovery: 'Cost recovery',
 };
 
 const RESOURCE_TYPES = Object.keys(RESOURCE_LABEL);
@@ -32,9 +42,10 @@ export default async function DeclarationsPage({
     getProducerByMember(session.value.memberId),
   ]);
 
-  const filtered = kind === 'surplus' || kind === 'shortage'
-    ? allDeclarations.filter((d) => d.kind === kind)
-    : allDeclarations;
+  const filtered =
+    kind === 'surplus' || kind === 'shortage'
+      ? allDeclarations.filter((d) => d.kind === kind)
+      : allDeclarations;
 
   // Group by resource type for the visibility board.
   const byType = new Map<string, typeof filtered>();
@@ -68,30 +79,40 @@ export default async function DeclarationsPage({
 
       {/* Kind filter tabs */}
       <div className="mb-6 flex gap-2">
-        {([['', 'All'], ['surplus', 'Surpluses'], ['shortage', 'Shortages']] as const).map(
-          ([value, label]) => {
-            const isActive = (kind ?? '') === value;
-            return (
-              <Link
-                key={value}
-                href={value ? `/synapse/declarations?kind=${value}` as Route : '/synapse/declarations' as Route}
-                className={`rounded border px-3 py-1 text-(length:--text-caption) font-[var(--font-display)] font-medium transition-colors ${
-                  isActive
-                    ? 'border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)] text-[color:var(--color-accent)]'
-                    : 'border-[color:var(--color-rule)] text-[color:var(--color-ink-soft)] hover:bg-[color:var(--color-paper-deep)]'
-                }`}
-              >
-                {label}
-              </Link>
-            );
-          },
-        )}
+        {(
+          [
+            ['', 'All'],
+            ['surplus', 'Surpluses'],
+            ['shortage', 'Shortages'],
+          ] as const
+        ).map(([value, label]) => {
+          const isActive = (kind ?? '') === value;
+          return (
+            <Link
+              key={value}
+              href={
+                value
+                  ? (`/synapse/declarations?kind=${value}` as Route)
+                  : ('/synapse/declarations' as Route)
+              }
+              className={`rounded border px-3 py-1 text-(length:--text-caption) font-[var(--font-display)] font-medium transition-colors ${
+                isActive
+                  ? 'border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)] text-[color:var(--color-accent)]'
+                  : 'border-[color:var(--color-rule)] text-[color:var(--color-ink-soft)] hover:bg-[color:var(--color-paper-deep)]'
+              }`}
+            >
+              {label}
+            </Link>
+          );
+        })}
       </div>
 
       {filtered.length === 0 ? (
         <p className="text-(length:--text-small) text-[color:var(--color-muted)]">
           No declarations yet.
-          {myProducer ? ' Add one using the Declare button above.' : ' Register as a producer to add declarations.'}
+          {myProducer
+            ? ' Add one using the Declare button above.'
+            : ' Register as a producer to add declarations.'}
         </p>
       ) : (
         <div className="space-y-8">
@@ -132,7 +153,7 @@ export default async function DeclarationsPage({
                               {d.resourceDetail}
                             </div>
                           ) : null}
-                          <div className="metadata mt-1 tabular text-[color:var(--color-muted)]">
+                          <div className="metadata tabular mt-1 text-[color:var(--color-muted)]">
                             {d.producer.locationDescription}
                             {d.quantity && d.unit ? ` · ${d.quantity} ${d.unit}` : ''}
                           </div>

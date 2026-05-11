@@ -55,7 +55,8 @@ export default async function NewDeclarationPage({
           New declaration
         </h1>
         <p className="mt-1 text-(length:--text-small) text-[color:var(--color-muted)]">
-          Declaring as <span className="font-medium text-[color:var(--color-ink)]">{producer.orgName}</span>.
+          Declaring as{' '}
+          <span className="font-medium text-[color:var(--color-ink)]">{producer.orgName}</span>.
           Declarations are visible to everyone in Synapse.
         </p>
       </header>
@@ -108,7 +109,9 @@ export default async function NewDeclarationPage({
             className="rounded border border-[color:var(--color-rule)] bg-transparent px-3 py-2 text-(length:--text-small) text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
           >
             {RESOURCE_TYPES.map((t) => (
-              <option key={t.value} value={t.value}>{t.label}</option>
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
             ))}
           </select>
         </div>
@@ -157,8 +160,7 @@ export default async function NewDeclarationPage({
               htmlFor="unit"
               className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
             >
-              Unit{' '}
-              <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+              Unit <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
             </label>
             <input
               id="unit"
@@ -194,8 +196,7 @@ export default async function NewDeclarationPage({
               htmlFor="availableUntil"
               className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
             >
-              Until{' '}
-              <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+              Until <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
             </label>
             <input
               id="availableUntil"

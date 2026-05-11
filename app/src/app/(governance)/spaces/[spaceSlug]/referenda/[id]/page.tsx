@@ -48,7 +48,7 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
         margin={
           <>
             <div className="eyebrow text-[color:var(--color-ink)]">Referendum</div>
-            <div className="metadata mt-1 tabular text-[color:var(--color-ink)]">
+            <div className="metadata tabular mt-1 text-[color:var(--color-ink)]">
               REF-{referendum.id.slice(-5).toUpperCase()}
             </div>
 
@@ -58,16 +58,16 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
 
             <div className="mt-6">
               <div className="eyebrow">Target</div>
-              <div className="metadata mt-1 tabular">{targetLabel(referendum.targetType)}</div>
+              <div className="metadata tabular mt-1">{targetLabel(referendum.targetType)}</div>
             </div>
 
             {referendum.status === 'initiating' ? (
               <div className="mt-6">
                 <div className="eyebrow">Threshold</div>
-                <div className="metadata mt-1 tabular text-[color:var(--color-ink)]">
+                <div className="metadata tabular mt-1 text-[color:var(--color-ink)]">
                   {supporters.length} of {referendum.minimumThresholdRequired}
                 </div>
-                <div className="mt-2 h-px bg-[color:var(--color-rule)] relative">
+                <div className="relative mt-2 h-px bg-[color:var(--color-rule)]">
                   <span
                     aria-hidden
                     className="absolute top-0 left-0 h-px bg-[color:var(--color-accent)]"
@@ -85,15 +85,13 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
 
             <div className="mt-6">
               <div className="eyebrow">Initiated</div>
-              <div className="metadata mt-1 tabular">
-                {formatShortDate(referendum.createdAt)}
-              </div>
+              <div className="metadata tabular mt-1">{formatShortDate(referendum.createdAt)}</div>
             </div>
 
             {referendum.deliberationStartedAt ? (
               <div className="mt-4">
                 <div className="eyebrow">Deliberation began</div>
-                <div className="metadata mt-1 tabular text-[color:var(--color-stuart)]">
+                <div className="metadata tabular mt-1 text-[color:var(--color-stuart)]">
                   {formatShortDate(referendum.deliberationStartedAt)}
                 </div>
               </div>
@@ -102,7 +100,7 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
             {referendum.votingStartedAt ? (
               <div className="mt-4">
                 <div className="eyebrow">Voting opened</div>
-                <div className="metadata mt-1 tabular text-[color:var(--color-stuart)]">
+                <div className="metadata tabular mt-1 text-[color:var(--color-stuart)]">
                   {formatShortDate(referendum.votingStartedAt)}
                 </div>
               </div>
@@ -111,7 +109,7 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
             {referendum.closedAt ? (
               <div className="mt-4">
                 <div className="eyebrow">Closed</div>
-                <div className="metadata mt-1 tabular text-[color:var(--color-oxblood)]">
+                <div className="metadata tabular mt-1 text-[color:var(--color-oxblood)]">
                   {formatShortDate(referendum.closedAt)}
                 </div>
               </div>
@@ -121,7 +119,7 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
               <div className="mt-6">
                 <div className="eyebrow">Outcome</div>
                 <div
-                  className={`metadata mt-1 tabular font-medium ${
+                  className={`metadata tabular mt-1 font-medium ${
                     referendum.outcome === 'affirmed'
                       ? 'text-[color:var(--color-accent)]'
                       : referendum.outcome === 'revoked'
@@ -138,10 +136,10 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
       >
         <header className="mb-10">
           <div className="eyebrow">Referendum</div>
-          <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) tracking-(--text-display--letter-spacing) font-[var(--font-display)] font-extrabold text-[color:var(--color-ink)]">
+          <h1 className="mt-3 text-(length:--text-display) leading-(--text-display--line-height) font-[var(--font-display)] font-extrabold tracking-(--text-display--letter-spacing) text-[color:var(--color-ink)]">
             On {targetLabel(referendum.targetType)}
           </h1>
-          <p className="mt-4 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+          <p className="mt-4 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
             {phaseBlurb(referendum.status)}
           </p>
         </header>
@@ -159,7 +157,7 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
           <section className="mt-12 border-t-2 border-[color:var(--color-ink)] pt-8">
             <header className="mb-6">
               <div className="eyebrow">Tally</div>
-              <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) tracking-(--text-heading--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+              <h2 className="mt-2 text-(length:--text-heading) leading-(--text-heading--line-height) font-[var(--font-display)] font-bold tracking-(--text-heading--letter-spacing) text-[color:var(--color-ink)]">
                 {totalVotes} vote{totalVotes === 1 ? '' : 's'} cast
               </h2>
             </header>
@@ -182,12 +180,12 @@ export default async function ReferendumDetailPage({ params }: { params: Promise
           <section className="mt-12 border-t border-[color:var(--color-rule)] pt-6">
             <div className="eyebrow mb-3">Co-signers</div>
             {supporters.length === 0 ? (
-              <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+              <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
                 None yet. The referendum needs {referendum.minimumThresholdRequired} co-signers
                 before deliberation can begin.
               </p>
             ) : (
-              <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)]">
+              <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)]">
                 <span className="metadata tabular text-[color:var(--color-ink)]">
                   {supporters.length} of {referendum.minimumThresholdRequired}
                 </span>{' '}
@@ -216,13 +214,11 @@ function ActionPanel({
 
   return (
     <section className="border border-[color:var(--color-rule-strong)] bg-[color:var(--color-paper-soft)] px-6 py-5">
-      <div className="eyebrow mb-3">
-        Action · {referendum.status.replace('_', ' ')}
-      </div>
+      <div className="eyebrow mb-3">Action · {referendum.status.replace('_', ' ')}</div>
 
       {referendum.status === 'initiating' ? (
         alreadySupported ? (
-          <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)] italic">
+          <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)] italic">
             You have co-signed this referendum.
           </p>
         ) : (
@@ -230,7 +226,7 @@ function ActionPanel({
             <input type="hidden" name="referendumId" value={referendum.id} />
             <input type="hidden" name="spaceSlug" value={spaceSlug} />
             <Button type="submit">Co-sign this referendum</Button>
-            <span className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+            <span className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
               Co-signing brings it closer to the threshold for deliberation.
             </span>
           </form>
@@ -244,7 +240,7 @@ function ActionPanel({
           <Button type="submit" variant="secondary">
             Start voting
           </Button>
-          <span className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+          <span className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
             Deliberation minimum must have elapsed.
           </span>
         </form>
@@ -253,7 +249,7 @@ function ActionPanel({
       {referendum.status === 'voting' ? (
         alreadyVoted ? (
           <div className="space-y-4">
-            <p className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-ink)] italic">
+            <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-ink)] italic">
               You have cast your vote.
             </p>
             <form action={closeReferendumAction}>
@@ -289,7 +285,7 @@ function ActionPanel({
                       required
                       className="h-4 w-4 accent-[color:var(--color-accent)]"
                     />
-                    <span className="font-[var(--font-display)] text-(length:--text-body) font-semibold text-[color:var(--color-ink)]">
+                    <span className="text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
                       {c.label}
                     </span>
                   </label>
@@ -298,7 +294,7 @@ function ActionPanel({
             </fieldset>
             <div className="flex items-baseline gap-4 pt-2">
               <Button type="submit">Cast vote</Button>
-              <span className="font-[var(--font-body)] text-(length:--text-small) text-[color:var(--color-muted)] italic">
+              <span className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
                 Votes are recorded and cannot be changed.
               </span>
             </div>
@@ -330,11 +326,11 @@ function TallyColumn({
   return (
     <div className="px-5 first:pl-0 last:pr-0">
       <div className="eyebrow">{label}</div>
-      <div className="mt-2 font-[var(--font-display)] text-(length:--text-title) font-bold text-[color:var(--color-ink)] tabular">
+      <div className="tabular mt-2 text-(length:--text-title) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
         {count}
       </div>
-      <div className="metadata mt-1 tabular">{pct}%</div>
-      <div className="mt-3 h-[2px] bg-[color:var(--color-rule)] relative">
+      <div className="metadata tabular mt-1">{pct}%</div>
+      <div className="relative mt-3 h-[2px] bg-[color:var(--color-rule)]">
         <span
           aria-hidden
           className="absolute top-0 left-0 h-[2px]"

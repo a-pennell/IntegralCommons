@@ -15,9 +15,7 @@ const toneClasses: Record<Tone, string> = {
 
 export function Note({ tone = 'info', children }: Props) {
   return (
-    <aside
-      className={`rounded border-l-2 ${toneClasses[tone]} px-4 py-3`}
-    >
+    <aside className={`rounded border-l-2 ${toneClasses[tone]} px-4 py-3`}>
       <div className="text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)]">
         {children}
       </div>

@@ -4,7 +4,11 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { requireSession } from '@/server/auth';
 import { transitionIssueStatus } from '@/server/issues';
-import { findActiveDelegations, grantDelegation, memberHoldsCapability } from '@/server/delegations';
+import {
+  findActiveDelegations,
+  grantDelegation,
+  memberHoldsCapability,
+} from '@/server/delegations';
 
 const TransitionInputSchema = z.object({
   issueId: z.string().length(26),
@@ -45,8 +49,7 @@ export async function transitionStatusAction(formData: FormData): Promise<void> 
   });
 
   if (!result.ok) {
-    const kind =
-      result.error.kind === 'Conflict' ? 'conflict' : 'error';
+    const kind = result.error.kind === 'Conflict' ? 'conflict' : 'error';
     redirect(`${back}?error=${kind}`);
   }
 

@@ -56,13 +56,11 @@ export default async function EditIssuePage({
       >
         <header className="mb-8 border-b-2 border-[color:var(--color-ink)] pb-4">
           <div className="eyebrow">Issue · Edit · Restricted</div>
-          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+          <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
             {issue.title}
           </h1>
         </header>
-        <Note tone="info">
-          Only the delegated facilitator may edit an issue&rsquo;s framing.
-        </Note>
+        <Note tone="info">Only the delegated facilitator may edit an issue&rsquo;s framing.</Note>
       </main>
     );
   }
@@ -74,11 +72,11 @@ export default async function EditIssuePage({
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Issue · Edit</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           Refine the framing
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
-          Editing writes an <code className="not-italic metadata">issue_edited</code> event to the
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
+          Editing writes an <code className="metadata not-italic">issue_edited</code> event to the
           Civic Memory timeline. Prior framings are not erased — they live in the record.
         </p>
       </header>

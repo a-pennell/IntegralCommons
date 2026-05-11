@@ -7,20 +7,26 @@ import { getProducerById, listDeclarationsForProducer } from '@/server/synapse';
 type RouteParams = { producerId: string };
 
 const RESOURCE_LABEL: Record<string, string> = {
-  vegetables: 'Vegetables', fruit: 'Fruit', grains: 'Grains', legumes: 'Legumes',
-  herbs: 'Herbs', dairy: 'Dairy', eggs: 'Eggs', meat: 'Meat', honey: 'Honey',
-  seeds: 'Seeds', other: 'Other',
+  vegetables: 'Vegetables',
+  fruit: 'Fruit',
+  grains: 'Grains',
+  legumes: 'Legumes',
+  herbs: 'Herbs',
+  dairy: 'Dairy',
+  eggs: 'Eggs',
+  meat: 'Meat',
+  honey: 'Honey',
+  seeds: 'Seeds',
+  other: 'Other',
 };
 
 const TERMS_LABEL: Record<string, string> = {
-  free: 'Free', exchange: 'Exchange', cost_recovery: 'Cost recovery',
+  free: 'Free',
+  exchange: 'Exchange',
+  cost_recovery: 'Cost recovery',
 };
 
-export default async function ProducerProfilePage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function ProducerProfilePage({ params }: { params: Promise<RouteParams> }) {
   const { producerId } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/synapse/producers/${producerId}`);
@@ -103,11 +109,11 @@ export default async function ProducerProfilePage({
                     </span>
                   </div>
                   {d.quantity && d.unit ? (
-                    <div className="metadata mt-1 tabular">
+                    <div className="metadata tabular mt-1">
                       {d.quantity} {d.unit}
                     </div>
                   ) : null}
-                  <div className="metadata mt-1 tabular text-[color:var(--color-muted)]">
+                  <div className="metadata tabular mt-1 text-[color:var(--color-muted)]">
                     From {d.availableFrom}
                     {d.availableUntil ? ` · Until ${d.availableUntil}` : ''}
                   </div>
@@ -140,11 +146,11 @@ export default async function ProducerProfilePage({
                     {d.resourceDetail ? ` — ${d.resourceDetail}` : ''}
                   </div>
                   {d.quantity && d.unit ? (
-                    <div className="metadata mt-1 tabular">
+                    <div className="metadata tabular mt-1">
                       {d.quantity} {d.unit} needed
                     </div>
                   ) : null}
-                  <div className="metadata mt-1 tabular text-[color:var(--color-muted)]">
+                  <div className="metadata tabular mt-1 text-[color:var(--color-muted)]">
                     From {d.availableFrom}
                     {d.availableUntil ? ` · Until ${d.availableUntil}` : ''}
                   </div>

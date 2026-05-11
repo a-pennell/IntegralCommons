@@ -2,10 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import type { Route } from 'next';
 import { requireSession } from '@/server/auth';
 import { getNeighborhoodBySlugForMember } from '@/server/neighborhoods';
-import {
-  getNeedOfferById,
-  listExchangeRequestsForItem,
-} from '@/server/needs-offers';
+import { getNeedOfferById, listExchangeRequestsForItem } from '@/server/needs-offers';
 import { withdrawAction } from './withdraw/action';
 import { respondAction } from './respond/action';
 import {
@@ -67,16 +64,16 @@ export default async function NeedOfferDetailPage({
       {/* Item card */}
       <div className="mb-8 rounded border border-[color:var(--color-rule)] bg-[color:var(--color-paper-soft)] p-6">
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <span className="rounded bg-[color:var(--color-paper-deep)] px-2 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+          <span className="rounded bg-[color:var(--color-paper-deep)] px-2 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
             {item.type}
           </span>
           {item.isUrgent && isActive ? (
-            <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-red-600">
+            <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium tracking-wider text-red-600 uppercase">
               Urgent
             </span>
           ) : null}
           {!isActive ? (
-            <span className="rounded bg-[color:var(--color-paper-deep)] px-2 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+            <span className="rounded bg-[color:var(--color-paper-deep)] px-2 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
               {item.status}
             </span>
           ) : null}
@@ -100,7 +97,10 @@ export default async function NeedOfferDetailPage({
         ) : null}
 
         {isOwner && isActive ? (
-          <form action={withdrawAction} className="mt-5 border-t border-[color:var(--color-rule)] pt-4">
+          <form
+            action={withdrawAction}
+            className="mt-5 border-t border-[color:var(--color-rule)] pt-4"
+          >
             <input type="hidden" name="needOfferId" value={needOfferId} />
             <input type="hidden" name="neighborhoodSlug" value={neighborhoodSlug} />
             <button
@@ -121,7 +121,9 @@ export default async function NeedOfferDetailPage({
       ) : null}
       {error ? (
         <div className="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-(length:--text-small) text-red-700">
-          {error === 'not_yours' ? 'You can only manage your own postings.' : 'Something went wrong. Please try again.'}
+          {error === 'not_yours'
+            ? 'You can only manage your own postings.'
+            : 'Something went wrong. Please try again.'}
         </div>
       ) : null}
 
@@ -131,7 +133,10 @@ export default async function NeedOfferDetailPage({
           <h2 className="mb-4 text-(length:--text-small) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
             Respond
           </h2>
-          <form action={respondAction} className="flex flex-col gap-4 rounded border border-[color:var(--color-rule)] p-5">
+          <form
+            action={respondAction}
+            className="flex flex-col gap-4 rounded border border-[color:var(--color-rule)] p-5"
+          >
             <input type="hidden" name="needOfferId" value={needOfferId} />
             <input type="hidden" name="neighborhoodSlug" value={neighborhoodSlug} />
 
@@ -163,7 +168,8 @@ export default async function NeedOfferDetailPage({
                 htmlFor="notes"
                 className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]"
               >
-                Message <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
+                Message{' '}
+                <span className="font-normal text-[color:var(--color-muted)]">(optional)</span>
               </label>
               <textarea
                 id="notes"
@@ -195,12 +201,9 @@ export default async function NeedOfferDetailPage({
           </h2>
           <ul className="flex flex-col gap-3">
             {requests.map((req) => (
-              <li
-                key={req.id}
-                className="rounded border border-[color:var(--color-rule)] p-4"
-              >
+              <li key={req.id} className="rounded border border-[color:var(--color-rule)] p-4">
                 <div className="mb-2 flex items-center gap-2">
-                  <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 font-[var(--font-mono)] text-[10px] uppercase tracking-wider text-[color:var(--color-muted)]">
+                  <span className="rounded bg-[color:var(--color-paper-deep)] px-1.5 py-0.5 text-[10px] font-[var(--font-mono)] tracking-wider text-[color:var(--color-muted)] uppercase">
                     {STATUS_LABEL[req.status] ?? req.status}
                   </span>
                   <span className="metadata text-[color:var(--color-muted)]">

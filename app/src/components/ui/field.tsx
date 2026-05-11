@@ -15,10 +15,10 @@ export function Field({ id, label, hint, className = '', ...inputProps }: Props)
       <input
         id={id}
         {...inputProps}
-        className={`border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] placeholder:italic focus:border-[color:var(--color-accent)] focus:outline-none ${className}`}
+        className={`border-0 border-b border-[color:var(--color-rule-strong)] bg-transparent px-0 py-3 text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] placeholder:italic focus:border-[color:var(--color-accent)] focus:outline-none ${className}`}
       />
       {hint ? (
-        <p className="font-[var(--font-body)] text-(length:--text-caption) leading-(--text-caption--line-height) text-[color:var(--color-muted)]">
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height) font-[var(--font-body)] text-[color:var(--color-muted)]">
           {hint}
         </p>
       ) : null}

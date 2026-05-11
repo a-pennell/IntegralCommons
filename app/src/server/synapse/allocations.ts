@@ -1,6 +1,12 @@
 import { desc, eq } from 'drizzle-orm';
 import { db } from '@/db';
-import { allocationProposals, allocationConsents, members, surplusShortageDeclarations, producers } from '@/db/schema';
+import {
+  allocationProposals,
+  allocationConsents,
+  members,
+  surplusShortageDeclarations,
+  producers,
+} from '@/db/schema';
 import type { AllocationProposal, AllocationConsent } from '@/db/schema';
 import type { Result } from '@/lib/result';
 import type { AppError } from '@/lib/errors';
@@ -29,10 +35,12 @@ export async function listProposals(): Promise<ProposalWithDetails[]> {
   const proposalIds = proposals.map((p) => p.id);
 
   const [proposerRows, declarationRows, consentRows] = await Promise.all([
-    db.select({ id: members.id, displayName: members.displayName })
+    db
+      .select({ id: members.id, displayName: members.displayName })
       .from(members)
       .where(eq(members.id, proposerIds[0]!)),
-    db.select({
+    db
+      .select({
         id: surplusShortageDeclarations.id,
         resourceType: surplusShortageDeclarations.resourceType,
         producerId: surplusShortageDeclarations.producerId,
@@ -41,8 +49,7 @@ export async function listProposals(): Promise<ProposalWithDetails[]> {
       .from(surplusShortageDeclarations)
       .innerJoin(producers, eq(producers.id, surplusShortageDeclarations.producerId))
       .where(eq(surplusShortageDeclarations.id, declarationIds[0]!)),
-    db.select().from(allocationConsents)
-      .where(eq(allocationConsents.proposalId, proposalIds[0]!)),
+    db.select().from(allocationConsents).where(eq(allocationConsents.proposalId, proposalIds[0]!)),
   ]);
 
   const proposerMap = new Map(proposerRows.map((r) => [r.id, r.displayName]));
@@ -65,9 +72,7 @@ export async function listProposals(): Promise<ProposalWithDetails[]> {
   });
 }
 
-export async function getProposalById(
-  proposalId: string,
-): Promise<ProposalWithDetails | null> {
+export async function getProposalById(proposalId: string): Promise<ProposalWithDetails | null> {
   const rows = await db
     .select()
     .from(allocationProposals)
@@ -78,11 +83,13 @@ export async function getProposalById(
   if (!proposal) return null;
 
   const [proposerRows, declarationRows, consentRows] = await Promise.all([
-    db.select({ id: members.id, displayName: members.displayName })
+    db
+      .select({ id: members.id, displayName: members.displayName })
       .from(members)
       .where(eq(members.id, proposal.proposedByMemberId))
       .limit(1),
-    db.select({
+    db
+      .select({
         id: surplusShortageDeclarations.id,
         resourceType: surplusShortageDeclarations.resourceType,
         producerId: surplusShortageDeclarations.producerId,

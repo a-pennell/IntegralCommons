@@ -27,7 +27,8 @@ export async function updateRoleAction(formData: FormData): Promise<void> {
 
   const result = await getNeighborhoodBySlugForMember(neighborhoodSlug, session.value.memberId);
   if (!result) redirect(back);
-  if (result.membership.role !== 'steward') redirect(`/neighborhoods/${neighborhoodSlug}/stewardship`);
+  if (result.membership.role !== 'steward')
+    redirect(`/neighborhoods/${neighborhoodSlug}/stewardship`);
 
   await setMembershipRole(membershipId, role);
 

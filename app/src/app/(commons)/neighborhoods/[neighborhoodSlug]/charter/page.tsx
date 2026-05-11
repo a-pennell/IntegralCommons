@@ -6,11 +6,7 @@ import { ratifySectionAction } from './[sectionId]/ratify/action';
 
 type RouteParams = { neighborhoodSlug: string };
 
-export default async function CharterPage({
-  params,
-}: {
-  params: Promise<RouteParams>;
-}) {
+export default async function CharterPage({ params }: { params: Promise<RouteParams> }) {
   const { neighborhoodSlug } = await params;
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}/charter`);
@@ -45,7 +41,10 @@ export default async function CharterPage({
 
       {sections.length === 0 ? (
         <p className="text-(length:--text-small) text-[color:var(--color-muted)]">
-          No charter sections yet.{isSteward ? ' Use "Draft section" to add the first one.' : ' A steward can draft the first one.'}
+          No charter sections yet.
+          {isSteward
+            ? ' Use "Draft section" to add the first one.'
+            : ' A steward can draft the first one.'}
         </p>
       ) : (
         <div className="divide-y divide-[color:var(--color-rule)]">

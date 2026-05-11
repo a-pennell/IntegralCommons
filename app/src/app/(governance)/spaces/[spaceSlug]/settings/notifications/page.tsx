@@ -46,10 +46,10 @@ export default async function DigestCadencePage({
     >
       <header className="mb-12 border-b-2 border-[color:var(--color-ink)] pb-4">
         <div className="eyebrow">Settings · Digest cadence</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
+        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) font-[var(--font-display)] font-bold tracking-(--text-title--letter-spacing) text-[color:var(--color-ink)]">
           How often we write
         </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
+        <p className="mt-3 max-w-prose text-(length:--text-lede) leading-(--text-lede--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
           A single email summarising what happened. The only push channel — no badges, no counters,
           no urgency cues. You may lower the cadence below the Space default or turn it off
           entirely; you cannot raise it above the default.
@@ -92,13 +92,13 @@ export default async function DigestCadencePage({
                     className="mt-1 h-4 w-4 accent-[color:var(--color-accent)]"
                   />
                   <span className="flex-1">
-                    <span className="font-[var(--font-display)] text-(length:--text-body) font-semibold text-[color:var(--color-ink)]">
+                    <span className="text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
                       {c.label}
                     </span>
-                    <span className="ml-3 metadata tabular text-[color:var(--color-muted)]">
+                    <span className="metadata tabular ml-3 text-[color:var(--color-muted)]">
                       {c.value}
                     </span>
-                    <span className="mt-1 block font-[var(--font-body)] text-(length:--text-small) leading-(--text-small--line-height) text-[color:var(--color-ink-soft)] italic">
+                    <span className="mt-1 block text-(length:--text-small) leading-(--text-small--line-height) font-[var(--font-body)] text-[color:var(--color-ink-soft)] italic">
                       {c.desc}
                     </span>
                   </span>
