@@ -40,6 +40,7 @@ export async function startTestDb(): Promise<TestDatabase> {
     '0000_deep_martin_li.sql',
     '0001_hard_spyke.sql',
     '0002_post_migration_setup.sql',
+    '0003_neighborhood_boundary.sql',
   ]) {
     await pool.query(strip(readFileSync(join(MIGRATIONS_DIR, file), 'utf8')));
   }

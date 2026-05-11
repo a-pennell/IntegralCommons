@@ -18,6 +18,14 @@ export const neighborhoods = pgTable(
     name: text('name').notNull(),
     slug: text('slug').notNull(),
     description: text('description').notNull().default(''),
+    /**
+     * Plain-language description of the neighborhood's approximate geographic
+     * extent (Phase 1). Steward writes something like "The blocks around Oak
+     * Street from 1st to 8th Ave, including Riverside Park." Displayed to
+     * members as orientation context; never enforced as a gate. Map polygon
+     * drawing is deferred to Phase 2.
+     */
+    boundaryDescription: text('boundary_description').notNull().default(''),
     status: neighborhoodStatusEnum('status').notNull().default('active'),
     // Cross-schema soft reference to a CommonGround space.
     linkedSpaceId: text('linked_space_id'),

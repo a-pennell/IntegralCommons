@@ -42,6 +42,14 @@ export default async function NeighborhoodPage({ params }: { params: Promise<Rou
               {result.neighborhood.description}
             </p>
           ) : null}
+          {result.neighborhood.boundaryDescription ? (
+            <p className="mt-2 flex items-baseline gap-1.5 text-(length:--text-caption) text-[color:var(--color-muted)]">
+              <span className="shrink-0 font-medium text-[color:var(--color-ink-soft)]">
+                Boundary:
+              </span>
+              {result.neighborhood.boundaryDescription}
+            </p>
+          ) : null}
         </div>
 
         {/* Balance chip — only shown once member has credit activity */}

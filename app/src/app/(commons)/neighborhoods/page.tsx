@@ -3,7 +3,6 @@ import Link from 'next/link';
 import type { Route } from 'next';
 import { requireSession } from '@/server/auth';
 import { listAllNeighborhoods } from '@/server/neighborhoods';
-import { joinNeighborhoodAction } from './join/action';
 
 export default async function NeighborhoodsPage() {
   const session = await requireSession();
@@ -82,16 +81,12 @@ export default async function NeighborhoodsPage() {
                     {n.memberCount} {n.memberCount === 1 ? 'member' : 'members'}
                   </div>
                 </div>
-                <form action={joinNeighborhoodAction} className="ml-4 shrink-0">
-                  <input type="hidden" name="neighborhoodId" value={n.id} />
-                  <input type="hidden" name="neighborhoodSlug" value={n.slug} />
-                  <button
-                    type="submit"
-                    className="rounded bg-[color:var(--color-accent)] px-3 py-1.5 text-(length:--text-caption) font-[var(--font-display)] font-medium text-white transition-colors hover:bg-[color:var(--color-oxblood)]"
-                  >
-                    Join
-                  </button>
-                </form>
+                <Link
+                  href={`/neighborhoods/${n.slug}/join` as Route}
+                  className="ml-4 shrink-0 rounded bg-[color:var(--color-accent)] px-3 py-1.5 text-(length:--text-caption) font-[var(--font-display)] font-medium text-white transition-colors hover:bg-[color:var(--color-oxblood)]"
+                >
+                  Join
+                </Link>
               </li>
             ))}
           </ul>

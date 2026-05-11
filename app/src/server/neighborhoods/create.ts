@@ -11,6 +11,7 @@ export type CreateNeighborhoodInput = {
   readonly createdByMemberId: string;
   readonly name: string;
   readonly description?: string | undefined;
+  readonly boundaryDescription?: string | undefined;
   readonly slug: string;
   readonly linkedSpaceId?: string;
 };
@@ -49,13 +50,14 @@ export async function createNeighborhood(
   return transaction(async (tx) => {
     const neighborhoodId = ulid();
     await tx.query(
-      `INSERT INTO neighborhoods (id, name, slug, description, status, linked_space_id, created_by_member_id)
-       VALUES ($1, $2, $3, $4, 'active', $5, $6)`,
+      `INSERT INTO neighborhoods (id, name, slug, description, boundary_description, status, linked_space_id, created_by_member_id)
+       VALUES ($1, $2, $3, $4, $5, 'active', $6, $7)`,
       [
         neighborhoodId,
         name,
         slug,
         input.description?.trim() ?? '',
+        input.boundaryDescription?.trim() ?? '',
         input.linkedSpaceId ?? null,
         input.createdByMemberId,
       ],
