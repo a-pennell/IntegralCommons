@@ -7,7 +7,7 @@ import { listActiveNeedsOffers } from '@/server/needs-offers';
 import { listTransactionsForMember, computeBalance } from '@/server/time-credits';
 
 type RouteParams = { neighborhoodSlug: string };
-type SearchParams = { onboarding?: string };
+type SearchParams = { onboarding?: string; joined?: string };
 
 export default async function NeighborhoodPage({
   params,
@@ -17,8 +17,10 @@ export default async function NeighborhoodPage({
   searchParams: Promise<SearchParams>;
 }) {
   const { neighborhoodSlug } = await params;
-  const { onboarding } = await searchParams;
+  const { onboarding, joined } = await searchParams;
   const isOnboarding = onboarding === 'true';
+  const isNewJoin = joined === 'true' || joined === 'anonymous';
+  const isAnonymousJoin = joined === 'anonymous';
   const session = await requireSession();
   if (!session.ok) redirect(`/login?next=/neighborhoods/${neighborhoodSlug}`);
 
@@ -76,6 +78,18 @@ export default async function NeighborhoodPage({
           </Link>
         ) : null}
       </header>
+
+      {/* New-member welcome banner */}
+      {isNewJoin ? (
+        <div className="mb-6 rounded border border-[color:var(--color-accent)] bg-[color:var(--color-accent-soft)] px-5 py-4">
+          <p className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)]">
+            Welcome to {result.neighborhood.name}!{' '}
+            {isAnonymousJoin
+              ? 'You joined anonymously — your name is not shared with the platform. Browse the Registry and post Needs at any time.'
+              : 'Add a resource to introduce yourself to the neighborhood, or browse what your neighbors have to share.'}
+          </p>
+        </div>
+      ) : null}
 
       {/* Pre-seed onboarding checklist — shown once right after creation */}
       {isOnboarding && result.membership.role === 'steward' ? (
