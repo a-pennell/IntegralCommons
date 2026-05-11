@@ -6,8 +6,4 @@
  */
 
 export { getBossClient, closeBossClient } from './client.ts';
-export {
-  enqueueEmailDispatch,
-  registerEmailDispatchJob,
-  type EmailDispatchJobPayload,
-} from './email-dispatch-job.ts';
+export { enqueueEmailDispatch, type EmailDispatchJobPayload } from './email-dispatch-job.ts';

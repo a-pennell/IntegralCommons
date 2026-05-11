@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import { db, transaction } from '@/db';
 import { needsOffers, exchangeRequests } from '@/db/schema';
-import type { NeedOffer } from '@/db/schema';
+import type { ExchangeRequest, NeedOffer } from '@/db/schema';
 import type { AppError } from '@/lib/errors';
 import { errors } from '@/lib/errors';
 import type { Result } from '@/lib/result';
@@ -60,6 +60,19 @@ export async function listActiveNeedsOffers(
     .from(needsOffers)
     .where(and(...conditions))
     .orderBy(needsOffers.createdAt);
+}
+
+export async function getNeedOfferById(id: string): Promise<NeedOffer | null> {
+  const rows = await db.select().from(needsOffers).where(eq(needsOffers.id, id)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function listExchangeRequestsForItem(needOfferId: string): Promise<ExchangeRequest[]> {
+  return db
+    .select()
+    .from(exchangeRequests)
+    .where(eq(exchangeRequests.needOfferId, needOfferId))
+    .orderBy(exchangeRequests.createdAt);
 }
 
 export type RequestExchangeInput = {

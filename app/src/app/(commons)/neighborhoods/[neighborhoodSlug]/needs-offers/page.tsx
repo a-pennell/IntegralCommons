@@ -31,30 +31,35 @@ export default async function NeedsOffersPage({
   return (
     <main
       data-density="standard"
-      className="mx-auto w-full max-w-(--container-prose) px-6 py-10 sm:px-10 sm:py-14"
+      className="mx-auto w-full max-w-(--container-folio) px-6 py-8 sm:px-10 sm:py-10"
     >
-      <header className="mb-10 border-b-2 border-[color:var(--color-ink)] pb-4">
-        <div className="eyebrow">Local Commons · Mutual Aid</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
-          Needs &amp; Offers
-        </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
-          Ask for what you need. Offer what you can.
-        </p>
+      <header className="mb-6 flex items-center justify-between border-b border-[color:var(--color-rule)] pb-5">
+        <div>
+          <div className="eyebrow mb-1">Mutual Aid</div>
+          <h1 className="text-(length:--text-heading) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
+            Needs &amp; Offers
+          </h1>
+        </div>
+        <a
+          href={`/neighborhoods/${neighborhoodSlug}/needs-offers/new`}
+          className="rounded border border-[color:var(--color-rule)] px-3 py-1.5 text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
+        >
+          + Post
+        </a>
       </header>
 
       {/* Tab bar */}
-      <nav className="mb-8 flex gap-6 border-b border-[color:var(--color-rule)] pb-0">
+      <nav className="mb-6 flex gap-1">
         {(['needs', 'offers'] as const).map((t) => {
           const isActive = activeTab === t;
           return (
             <a
               key={t}
               href={`/neighborhoods/${neighborhoodSlug}/needs-offers${t === 'offers' ? '?tab=offers' : ''}`}
-              className={`pb-3 font-[var(--font-display)] text-(length:--text-body) capitalize transition-colors ${
+              className={`rounded px-3 py-1.5 text-(length:--text-small) font-[var(--font-display)] capitalize transition-colors ${
                 isActive
-                  ? 'border-b-2 border-[color:var(--color-accent)] font-semibold text-[color:var(--color-ink)]'
-                  : 'text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-ink)]'
+                  ? 'bg-[color:var(--color-accent-soft)] font-medium text-[color:var(--color-accent)]'
+                  : 'font-normal text-[color:var(--color-ink-soft)] hover:bg-[color:var(--color-paper-deep)] hover:text-[color:var(--color-ink)]'
               }`}
             >
               {t}
@@ -64,26 +69,31 @@ export default async function NeedsOffersPage({
       </nav>
 
       {items.length === 0 ? (
-        <Note tone="info">
-          No active {activeTab} right now.
-        </Note>
+        <Note tone="info">No active {activeTab} right now.</Note>
       ) : (
         <ul className="divide-y divide-[color:var(--color-rule)]">
           {items.map((item) => (
-            <li key={item.id} className="py-5">
-              <div className="flex items-baseline gap-3">
-                {item.isUrgent ? (
-                  <span className="metadata text-[color:var(--color-accent)]">Urgent</span>
+            <li key={item.id} className="py-4">
+              <a
+                href={`/neighborhoods/${neighborhoodSlug}/needs-offers/${item.id}`}
+                className="group block"
+              >
+                <div className="flex items-center gap-2">
+                  {item.isUrgent ? (
+                    <span className="rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-red-600">
+                      Urgent
+                    </span>
+                  ) : null}
+                  <span className="text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)] group-hover:text-[color:var(--color-accent)]">
+                    {item.title}
+                  </span>
+                </div>
+                {item.body ? (
+                  <p className="mt-1 line-clamp-2 text-(length:--text-small) text-[color:var(--color-muted)]">
+                    {item.body}
+                  </p>
                 ) : null}
-                <span className="font-[var(--font-display)] font-semibold text-(length:--text-body) text-[color:var(--color-ink)]">
-                  {item.title}
-                </span>
-              </div>
-              {item.body ? (
-                <p className="mt-1 text-(length:--text-body) text-[color:var(--color-ink-soft)]">
-                  {item.body}
-                </p>
-              ) : null}
+              </a>
             </li>
           ))}
         </ul>

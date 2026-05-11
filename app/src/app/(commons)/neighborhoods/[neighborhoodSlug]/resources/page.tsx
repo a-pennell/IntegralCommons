@@ -2,16 +2,9 @@ import { notFound, redirect } from 'next/navigation';
 import { requireSession } from '@/server/auth';
 import { getNeighborhoodBySlugForMember } from '@/server/neighborhoods';
 import { listResourcesForNeighborhood } from '@/server/resources';
+import { ResourcesView } from '@/components/local-commons/resources-view';
 
 type RouteParams = { neighborhoodSlug: string };
-
-const KIND_LABEL: Record<string, string> = {
-  tool: 'Tool',
-  space: 'Space',
-  skill: 'Skill',
-  material: 'Material',
-  other: 'Other',
-};
 
 export default async function ResourcesPage({
   params,
@@ -30,46 +23,24 @@ export default async function ResourcesPage({
   return (
     <main
       data-density="standard"
-      className="mx-auto w-full max-w-(--container-prose) px-6 py-10 sm:px-10 sm:py-14"
+      className="mx-auto w-full max-w-(--container-folio) px-6 py-8 sm:px-10 sm:py-10"
     >
-      <header className="mb-10 border-b-2 border-[color:var(--color-ink)] pb-4">
-        <div className="eyebrow">Local Commons · Resources</div>
-        <h1 className="mt-2 text-(length:--text-title) leading-(--text-title--line-height) tracking-(--text-title--letter-spacing) font-[var(--font-display)] font-bold text-[color:var(--color-ink)]">
-          Resource Registry
-        </h1>
-        <p className="mt-3 max-w-prose font-[var(--font-body)] text-(length:--text-lede) leading-(--text-lede--line-height) text-[color:var(--color-ink-soft)] italic">
-          Tools, spaces, and skills available in {result.neighborhood.name}.
-        </p>
+      <header className="mb-6 flex items-center justify-between border-b border-[color:var(--color-rule)] pb-5">
+        <div>
+          <div className="eyebrow mb-1">Registry</div>
+          <h1 className="text-(length:--text-heading) font-[var(--font-display)] font-semibold text-[color:var(--color-ink)]">
+            Resources
+          </h1>
+        </div>
+        <a
+          href={`/neighborhoods/${neighborhoodSlug}/resources/new`}
+          className="rounded border border-[color:var(--color-rule)] px-3 py-1.5 text-(length:--text-small) font-[var(--font-display)] font-medium text-[color:var(--color-ink)] transition-colors hover:bg-[color:var(--color-paper-deep)]"
+        >
+          + Add
+        </a>
       </header>
 
-      {resources.length === 0 ? (
-        <p className="text-(length:--text-body) text-[color:var(--color-ink-soft)]">
-          No resources listed yet. Be the first to add one.
-        </p>
-      ) : (
-        <ul className="divide-y divide-[color:var(--color-rule)]">
-          {resources.map((r) => (
-            <li key={r.id} className="py-5">
-              <div className="flex items-baseline gap-3">
-                <span className="metadata text-[color:var(--color-muted)]">
-                  {KIND_LABEL[r.kind] ?? r.kind}
-                </span>
-                <span className="font-[var(--font-display)] font-semibold text-(length:--text-body) text-[color:var(--color-ink)]">
-                  {r.title}
-                </span>
-              </div>
-              {r.description ? (
-                <p className="mt-1 text-(length:--text-body) text-[color:var(--color-ink-soft)]">
-                  {r.description}
-                </p>
-              ) : null}
-              {r.locationHint ? (
-                <p className="metadata mt-2 text-[color:var(--color-muted)]">{r.locationHint}</p>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ResourcesView resources={resources} neighborhoodSlug={neighborhoodSlug} />
     </main>
   );
 }

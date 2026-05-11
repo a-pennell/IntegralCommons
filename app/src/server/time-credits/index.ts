@@ -1,6 +1,7 @@
-import { and, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, sql } from 'drizzle-orm';
 import { db } from '@/db';
 import { creditTransactions } from '@/db/schema';
+import type { CreditTransaction } from '@/db/schema';
 import type { AppError } from '@/lib/errors';
 import { errors } from '@/lib/errors';
 import type { Result } from '@/lib/result';
@@ -86,4 +87,37 @@ export async function getBalanceForMember(
       ),
     );
   return parseFloat(rows[0]?.total ?? '0');
+}
+
+export async function listTransactionsForMember(
+  neighborhoodId: string,
+  memberId: string,
+  limit = 100,
+): Promise<CreditTransaction[]> {
+  return db
+    .select()
+    .from(creditTransactions)
+    .where(
+      and(
+        eq(creditTransactions.neighborhoodId, neighborhoodId),
+        eq(creditTransactions.memberId, memberId),
+      ),
+    )
+    .orderBy(desc(creditTransactions.occurredAt))
+    .limit(limit);
+}
+
+/**
+ * Compute balance from transaction list, treating 'spent' and 'demurrage_applied'
+ * as debits regardless of the sign stored in amount_text.
+ * This is the correct approach since recordCreditSpent stores amounts as positive strings.
+ */
+export function computeBalance(transactions: CreditTransaction[]): number {
+  return transactions.reduce((sum, tx) => {
+    const amount = parseFloat(tx.amountText);
+    if (tx.transactionType === 'spent' || tx.transactionType === 'demurrage_applied') {
+      return sum - Math.abs(amount);
+    }
+    return sum + amount;
+  }, 0);
 }
