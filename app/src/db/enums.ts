@@ -131,6 +131,7 @@ export const stewardshipEntryTypeEnum = pgEnum('stewardship_entry_type', [
   'resource_noted',
   'charter_note',
   'handover',
+  'ecological_note',
 ]);
 
 export const creditTransactionTypeEnum = pgEnum('credit_transaction_type', [

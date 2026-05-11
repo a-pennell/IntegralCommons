@@ -17,7 +17,8 @@ export type WriteEntryInput = {
     | 'member_care'
     | 'resource_noted'
     | 'charter_note'
-    | 'handover';
+    | 'handover'
+    | 'ecological_note';
   readonly notes?: string;
   readonly linkedResourceId?: string;
 };

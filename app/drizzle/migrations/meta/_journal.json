@@ -36,6 +36,13 @@
       "when": 1778533793431,
       "tag": "0004_ecological_scope_flag",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1778534203942,
+      "tag": "0005_ecological_note_entry_type",
+      "breakpoints": true
     }
   ]
 }
