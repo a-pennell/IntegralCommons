@@ -4,7 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Route } from 'next';
 
-type SectionKey = 'commons' | 'resources' | 'needs-offers' | 'charter' | 'stewardship' | 'credits';
+type SectionKey =
+  | 'commons'
+  | 'resources'
+  | 'needs-offers'
+  | 'charter'
+  | 'stewardship'
+  | 'credits'
+  | 'import';
 
 type Section = {
   key: SectionKey;
@@ -49,6 +56,12 @@ const sections: Section[] = [
     label: 'Credits',
     match: (p, s) => p.startsWith(`/neighborhoods/${s}/credits`),
     href: (s) => `/neighborhoods/${s}/credits` as Route,
+  },
+  {
+    key: 'import',
+    label: 'Import CSV',
+    match: (p, s) => p.startsWith(`/neighborhoods/${s}/import`),
+    href: (s) => `/neighborhoods/${s}/import` as Route,
   },
 ];
 
