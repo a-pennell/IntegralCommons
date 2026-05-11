@@ -120,7 +120,13 @@ export default async function HubPage() {
                 </li>
               ))}
             </ul>
-            <div className="mt-3">
+            <div className="mt-3 flex items-center gap-4">
+              <Link
+                href={'/neighborhoods' as Route}
+                className="text-(length:--text-small) text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-accent)]"
+              >
+                Browse all
+              </Link>
               <Link
                 href={'/neighborhoods/new' as Route}
                 className="text-(length:--text-small) text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-accent)]"
@@ -134,12 +140,20 @@ export default async function HubPage() {
             <p className="mb-3 text-(length:--text-body) text-[color:var(--color-ink-soft)]">
               You&rsquo;re not part of any neighborhood yet.
             </p>
-            <Link
-              href={'/neighborhoods/new' as Route}
-              className="text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-accent)] hover:underline"
-            >
-              Start a neighborhood
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link
+                href={'/neighborhoods' as Route}
+                className="text-(length:--text-body) font-[var(--font-display)] font-semibold text-[color:var(--color-accent)] hover:underline"
+              >
+                Browse neighborhoods
+              </Link>
+              <Link
+                href={'/neighborhoods/new' as Route}
+                className="text-(length:--text-body) text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-accent)]"
+              >
+                or start one
+              </Link>
+            </div>
           </>
         )}
       </section>
