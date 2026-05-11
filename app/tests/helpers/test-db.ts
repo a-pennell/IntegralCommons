@@ -4,6 +4,7 @@ import { PostgreSqlContainer, type StartedPostgreSqlContainer } from '@testconta
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from '@/db/schema';
+import { getPool } from '@/db';
 
 /**
  * Per-test-file Postgres container. Testcontainers spins up a fresh
@@ -47,12 +48,22 @@ export async function startTestDb(): Promise<TestDatabase> {
 }
 
 export async function stopTestDb(testDb: TestDatabase): Promise<void> {
-  // Suppress any pool-level errors during shutdown (57P01 etc.).
+  // Suppress pool-level errors on both pools before draining, so any
+  // in-flight 57P01 events route through pool.emit('error') and are swallowed.
   testDb.pool.on('error', () => {});
-  // End the pool first so pg sends clean Terminate messages to all clients.
-  // pool.end() resolves before socket teardown completes, so we wait briefly
-  // to let all socket callbacks drain before killing the container process.
-  await testDb.pool.end();
+
+  // The app-level pool (created lazily by @/db/index.ts and used by all
+  // server modules) is a second pool pointing at the same container. We must
+  // drain it too — otherwise its clients receive 57P01 when the container
+  // stops and, with no pool-level error handler, the error becomes an
+  // uncaught exception that Vitest treats as a test failure.
+  const appPool = getPool();
+  appPool.on('error', () => {});
+
+  await Promise.all([testDb.pool.end(), appPool.end()]);
+
+  // pool.end() resolves before socket teardown fully completes; wait briefly
+  // so all TCP FIN/ACK exchanges finish before we kill the container.
   await new Promise<void>((resolve) => setTimeout(resolve, 200));
   await testDb.container.stop({ timeout: 5 });
 }
