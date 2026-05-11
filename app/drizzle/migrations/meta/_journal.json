@@ -15,6 +15,13 @@
       "when": 1778513225482,
       "tag": "0001_hard_spyke",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1747008000000,
+      "tag": "0002_post_migration_setup",
+      "breakpoints": false
     }
   ]
 }

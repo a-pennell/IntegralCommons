@@ -35,7 +35,7 @@ export async function startTestDb(): Promise<TestDatabase> {
   // Apply all migrations in order. Drizzle emits `--> statement-breakpoint` between
   // statements; pg can execute the whole blob since each stmt is ;-terminated.
   const strip = (sql: string) => sql.replace(/-->\s*statement-breakpoint/g, '');
-  for (const file of ['0000_deep_martin_li.sql', '0001_hard_spyke.sql']) {
+  for (const file of ['0000_deep_martin_li.sql', '0001_hard_spyke.sql', '0002_post_migration_setup.sql']) {
     await pool.query(strip(readFileSync(join(MIGRATIONS_DIR, file), 'utf8')));
   }
 
