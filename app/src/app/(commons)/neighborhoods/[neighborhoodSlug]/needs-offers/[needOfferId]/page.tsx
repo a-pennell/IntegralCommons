@@ -123,7 +123,9 @@ export default async function NeedOfferDetailPage({
         <div className="mb-6 rounded border border-red-200 bg-red-50 px-4 py-3 text-(length:--text-small) text-red-700">
           {error === 'not_yours'
             ? 'You can only manage your own postings.'
-            : 'Something went wrong. Please try again.'}
+            : error === 'rate_limited'
+              ? 'You have reached the limit of 20 exchange requests per day. Try again tomorrow.'
+              : 'Something went wrong. Please try again.'}
         </div>
       ) : null}
 
