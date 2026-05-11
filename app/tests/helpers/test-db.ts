@@ -47,13 +47,12 @@ export async function startTestDb(): Promise<TestDatabase> {
 }
 
 export async function stopTestDb(testDb: TestDatabase): Promise<void> {
-  // Register before container.stop() so the idle-listener path (client error
-  // → pool.emit('error')) is suppressed while clients are still attached.
+  // Suppress any pool-level errors during shutdown (57P01 etc.).
   testDb.pool.on('error', () => {});
-  // Stop the container first — this sends 57P01 FATAL to all open sockets
-  // while idle listeners are still attached to the pool clients, so errors
-  // route through pool.emit('error') and are caught by the handler above.
-  // Ending the pool afterwards is then a no-op (all clients already gone).
-  await testDb.container.stop({ timeout: 5 });
+  // End the pool first so pg sends clean Terminate messages to all clients.
+  // pool.end() resolves before socket teardown completes, so we wait briefly
+  // to let all socket callbacks drain before killing the container process.
   await testDb.pool.end();
+  await new Promise<void>((resolve) => setTimeout(resolve, 200));
+  await testDb.container.stop({ timeout: 5 });
 }
