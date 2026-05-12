@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { requireSession } from '@/server/auth';
 import { getSpaceBySlugForMember } from '@/server/spaces';
-import { resolveGovernanceProfile } from '@/server/governance-config';
+import { resolveGovernanceProfile, type GovernanceProfile } from '@/server/governance-config';
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
 import { Note } from '@/components/ui/note';
@@ -96,18 +96,7 @@ export default async function NewIssuePage({
           hint="What this Issue is about, and what it isn't."
         />
 
-        {isGovernance ? (
-          <Textarea
-            id="proposedProfile"
-            name="proposedProfile"
-            label="Proposed governance profile (JSON)"
-            mono
-            required
-            rows={14}
-            placeholder={JSON.stringify(profile, null, 2)}
-            hint="Paste the full proposed profile JSON. Constitutional floors are enforced at finalization."
-          />
-        ) : null}
+        {isGovernance ? <GovernanceProfileFields profile={profile} /> : null}
 
         {profile.scopeTagVocabulary.length > 0 ? (
           <fieldset>
@@ -193,7 +182,259 @@ function describeError(kind: string): string {
       return "One or more scope tags do not match this Space's configured vocabulary.";
     case 'validation':
       return 'One of the fields was invalid. Please check and try again.';
+    case 'invalid_profile':
+      return 'One or more governance profile values are outside the allowed range. Check the constitutional floors and try again.';
     default:
       return 'Something went wrong. Please try again.';
   }
+}
+
+// ─── Governance profile form ──────────────────────────────────────────────
+
+function GovernanceProfileFields({ profile }: { profile: GovernanceProfile }) {
+  return (
+    <div className="space-y-10">
+      <fieldset className="space-y-5">
+        <legend className="eyebrow mb-1 text-[color:var(--color-ink)]">Deliberation floors</legend>
+        <p className="text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+          Only tightening (increasing) these values is permitted. Constitutional minimums are noted.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <ProfileNumField
+            name="deliberation_standardIssueHours"
+            label="Standard issue period (hours)"
+            min={48}
+            defaultValue={profile.deliberation.standardIssueHours}
+            hint="Min 48 h"
+          />
+          <ProfileNumField
+            name="deliberation_tier2AmendmentDays"
+            label="Tier 2 amendment period (days)"
+            min={7}
+            defaultValue={profile.deliberation.tier2AmendmentDays}
+            hint="Min 7 days"
+          />
+          <ProfileNumField
+            name="deliberation_tier1AmendmentDays"
+            label="Tier 1 amendment period (days)"
+            min={14}
+            defaultValue={profile.deliberation.tier1AmendmentDays}
+            hint="Min 14 days"
+          />
+          <ProfileNumField
+            name="deliberation_decisionMethodChangeDays"
+            label="Decision method change period (days)"
+            min={7}
+            defaultValue={profile.deliberation.decisionMethodChangeDays}
+            hint="Min 7 days"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset className="space-y-5">
+        <legend className="eyebrow mb-1 text-[color:var(--color-ink)]">Quorum thresholds</legend>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <ProfileNumField
+            name="quorum_awarenessPct"
+            label="Awareness quorum (%)"
+            min={25}
+            max={100}
+            step={1}
+            defaultValue={Math.round(profile.quorum.awarenessPct * 100)}
+            hint="25–100%"
+          />
+          <ProfileNumField
+            name="quorum_participationPct"
+            label="Participation quorum (%)"
+            min={10}
+            max={100}
+            step={1}
+            defaultValue={Math.round(profile.quorum.participationPct * 100)}
+            hint="10–100%"
+          />
+          <ProfileNumField
+            name="quorum_deliberationHours"
+            label="Deliberation period (hours)"
+            min={48}
+            defaultValue={profile.quorum.deliberationHours}
+            hint="Min 48 h"
+          />
+          <ProfileNumField
+            name="quorum_extensionMultiplier"
+            label="Extension multiplier (×)"
+            min={1.25}
+            max={2}
+            step={0.05}
+            defaultValue={profile.quorum.extensionMultiplier}
+            hint="1.25–2.0"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset className="space-y-5">
+        <legend className="eyebrow mb-1 text-[color:var(--color-ink)]">Rate limits</legend>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <ProfileNumField
+            name="rateLimits_createIssuePerDay"
+            label="Issues per member per day"
+            min={1}
+            max={3}
+            step={1}
+            defaultValue={profile.rateLimits.createIssuePerDay}
+            hint="1–3 (constitutional ceiling: 3)"
+          />
+          <div>
+            <div className="eyebrow mb-1 text-[color:var(--color-ink)]">
+              Referenda per rolling 7-day window
+            </div>
+            <div className="metadata tabular text-[color:var(--color-ink)]">1</div>
+            <p className="mt-0.5 text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+              Fixed — constitutional requirement
+            </p>
+            <input type="hidden" name="rateLimits_initiateReferendumPerRollingWeek" value="1" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset className="space-y-5">
+        <legend className="eyebrow mb-1 text-[color:var(--color-ink)]">Temporal stability</legend>
+        <p className="text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+          Minimum days before the same decision type can be re-opened without a supermajority.
+          Cannot be shortened.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <ProfileNumField
+            name="stability_standardIssueDays"
+            label="Standard issue (days)"
+            min={30}
+            defaultValue={profile.stability.standardIssueDays}
+            hint="Min 30 days"
+          />
+          <ProfileNumField
+            name="stability_policyChangeDays"
+            label="Policy change (days)"
+            min={60}
+            defaultValue={profile.stability.policyChangeDays}
+            hint="Min 60 days"
+          />
+          <ProfileNumField
+            name="stability_constitutionalAmendmentDays"
+            label="Constitutional amendment (days)"
+            min={90}
+            defaultValue={profile.stability.constitutionalAmendmentDays}
+            hint="Min 90 days"
+          />
+          <ProfileNumField
+            name="stability_delegationGrantDays"
+            label="Delegation grant (days)"
+            min={30}
+            defaultValue={profile.stability.delegationGrantDays}
+            hint="Min 30 days"
+          />
+        </div>
+      </fieldset>
+
+      <fieldset className="space-y-5">
+        <legend className="eyebrow mb-1 text-[color:var(--color-ink)]">Referendum threshold</legend>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <ProfileNumField
+            name="referendumThreshold_minimumSupporters"
+            label="Minimum supporters (count)"
+            min={2}
+            step={1}
+            defaultValue={profile.referendumThreshold.minimumSupporters}
+            hint="Min 2 members"
+          />
+          <ProfileNumField
+            name="referendumThreshold_minimumSupportersPct"
+            label="Minimum support (%)"
+            min={5}
+            max={50}
+            step={1}
+            defaultValue={Math.round(profile.referendumThreshold.minimumSupportersPct * 100)}
+            hint="5–50%"
+          />
+        </div>
+      </fieldset>
+
+      <div className="space-y-5">
+        <div>
+          <label
+            htmlFor="taxonomyVocabulary"
+            className="eyebrow mb-1 block text-[color:var(--color-ink)]"
+          >
+            Perspective taxonomy
+          </label>
+          <p className="mb-2 text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+            Comma-separated labels members choose from when adding a perspective.
+          </p>
+          <input
+            id="taxonomyVocabulary"
+            name="taxonomyVocabulary"
+            type="text"
+            defaultValue={profile.taxonomyVocabulary.join(', ')}
+            className="w-full rounded border border-[color:var(--color-rule)] bg-transparent px-3 py-2 text-(length:--text-small) font-[var(--font-mono)] text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] focus:border-[color:var(--color-accent)] focus:outline-none"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="scopeTagVocabulary"
+            className="eyebrow mb-1 block text-[color:var(--color-ink)]"
+          >
+            Scope tags
+          </label>
+          <p className="mb-2 text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+            Comma-separated. Leave empty to disable scope tagging on issues.
+          </p>
+          <input
+            id="scopeTagVocabulary"
+            name="scopeTagVocabulary"
+            type="text"
+            defaultValue={profile.scopeTagVocabulary.join(', ')}
+            className="w-full rounded border border-[color:var(--color-rule)] bg-transparent px-3 py-2 text-(length:--text-small) font-[var(--font-mono)] text-[color:var(--color-ink)] placeholder:text-[color:var(--color-muted)] focus:border-[color:var(--color-accent)] focus:outline-none"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProfileNumField({
+  name,
+  label,
+  min,
+  max,
+  step = 1,
+  defaultValue,
+  hint,
+}: {
+  name: string;
+  label: string;
+  min: number;
+  max?: number;
+  step?: number;
+  defaultValue: number;
+  hint: string;
+}) {
+  return (
+    <div>
+      <label htmlFor={name} className="eyebrow mb-1 block text-[color:var(--color-ink)]">
+        {label}
+      </label>
+      <input
+        id={name}
+        name={name}
+        type="number"
+        min={min}
+        {...(max !== undefined ? { max } : {})}
+        step={step}
+        defaultValue={defaultValue}
+        required
+        className="w-full rounded border border-[color:var(--color-rule)] bg-transparent px-3 py-2 text-(length:--text-small) font-[var(--font-mono)] text-[color:var(--color-ink)] focus:border-[color:var(--color-accent)] focus:outline-none"
+      />
+      <p className="mt-0.5 text-(length:--text-caption) text-[color:var(--color-muted)] italic">
+        {hint}
+      </p>
+    </div>
+  );
 }

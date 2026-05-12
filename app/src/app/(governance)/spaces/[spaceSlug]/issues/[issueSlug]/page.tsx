@@ -272,7 +272,10 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
           </aside>
         ) : null}
 
-        {/* Structured sections */}
+        {/* Governance profile diff — rendered for governance change issues */}
+        <GovernanceChangeDiff raw={issue.structuredSections} />
+
+        {/* Structured sections — empty for governance issues, populated for standard issues */}
         <StructuredSection title="Problem framings" items={sections.problemFramings} />
         <StructuredSection title="Constraints" items={sections.constraints} />
         <StructuredSection title="Stakeholders" items={sections.stakeholders} />
@@ -467,6 +470,95 @@ function parseSections(raw: unknown): {
     knownFacts: safe('knownFacts'),
     openQuestions: safe('openQuestions'),
   };
+}
+
+// ─── Governance change diff ───────────────────────────────────────────────
+
+const PROFILE_KEY_LABEL: Record<string, string> = {
+  version: 'Version',
+  decisionMethodDefault: 'Decision method',
+  deliberation: 'Deliberation floors',
+  quorum: 'Quorum thresholds',
+  rateLimits: 'Rate limits',
+  stability: 'Temporal stability',
+  referendumThreshold: 'Referendum threshold',
+  taxonomyVocabulary: 'Perspective taxonomy',
+  scopeTagVocabulary: 'Scope tags',
+};
+
+function formatProfileValue(key: string, value: unknown): string {
+  if (value === null || value === undefined) return '—';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number') return String(value);
+  if (Array.isArray(value)) return value.length > 0 ? value.join(', ') : '(empty)';
+  if (typeof value === 'object') {
+    // Format nested objects as "key: value · key: value"
+    const pct = (n: unknown) => (typeof n === 'number' ? `${Math.round(n * 100)}%` : String(n));
+    if (key === 'quorum') {
+      const q = value as Record<string, unknown>;
+      return `awareness ${pct(q.awarenessPct)} · participation ${pct(q.participationPct)} · ${q.deliberationHours}h · ×${q.extensionMultiplier}`;
+    }
+    if (key === 'referendumThreshold') {
+      const r = value as Record<string, unknown>;
+      return `${r.minimumSupporters} supporters or ${pct(r.minimumSupportersPct)}`;
+    }
+    return Object.entries(value as Record<string, unknown>)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join(' · ');
+  }
+  return String(value);
+}
+
+type ProfileDiffRow = { key: string; before: unknown; after: unknown };
+
+function GovernanceChangeDiff({ raw }: { raw: unknown }) {
+  if (!raw || typeof raw !== 'object') return null;
+  const sections = raw as Record<string, unknown>;
+  if (sections.changeType !== 'governance_profile') return null;
+
+  const diff = Array.isArray(sections.diff)
+    ? (sections.diff as ProfileDiffRow[]).filter(
+        (r) => typeof r === 'object' && r !== null && 'key' in r,
+      )
+    : [];
+
+  return (
+    <section className="mb-10">
+      <h2 className="eyebrow mb-3 text-[color:var(--color-ink)]">Proposed changes</h2>
+      {diff.length === 0 ? (
+        <p className="text-(length:--text-small) font-[var(--font-body)] text-[color:var(--color-muted)] italic">
+          No parameters differ from the current profile.
+        </p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-(length:--text-small) font-[var(--font-body)]">
+            <thead>
+              <tr className="border-b border-[color:var(--color-rule)]">
+                <th className="eyebrow pr-8 pb-2 text-left font-normal">Parameter</th>
+                <th className="eyebrow pr-8 pb-2 text-left font-normal">Current</th>
+                <th className="eyebrow pb-2 text-left font-normal">Proposed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {diff.map((row) => (
+                <tr key={row.key} className="border-b border-[color:var(--color-rule)]">
+                  <td className="py-3 pr-8 font-medium text-[color:var(--color-ink)]">
+                    {PROFILE_KEY_LABEL[row.key] ?? row.key}
+                  </td>
+                  <td className="metadata tabular py-3 pr-8 text-[color:var(--color-muted)]">
+                    {formatProfileValue(row.key, row.before)}
+                  </td>
+                  <td className="metadata tabular py-3 text-[color:var(--color-accent)]">
+                    {formatProfileValue(row.key, row.after)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
 }
 
 function shortId(ulid: string): string {
