@@ -78,7 +78,6 @@ export async function createGovernanceIssueAction(formData: FormData): Promise<v
   const spaceId = String(formData.get('spaceId') ?? '');
   const title = String(formData.get('title') ?? '').trim();
   const scope = String(formData.get('scope') ?? '').trim();
-  const rawProfile = String(formData.get('proposedProfile') ?? '');
   const rawScopeTags = formData.getAll('scopeTags').map((v) => String(v));
 
   const space = await getSpaceByIdForMember(spaceId, session.value.memberId);
@@ -86,15 +85,53 @@ export async function createGovernanceIssueAction(formData: FormData): Promise<v
 
   const back = `/spaces/${space.space.slug}/issues/new?type=governance`;
 
-  // Parse the proposed profile.
-  let parsedProfile: unknown;
-  try {
-    parsedProfile = JSON.parse(rawProfile);
-  } catch {
-    redirect(`${back}&error=invalid_profile_json`);
-  }
+  // Parse individual profile fields from the structured form.
+  const getNum = (key: string): number => {
+    const v = formData.get(key);
+    return v !== null ? Number(v) : NaN;
+  };
+  const getVocab = (key: string): string[] => {
+    const raw = formData.get(key);
+    if (!raw || typeof raw !== 'string') return [];
+    return raw
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+  };
 
-  const profileResult = GovernanceProfileSchema.safeParse(parsedProfile);
+  const profileResult = GovernanceProfileSchema.safeParse({
+    version: 1,
+    decisionMethodDefault: 'consent',
+    deliberation: {
+      standardIssueHours: getNum('deliberation_standardIssueHours'),
+      tier2AmendmentDays: getNum('deliberation_tier2AmendmentDays'),
+      tier1AmendmentDays: getNum('deliberation_tier1AmendmentDays'),
+      decisionMethodChangeDays: getNum('deliberation_decisionMethodChangeDays'),
+    },
+    quorum: {
+      awarenessPct: getNum('quorum_awarenessPct') / 100,
+      participationPct: getNum('quorum_participationPct') / 100,
+      deliberationHours: getNum('quorum_deliberationHours'),
+      extensionMultiplier: getNum('quorum_extensionMultiplier'),
+    },
+    rateLimits: {
+      createIssuePerDay: getNum('rateLimits_createIssuePerDay'),
+      initiateReferendumPerRollingWeek: getNum('rateLimits_initiateReferendumPerRollingWeek'),
+    },
+    stability: {
+      standardIssueDays: getNum('stability_standardIssueDays'),
+      policyChangeDays: getNum('stability_policyChangeDays'),
+      constitutionalAmendmentDays: getNum('stability_constitutionalAmendmentDays'),
+      delegationGrantDays: getNum('stability_delegationGrantDays'),
+    },
+    referendumThreshold: {
+      minimumSupporters: getNum('referendumThreshold_minimumSupporters'),
+      minimumSupportersPct: getNum('referendumThreshold_minimumSupportersPct') / 100,
+    },
+    taxonomyVocabulary: getVocab('taxonomyVocabulary'),
+    scopeTagVocabulary: getVocab('scopeTagVocabulary'),
+  });
+
   if (!profileResult.success) {
     redirect(`${back}&error=invalid_profile`);
   }
