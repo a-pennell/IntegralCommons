@@ -16,6 +16,7 @@ const Schema = z.object({
     .toLowerCase()
     .regex(/^[a-z0-9-]+$/),
   description: z.string().max(300).trim().optional(),
+  boundaryDescription: z.string().max(1000).trim().optional(),
 });
 
 export async function createNeighborhoodAction(formData: FormData): Promise<void> {
@@ -26,6 +27,7 @@ export async function createNeighborhoodAction(formData: FormData): Promise<void
     name: formData.get('name'),
     slug: formData.get('slug'),
     description: formData.get('description') || undefined,
+    boundaryDescription: formData.get('boundaryDescription') || undefined,
   });
   if (!parsed.success) redirect('/neighborhoods/new?error=validation');
 
@@ -33,7 +35,10 @@ export async function createNeighborhoodAction(formData: FormData): Promise<void
     createdByMemberId: session.value.memberId,
     name: parsed.data.name,
     slug: parsed.data.slug,
-    description: parsed.data.description,
+    ...(parsed.data.description ? { description: parsed.data.description } : {}),
+    ...(parsed.data.boundaryDescription
+      ? { boundaryDescription: parsed.data.boundaryDescription }
+      : {}),
   });
 
   if (!result.ok) {
@@ -44,5 +49,5 @@ export async function createNeighborhoodAction(formData: FormData): Promise<void
   // Seed template charter sections for the new neighborhood.
   await seedTemplateCharter(result.value.neighborhoodId);
 
-  redirect(`/neighborhoods/${result.value.slug}`);
+  redirect(`/neighborhoods/${result.value.slug}?onboarding=true`);
 }

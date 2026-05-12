@@ -22,6 +22,41 @@
       "when": 1747008000000,
       "tag": "0002_post_migration_setup",
       "breakpoints": false
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1778532731726,
+      "tag": "0003_neighborhood_boundary",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1778533793431,
+      "tag": "0004_ecological_scope_flag",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1778534203942,
+      "tag": "0005_ecological_note_entry_type",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778513225482,
+      "tag": "0001_hard_spyke",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1747008000000,
+      "tag": "0002_post_migration_setup",
+      "breakpoints": false
     }
   ]
 }

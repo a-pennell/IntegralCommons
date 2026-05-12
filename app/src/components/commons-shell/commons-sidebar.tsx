@@ -4,7 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import type { Route } from 'next';
 
-type SectionKey = 'commons' | 'resources' | 'needs-offers' | 'charter' | 'stewardship' | 'credits';
+type SectionKey =
+  | 'commons'
+  | 'resources'
+  | 'needs-offers'
+  | 'charter'
+  | 'stewardship'
+  | 'credits'
+  | 'import';
 
 type Section = {
   key: SectionKey;
@@ -49,6 +56,12 @@ const sections: Section[] = [
     label: 'Credits',
     match: (p, s) => p.startsWith(`/neighborhoods/${s}/credits`),
     href: (s) => `/neighborhoods/${s}/credits` as Route,
+  },
+  {
+    key: 'import',
+    label: 'Import CSV',
+    match: (p, s) => p.startsWith(`/neighborhoods/${s}/import`),
+    href: (s) => `/neighborhoods/${s}/import` as Route,
   },
 ];
 
@@ -113,13 +126,22 @@ export function CommonsSidebar({
 
       <div className="px-5 py-4">
         <div className="metadata tabular text-[color:var(--color-ink-soft)]">@{memberHandle}</div>
-        <Link
-          href={'/' as Route}
-          {...(onNavigate ? { onClick: onNavigate } : {})}
-          className="mt-2 block text-(length:--text-caption) text-[color:var(--color-muted)] hover:text-[color:var(--color-accent)]"
-        >
-          All apps
-        </Link>
+        <div className="mt-2 flex flex-col gap-1">
+          <Link
+            href={`/neighborhoods/${neighborhoodSlug}/print` as Route}
+            {...(onNavigate ? { onClick: onNavigate } : {})}
+            className="block text-(length:--text-caption) text-[color:var(--color-muted)] hover:text-[color:var(--color-accent)]"
+          >
+            Print summary
+          </Link>
+          <Link
+            href={'/' as Route}
+            {...(onNavigate ? { onClick: onNavigate } : {})}
+            className="block text-(length:--text-caption) text-[color:var(--color-muted)] hover:text-[color:var(--color-accent)]"
+          >
+            All apps
+          </Link>
+        </div>
       </div>
     </aside>
   );

@@ -29,6 +29,12 @@ const ENTRY_TYPES = [
     label: 'Steward handover',
     description: 'Transitioning steward responsibilities',
   },
+  {
+    value: 'ecological_note',
+    label: 'Ecological note',
+    description:
+      'Local ecological knowledge — land conditions, species, water, seasonal patterns, or other observations relevant to neighborhood decisions',
+  },
 ] as const;
 
 export default async function NewStewardshipEntryPage({

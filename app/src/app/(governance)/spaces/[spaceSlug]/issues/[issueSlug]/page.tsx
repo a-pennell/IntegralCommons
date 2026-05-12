@@ -222,6 +222,17 @@ export default async function IssueDetailPage({ params }: { params: Promise<Rout
               </div>
             ) : null}
 
+            {/* Ecological scope flag */}
+            {issue.hasEcologicalScope ? (
+              <div className="mt-6">
+                <div className="eyebrow">Scope</div>
+                <div className="mt-1 inline-flex items-center gap-1.5 rounded border border-green-200 bg-green-50 px-2 py-1 text-(length:--text-caption) font-[var(--font-mono)] text-green-700">
+                  <span>🌿</span>
+                  <span>Ecological</span>
+                </div>
+              </div>
+            ) : null}
+
             {/* See also */}
             <div className="mt-6">
               <div className="eyebrow">See also</div>

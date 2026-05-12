@@ -38,7 +38,10 @@ export async function respondAction(formData: FormData): Promise<void> {
     ...(notes ? { notes } : {}),
   });
 
-  if (!outcome.ok) redirect(`${back}?error=respond_failed`);
+  if (!outcome.ok) {
+    const errorCode = outcome.error.kind === 'RateLimited' ? 'rate_limited' : 'respond_failed';
+    redirect(`${back}?error=${errorCode}`);
+  }
 
   redirect(`${back}?responded=1`);
 }

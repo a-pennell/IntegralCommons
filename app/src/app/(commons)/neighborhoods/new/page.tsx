@@ -3,6 +3,7 @@ import { requireSession } from '@/server/auth';
 import { createNeighborhoodAction } from './action';
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
+import { Textarea } from '@/components/ui/textarea';
 
 export default async function NewNeighborhoodPage() {
   const session = await requireSession();
@@ -49,6 +50,15 @@ export default async function NewNeighborhoodPage() {
           type="text"
           maxLength={300}
           placeholder="A mutual aid network for the Eastside neighborhood"
+        />
+        <Textarea
+          id="boundaryDescription"
+          name="boundaryDescription"
+          label="Neighborhood boundary"
+          rows={3}
+          maxLength={1000}
+          placeholder="The blocks around Oak Street from 1st to 8th Ave, including Riverside Park."
+          hint="Plain-language description of your neighborhood's approximate extent. Not enforced as a gate — membership is the real boundary."
         />
         <div className="pt-2">
           <Button type="submit">Create neighborhood</Button>

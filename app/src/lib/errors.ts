@@ -63,7 +63,11 @@ export type QuorumNotMet = {
   readonly nextCheckAt?: Date;
 };
 
-export type RateLimitedAction = 'initiate_referendum' | 'create_issue' | 'magic_link_request';
+export type RateLimitedAction =
+  | 'initiate_referendum'
+  | 'create_issue'
+  | 'magic_link_request'
+  | 'request_exchange';
 
 export type RateLimited = {
   readonly kind: 'RateLimited';

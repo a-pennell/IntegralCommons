@@ -16,6 +16,10 @@ const InputSchema = z.object({
   title: z.string().min(1).max(200).trim(),
   scope: z.string().min(1).max(500).trim(),
   scopeTags: z.array(z.string().min(1).max(60)).optional(),
+  hasEcologicalScope: z
+    .enum(['on'])
+    .optional()
+    .transform((v) => v === 'on'),
 });
 
 export async function createIssueAction(formData: FormData): Promise<void> {
@@ -31,6 +35,7 @@ export async function createIssueAction(formData: FormData): Promise<void> {
     title: formData.get('title'),
     scope: formData.get('scope'),
     scopeTags: rawScopeTags,
+    hasEcologicalScope: formData.get('hasEcologicalScope') || undefined,
   });
   if (!parsed.success) {
     redirect('/spaces?error=invalid');
@@ -45,6 +50,7 @@ export async function createIssueAction(formData: FormData): Promise<void> {
     title: parsed.data.title,
     scope: parsed.data.scope,
     ...(parsed.data.scopeTags !== undefined && { scopeTags: parsed.data.scopeTags }),
+    ...(parsed.data.hasEcologicalScope ? { hasEcologicalScope: true } : {}),
   });
 
   const back = `/spaces/${space.space.slug}/issues/new`;

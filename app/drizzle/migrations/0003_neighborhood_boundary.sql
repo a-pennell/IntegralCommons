@@ -1,0 +1,1 @@
+ALTER TABLE "neighborhoods" ADD COLUMN "boundary_description" text DEFAULT '' NOT NULL;

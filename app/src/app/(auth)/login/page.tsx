@@ -5,13 +5,14 @@ import { Note } from '@/components/ui/note';
 import { PageHeader } from '@/components/ui/page-header';
 import { requestMagicLinkAction } from './action';
 
-type SearchParams = { sent?: string; error?: string; next?: string };
+type SearchParams = { sent?: string; error?: string; next?: string; deleted?: string };
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams;
   const sentTo = params.sent;
   const errorKind = params.error;
   const nextPath = params.next;
+  const isDeleted = params.deleted === 'true';
 
   return (
     <main className="mx-auto w-full max-w-(--container-form) px-6 py-20">
@@ -20,6 +21,15 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         title="Welcome back"
         lede="No passwords. We send a single-use sign-in link to your email."
       />
+
+      {isDeleted ? (
+        <div className="mb-8">
+          <Note tone="info">
+            Your account has been deleted. Your email and name have been removed. Thank you for
+            being part of the community.
+          </Note>
+        </div>
+      ) : null}
 
       {sentTo ? (
         <div className="mb-8">

@@ -12,6 +12,7 @@ const ENTRY_LABEL: Record<string, string> = {
   resource_noted: 'Resource noted',
   charter_note: 'Charter note',
   handover: 'Steward handover',
+  ecological_note: 'Ecological note',
 };
 
 export default async function StewardshipPage({ params }: { params: Promise<RouteParams> }) {

@@ -1,0 +1,1 @@
+ALTER TYPE "public"."stewardship_entry_type" ADD VALUE 'ecological_note';

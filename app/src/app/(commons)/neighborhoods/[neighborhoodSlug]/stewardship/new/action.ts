@@ -12,6 +12,7 @@ const ENTRY_TYPES = [
   'resource_noted',
   'charter_note',
   'handover',
+  'ecological_note',
 ] as const;
 
 const Schema = z.object({

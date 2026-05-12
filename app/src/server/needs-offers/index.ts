@@ -83,6 +83,8 @@ export type RequestExchangeInput = {
   readonly notes?: string;
 };
 
+const EXCHANGE_REQUEST_DAILY_LIMIT = 20;
+
 export async function requestExchange(
   input: RequestExchangeInput,
 ): Promise<Result<{ requestId: string }, AppError>> {
@@ -110,19 +112,49 @@ export async function requestExchange(
   if (needOffer[0].status !== 'active') {
     return err(errors.conflict('need_offer', 'This need/offer is no longer active.'));
   }
+  // Prevent self-response: requester must not be the poster.
+  if (needOffer[0].postedByMemberId === input.requesterMemberId) {
+    return err(errors.notAuthorized('respond', 'You cannot respond to your own posting.'));
+  }
 
-  const id = ulid();
-  await db.insert(exchangeRequests).values({
-    id,
-    needOfferId: input.needOfferId,
-    requesterMemberId: input.requesterMemberId,
-    mode: input.mode,
-    creditAmount: input.creditAmount ?? null,
-    status: 'pending',
-    notes: input.notes ?? null,
+  return transaction(async (tx) => {
+    // Rate limit: max 20 exchange requests per member per 24-hour rolling window.
+    // Counted directly from the exchange_requests table — no bucket row needed.
+    const windowStart = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const countRow = await tx.query<{ n: string }>(
+      `SELECT COUNT(*)::text AS n
+         FROM exchange_requests
+        WHERE requester_member_id = $1
+          AND created_at >= $2`,
+      [input.requesterMemberId, windowStart],
+    );
+    const current = Number(countRow.rows[0]?.n ?? 0);
+    if (current >= EXCHANGE_REQUEST_DAILY_LIMIT) {
+      return err(
+        errors.rateLimited(
+          'request_exchange',
+          `${EXCHANGE_REQUEST_DAILY_LIMIT} exchange requests per 24-hour window`,
+          new Date(windowStart.getTime() + 24 * 60 * 60 * 1000),
+        ),
+      );
+    }
+
+    const id = ulid();
+    await tx.query(
+      `INSERT INTO exchange_requests (id, need_offer_id, requester_member_id, mode, credit_amount, status, notes)
+       VALUES ($1, $2, $3, $4, $5, 'pending', $6)`,
+      [
+        id,
+        input.needOfferId,
+        input.requesterMemberId,
+        input.mode,
+        input.creditAmount ?? null,
+        input.notes ?? null,
+      ],
+    );
+
+    return ok({ requestId: id });
   });
-
-  return ok({ requestId: id });
 }
 
 export async function completeExchange(args: {
