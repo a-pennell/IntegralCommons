@@ -7,10 +7,8 @@
   --accent: #B8341F;
 
   /* type */
-  /* Note: Source Serif 4 SmText optical is not available as a variable WOFF2,
-     so we use the single variable Source Serif 4 family for both display and body. */
-  --font-display: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  --font-body: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-display: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-body: 'Public Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* type scale */

@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import Narrative from '../../layouts/Narrative.astro';
+
+const notes = (await getCollection('fieldNotes')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const categoryLabel: Record<string, string> = {
+  gathering: 'Gathering',
+  repair: 'Repair',
+  garden: 'Garden',
+  archive: 'Story Archive',
+  fire: 'Civic Fire',
+  workshop: 'Workshop',
+  night: 'Night Commons',
+};
+---
+
+<Narrative title="Field Notes — ICOS">
+
+  <section class="scene fn-hero">
+    <div class="grid">
+      <div class="col-wide">
+        <p class="label" data-reveal>Field Notes</p>
+        <h1 class="fn-headline" data-reveal>
+          Stories from communities<br>who are already building.
+        </h1>
+        <p class="fn-lede" data-reveal>
+          These are not case studies. They are dispatches — accounts from the people
+          doing the work, in the places where it is happening. Repair shops in parking
+          lots. Feasts in public parks. Seed libraries in vacant lots. The commons is
+          already being built.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="fn-list">
+    <div class="grid">
+      <div class="col-wide">
+        {notes.map((note) => (
+          <a href={`/field-notes/${note.id}`} class="fn-row" data-reveal>
+            <div class="fn-row-meta">
+              <span class="label fn-category">
+                {categoryLabel[note.data.category] ?? note.data.category}
+              </span>
+              {note.data.location && (
+                <span class="label fn-location">{note.data.location}</span>
+              )}
+            </div>
+            <p class="fn-title">{note.data.title}</p>
+            <p class="fn-excerpt">{note.data.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Narrative>
+
+<style>
+  .fn-hero {
+    min-height: 0;
+    padding: 100px 0 48px;
+    align-items: flex-start;
+  }
+
+  .fn-headline {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 16px 0 24px;
+    max-width: 24ch;
+  }
+
+  .fn-lede {
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.65;
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  /* List */
+  .fn-list { padding-bottom: 72px; }
+
+  .fn-row {
+    display: block;
+    padding: 36px 0;
+    border-top: 0.5px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .fn-row:last-child { border-bottom: 0.5px solid var(--rule); }
+  .fn-row:hover .fn-title { color: var(--accent); }
+
+  .fn-row-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+
+  .fn-category { color: var(--accent); }
+  .fn-location { color: var(--muted); }
+
+  .fn-title {
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    transition: color 0.15s;
+    max-width: 52ch;
+  }
+
+  .fn-excerpt {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    max-width: 64ch;
+  }
+
+  @media (max-width: 600px) {
+    .fn-hero { padding: 120px 0 48px; }
+  }
+</style>

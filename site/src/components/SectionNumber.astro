@@ -2,11 +2,11 @@
 interface Props { n: string; act?: string; }
 const { n, act } = Astro.props;
 ---
-<div class="section-no col-margin">
+<div class="section-no">
   <span class="label">§ {n}</span>
   {act && <span class="label act-label" style="margin-left:12px;">{act}</span>}
 </div>
 
 <style>
-  .section-no { align-self: flex-start; margin-top: 8px; }
+  .section-no { align-self: center; width: min(660px, 100%); margin-bottom: 20px; }
 </style>

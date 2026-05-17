@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('fieldNotes');
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+
+function formatDate(str: string) {
+  return new Date(str).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Article title={note.data.title} sectionLabel="Field Notes">
+  <p class="story-meta label">
+    {formatDate(note.data.date)}
+    {note.data.location && <span> · {note.data.location}</span>}
+  </p>
+  <p class="story-excerpt">{note.data.excerpt}</p>
+  <hr class="rule" />
+  <Content />
+  <hr class="rule" />
+  <p class="story-back label"><a href="/field-notes">← All Field Notes</a></p>
+</Article>
+
+<style>
+  .story-meta { color: var(--muted); margin-bottom: 16px; }
+
+  .story-excerpt {
+    font-style: italic;
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.5;
+    max-width: 52ch;
+    margin: 0 0 40px;
+  }
+
+  .story-back a {
+    color: var(--muted);
+    text-decoration-color: var(--rule);
+  }
+  .story-back a:hover { color: var(--ink); }
+</style>

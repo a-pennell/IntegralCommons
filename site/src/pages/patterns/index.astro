@@ -1,0 +1,183 @@
+---
+import Narrative from '../../layouts/Narrative.astro';
+
+const patterns = [
+  {
+    slug: 'great-feast',
+    name: 'The Great Feast',
+    category: 'Food Commons · Civic Ritual',
+    headline: 'A city that eats together remembers it belongs to itself.',
+    cta: 'Start Locally',
+  },
+  {
+    slug: 'great-repair',
+    name: 'The Great Repair',
+    category: 'Skill Commons · Ecological Stewardship',
+    headline: 'Repairing things together repairs more than objects.',
+    cta: 'Host a Repair Day',
+  },
+  {
+    slug: 'commons-garden',
+    name: 'Commons Garden Network',
+    category: 'Ecological Commons · Urban Food Systems',
+    headline: 'Shared land creates shared futures.',
+    cta: 'Start a Commons Garden',
+  },
+  {
+    slug: 'civic-fires',
+    name: 'Civic Fires',
+    category: 'Seasonal Ritual · Collective Memory',
+    headline: 'A society needs places to gather around meaning.',
+    cta: 'Host a Civic Fire',
+  },
+  {
+    slug: 'night-commons',
+    name: 'The Night Commons',
+    category: 'Civic Space · Rest & Restoration',
+    headline: 'Nightlife does not need to revolve around consumption.',
+    cta: 'Open a Night Commons',
+  },
+  {
+    slug: 'story-archive',
+    name: 'The Story Archive',
+    category: 'Oral History · Living Memory',
+    headline: 'A community that remembers itself stays alive.',
+    cta: 'Record a Story',
+  },
+  {
+    slug: 'wandering-workshop',
+    name: 'The Wandering Workshop',
+    category: 'Mobile Learning · Apprenticeship Culture',
+    headline: 'A healthy society teaches in public.',
+    cta: 'Host a Workshop',
+  },
+];
+---
+
+<Narrative title="Commons Patterns — ICOS">
+
+  <section class="scene index-hero">
+    <div class="grid">
+      <div class="col-wide">
+        <p class="label" data-reveal>ICOS · Commons Patterns</p>
+        <h1 class="index-headline" data-reveal>Seven patterns for rebuilding civic life.</h1>
+        <p class="index-lede" data-reveal>
+          These are not programs. They are patterns — repeating forms that communities
+          adopt, adapt, and steward. Each one addresses a different dimension of civic
+          belonging: food, repair, land, fire, night, memory, and learning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="index-list">
+    <div class="grid">
+      <div class="col-wide">
+        {patterns.map((p, i) => (
+          <a href={`/patterns/${p.slug}`} class="pattern-row" data-reveal>
+            <span class="pattern-row-num label">{String(i + 1).padStart(2, '0')}</span>
+            <div class="pattern-row-body">
+              <p class="label pattern-row-category">{p.category}</p>
+              <p class="pattern-row-name">{p.name}</p>
+              <p class="pattern-row-headline">{p.headline}</p>
+            </div>
+            <span class="pattern-row-cta label">{p.cta} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Narrative>
+
+<style>
+  .index-hero {
+    min-height: 0;
+    padding: 160px 0 80px;
+    align-items: flex-start;
+  }
+
+  .index-headline {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4.5vw, 60px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 20px 0 24px;
+    max-width: 22ch;
+  }
+
+  .index-lede {
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.6;
+    max-width: 56ch;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* Pattern list */
+  .index-list {
+    padding-bottom: 120px;
+  }
+
+  .pattern-row {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 28px 0;
+    border-top: 0.5px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.15s;
+  }
+
+  .pattern-row:last-child {
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .pattern-row:hover .pattern-row-name { color: var(--accent); }
+  .pattern-row:hover .pattern-row-cta { color: var(--accent); }
+
+  .pattern-row-num {
+    color: var(--muted);
+    padding-top: 2px;
+    align-self: start;
+  }
+
+  .pattern-row-body { display: flex; flex-direction: column; gap: 4px; }
+
+  .pattern-row-category { color: var(--muted); margin: 0; }
+
+  .pattern-row-name {
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 500;
+    line-height: 1.2;
+    transition: color 0.15s;
+    margin: 0;
+  }
+
+  .pattern-row-headline {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .pattern-row-cta {
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color 0.15s;
+    align-self: center;
+  }
+
+  @media (max-width: 700px) {
+    .pattern-row {
+      grid-template-columns: 40px 1fr;
+    }
+    .pattern-row-cta { display: none; }
+  }
+</style>
