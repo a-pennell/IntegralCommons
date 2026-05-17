@@ -3,43 +3,77 @@ interface Props {
   title: string;
 }
 const { title } = Astro.props;
+const appUrl = 'https://app.commonground.so';
 import '../styles/global.css';
 ---
 <!doctype html>
 <html lang="en">
 <head>
-  <script is:inline>document.documentElement.classList.add('js');</script>
-  <meta charset="utf-8" />
+<meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
-  <link rel="preload" href="/fonts/SourceSerif4-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <meta name="description" content="CommonGround — a premise, three commitments, one operating system." />
+  <link rel="preload" href="/fonts/LibreBaskerville-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/PublicSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="CommonGround &mdash; a premise, three commitments, one operating system." />
 </head>
 <body class="narrative-body">
   <a class="skip-link" href="#scene-01">Skip to main content</a>
   <header class="narrative-header">
     <div class="narrative-header-inner">
-      <a class="narrative-mark" href="/">CommonGround</a>
+      <a class="narrative-mark" href="/">
+        <img src="/commonground.svg" alt="CommonGround" class="narrative-mark-logo" />
+      </a>
       <nav class="narrative-nav label">
+        <a href="/">Overview</a>
         <a href="/manifesto">Manifesto</a>
-        <a href="/constitution">Constitution</a>
-        <a href="/protocol">Protocol</a>
-        <a href="/overview">Overview</a>
+        <a href="/patterns">Patterns</a>
         <a href="/docs">Docs</a>
       </nav>
-      <span class="narrative-edition label">Vol. I · Spring 2026</span>
+      <div class="narrative-end label">
+        <span class="narrative-edition">Vol. I &middot; Spring 2026</span>
+        <a class="narrative-app-link" href={appUrl}>Open App &rarr;</a>
+      </div>
+      <button class="nav-toggle label" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation">
+        <span class="nav-toggle-icon" aria-hidden="true">&#9776;</span>
+      </button>
     </div>
   </header>
+  <nav id="mobile-nav" class="mobile-nav" aria-hidden="true" aria-label="Mobile navigation">
+    <a href="/">Overview</a>
+    <a href="/manifesto">Manifesto</a>
+    <a href="/patterns">Patterns</a>
+    <a href="/docs">Docs</a>
+    <a href={appUrl} class="mobile-nav-app">Open App</a>
+  </nav>
   <main id="scene-01" class="narrative">
     <slot />
   </main>
 
   <script>
-    import { initScroll, installBaselineReveal } from '../lib/scroll';
-    import { mountHeroEntrance } from '../lib/hero';
+    import { initScroll } from '../lib/scroll';
     initScroll();
-    installBaselineReveal();
-    mountHeroEntrance();
+    const toggle = document.querySelector('.nav-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    function closeNav() {
+      if (!toggle) return;
+      toggle.setAttribute('aria-expanded', 'false');
+      const icon = toggle.querySelector('.nav-toggle-icon');
+      if (icon) icon.textContent = '☰';
+      if (mobileNav) { mobileNav.setAttribute('aria-hidden', 'true'); mobileNav.classList.remove('is-open'); }
+    }
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        if (open) { closeNav(); } else {
+          toggle.setAttribute('aria-expanded', 'true');
+          const icon = toggle.querySelector('.nav-toggle-icon');
+          if (icon) icon.textContent = '✕';
+          if (mobileNav) { mobileNav.setAttribute('aria-hidden', 'false'); mobileNav.classList.add('is-open'); }
+        }
+      });
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+    if (mobileNav) mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
   </script>
 </body>
 </html>
@@ -69,7 +103,7 @@ import '../styles/global.css';
   .col-wide   { grid-column: 2 / 12; }
 
   .scene {
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,12 +145,14 @@ import '../styles/global.css';
     margin: 0 auto;
   }
   .narrative-mark {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 500;
     text-decoration: none;
-    letter-spacing: -0.01em;
-    color: var(--ink);
+    display: flex;
+    align-items: center;
+  }
+  .narrative-mark-logo {
+    height: 16px;
+    width: auto;
+    display: block;
   }
   .narrative-nav {
     display: flex;
@@ -128,29 +164,72 @@ import '../styles/global.css';
     text-decoration: none;
   }
   .narrative-nav a:hover { color: var(--ink); }
-  .narrative-edition {
+  .narrative-end {
     justify-self: end;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .narrative-edition {
     color: var(--muted);
     white-space: nowrap;
   }
+  .narrative-app-link {
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .narrative-app-link:hover { color: var(--ink); }
+
+  /* Hamburger toggle */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Mobile nav drawer */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: var(--paper);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .mobile-nav.is-open { display: flex; }
+  .mobile-nav a {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .mobile-nav a:hover { color: var(--muted); }
+  .mobile-nav-app {
+    margin-top: 16px;
+    font-family: var(--font-mono) !important;
+    font-size: var(--fs-label) !important;
+    letter-spacing: var(--fs-label-tracking) !important;
+    text-transform: uppercase;
+    color: var(--muted) !important;
+  }
+
   @media (max-width: 800px) {
     .narrative-header { padding: 16px 24px; }
     .narrative-header-inner { grid-template-columns: 1fr auto; gap: 16px; }
     .narrative-nav { display: none; }
+    .narrative-end { display: none; }
+    .nav-toggle { display: block; }
   }
 
-  html.js [data-hero-wordmark],
-  html.js [data-hero-tagline],
-  html.js [data-hero-rung],
-  html.js [data-hero-scroll] {
-    opacity: 0;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html.js [data-hero-wordmark],
-    html.js [data-hero-tagline],
-    html.js [data-hero-rung],
-    html.js [data-hero-scroll] {
-      opacity: 1;
-    }
-  }
 </style>

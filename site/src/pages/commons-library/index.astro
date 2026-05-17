@@ -1,0 +1,447 @@
+---
+import Narrative from '../../layouts/Narrative.astro';
+
+const patterns = [
+  {
+    slug: 'great-feast',
+    name: 'The Great Feast',
+    category: 'Food Commons · Civic Ritual',
+    description: 'A recurring communal meal designed to rebuild civic belonging through food, ritual, and shared participation.',
+    dimensions: {
+      problem: 'Social atomization; loss of communal meals and shared public tables.',
+      implementation: 'Long tables in public spaces, mixed seating, seasonal menus, local food sourcing, shared setup and cleanup.',
+      governance: 'Rotating stewardship circle; no permanent chair; responsibility distributed across the group.',
+      funding: 'Municipal grants, local food partnerships, participant contributions.',
+      rituals: 'Seasonal menus tied to the agricultural calendar, collective cleanup ceremony, storytelling circle.',
+      metrics: 'Attendance, repeat participation rate, local food sourcing percentage.',
+    },
+  },
+  {
+    slug: 'great-repair',
+    name: 'The Great Repair',
+    category: 'Skill Commons · Ecological Stewardship',
+    description: 'A recurring repair event where neighbors bring broken objects and skilled volunteers help fix them together.',
+    dimensions: {
+      problem: 'Planned obsolescence, isolation of practical knowledge, erosion of intergenerational skill transfer.',
+      implementation: 'Pop-up repair stations in accessible public spaces; skill-matching between repairers and objects; documentation of repairs.',
+      governance: 'Skill-based volunteer coordination; no hierarchy; any skilled person can lead.',
+      funding: 'Tool donations, workshop fees on sliding scale, municipal support.',
+      rituals: 'Skill-transfer moments between elder and younger repairers, tool consecration on first use, closing repair circle.',
+      metrics: 'Items repaired, weight diverted from landfill, mentorships formed.',
+    },
+  },
+  {
+    slug: 'commons-garden',
+    name: 'Commons Garden Network',
+    category: 'Ecological Commons · Urban Food Systems',
+    description: 'A collectively managed garden that produces food, builds ecological knowledge, and reconnects urban residents to land.',
+    dimensions: {
+      problem: 'Urban ecological disconnection, food insecurity, loss of practical agricultural knowledge.',
+      implementation: 'Community-managed plots in public or trust-held land; zone-based stewardship; open access seed library.',
+      governance: 'Land trust model; stewardship circles organized by zone; decisions made by active participants.',
+      funding: 'Community land trust, municipal land use agreements, seed library donations.',
+      rituals: 'Seasonal planting days, harvest sharing gatherings, annual seed saving ceremony.',
+      metrics: 'Food produced (kg), biodiversity indicators, pollinator species count, active participants.',
+    },
+  },
+  {
+    slug: 'civic-fires',
+    name: 'Civic Fires',
+    category: 'Seasonal Ritual · Collective Memory',
+    description: 'Seasonal fire-centered gatherings that hold space for collective grief, celebration, and meaning-making.',
+    dimensions: {
+      problem: 'Loss of collective ritual for grief and celebration; privatization of meaning-making; absence of secular sacred space.',
+      implementation: 'Seasonal gatherings around fire in public spaces; participatory storytelling format; mixed-age and intergenerational design.',
+      governance: 'Rotating host; no permanent organizer; participatory format with no fixed program.',
+      funding: 'Communal contribution only; no sponsors or commercial partners.',
+      rituals: 'Fire-lighting ceremony, storytelling rounds, periods of shared silence and reflection.',
+      metrics: 'Attendance, qualitative emotional resonance, intergenerational participation ratio.',
+    },
+  },
+  {
+    slug: 'night-commons',
+    name: 'The Night Commons',
+    category: 'Civic Space · Rest & Restoration',
+    description: 'A non-commercial, alcohol-free nocturnal gathering space offering restoration, quiet, and genuine social life after dark.',
+    dimensions: {
+      problem: 'Commercial monopoly on nightlife, exclusion of non-drinkers and those with limited income, no civic restoration spaces.',
+      implementation: 'Hosted space with ambient light and sound, quiet zones, sliding-scale or free entry, rotating evening programming.',
+      governance: 'Host-steward rotation; accessibility committee to ensure inclusivity; low-key facilitation.',
+      funding: 'Voluntary contribution, municipal culture grants, in-kind space donations.',
+      rituals: 'Lighting ceremony at opening, designated quiet hours, closing circle.',
+      metrics: 'Repeat attendance rate, perceived restoration (qualitative), economic accessibility of participants.',
+    },
+  },
+  {
+    slug: 'story-archive',
+    name: 'The Story Archive',
+    category: 'Oral History · Living Memory',
+    description: 'A community-held archive of oral histories, neighborhood memory, and lived experience — stewarded by the people it documents.',
+    dimensions: {
+      problem: 'Displacement erasing community memory; knowledge dying with elders; histories lost when neighborhoods change.',
+      implementation: 'Regular recording sessions with community members; transcription and indexing; public access through library partnerships.',
+      governance: 'Archive committee with community editorial review; rotating editorial lead; community holds final say on access.',
+      funding: 'Arts grants, library partnerships, municipal heritage funds.',
+      rituals: 'Recording sessions as conversational ritual, memory walks through significant sites, annual public story sharing.',
+      metrics: 'Stories collected, transcriptions completed, public access usage statistics.',
+    },
+  },
+  {
+    slug: 'wandering-workshop',
+    name: 'The Wandering Workshop',
+    category: 'Mobile Learning · Apprenticeship Culture',
+    description: 'A traveling workshop that brings practical skill teaching into neighborhoods, hosted by different communities in rotation.',
+    dimensions: {
+      problem: 'Practical skills locked behind paywalls; erosion of embodied knowledge; loss of apprenticeship culture.',
+      implementation: 'Mobile workshop hosted by rotating community; open-invitation format; skill-holders teach publicly with apprentice structure.',
+      governance: 'Skill-holder coordination network; host community agreements for each stop; no central organizer.',
+      funding: 'Host community contributions, grants, tool library partnerships.',
+      rituals: 'Tool blessing at each new host location, apprentice welcome ceremony, closing public teaching moment.',
+      metrics: 'Workshops held, skills taught, mentorships formed, repeat host communities.',
+    },
+  },
+];
+
+const dimensionLabels: Record<string, string> = {
+  problem: 'Problem Addressed',
+  implementation: 'Implementation Notes',
+  governance: 'Governance Model',
+  funding: 'Funding Paths',
+  rituals: 'Rituals',
+  metrics: 'Metrics',
+};
+---
+
+<Narrative title="Commons Library — ICOS">
+
+  <!-- 1. Hero -->
+  <section class="scene cl-hero">
+    <div class="grid">
+      <div class="col-wide">
+        <p class="label cl-tag" data-reveal>ICOS · Implementation Reference</p>
+        <h1 class="cl-headline" data-reveal>
+          A library of patterns<br>
+          for rebuilding shared life.
+        </h1>
+        <p class="cl-lede" data-reveal>
+          This is the implementation reference for the seven commons patterns.
+          Each pattern is a proven, adaptable form for civic life — with a
+          governance model, funding logic, and rituals that make it sustainable
+          over time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. How to use this library -->
+  <section class="cl-how">
+    <div class="grid">
+      <div class="col-wide">
+        <div class="cl-how-inner" data-reveal>
+          <p class="label cl-how-label">How to use this library</p>
+          <p class="cl-how-body">
+            Each pattern has an <a href="/patterns">overview page</a> — the inspiration,
+            the why, the stories. This library provides the implementation dimensions:
+            what problem it addresses, how it runs, how it's governed, how it's funded,
+            and how you know it's working. Use it as a reference when you're ready to go
+            deeper than the overview.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Pattern cards -->
+  <section class="cl-patterns">
+    <div class="grid">
+      <div class="col-wide">
+        {patterns.map((p, i) => (
+          <article class="pattern-card" id={p.slug} data-reveal>
+            <header class="pattern-card-header">
+              <div class="pattern-card-meta">
+                <span class="label pattern-card-num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="label pattern-card-cat">{p.category}</span>
+              </div>
+              <h2 class="pattern-card-name">{p.name}</h2>
+              <p class="pattern-card-desc">{p.description}</p>
+            </header>
+            <div class="pattern-card-dims">
+              {Object.entries(p.dimensions).map(([key, value]) => (
+                <div class="dim-row">
+                  <p class="label dim-key">{dimensionLabels[key]}</p>
+                  <p class="dim-val">{value}</p>
+                </div>
+              ))}
+            </div>
+            <footer class="pattern-card-footer">
+              <a href={`/patterns/${p.slug}`} class="pattern-card-link label">
+                View Full Pattern →
+              </a>
+            </footer>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Closing -->
+  <section class="scene cl-closing">
+    <div class="grid">
+      <div class="col-center">
+        <p class="label" data-reveal>A living document</p>
+        <h2 class="cl-closing-h" data-reveal>
+          This library grows<br>with practice.
+        </h2>
+        <p class="cl-closing-sub" data-reveal>
+          The best documentation of these patterns comes from communities who
+          have run them, adapted them, and found what works in their particular
+          place. If your community has developed a pattern variant or an
+          implementation note worth sharing, we want to hear from you.
+        </p>
+        <nav class="cl-ctas" data-reveal>
+          <a href="/chapters" class="cl-cta-main">Find or Start a Chapter →</a>
+          <a href="/field-notes" class="cl-cta-sub">Read Field Notes</a>
+        </nav>
+        <p class="label cl-closing-mark" data-reveal>Commons Library · ICOS · Commons Operating System</p>
+      </div>
+    </div>
+  </section>
+
+</Narrative>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────────────────── */
+
+  .cl-hero {
+    padding-top: 100px;
+    min-height: 0;
+    align-items: flex-start;
+    padding-bottom: 48px;
+  }
+
+  .cl-tag {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .cl-headline {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5.5vw, 72px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    max-width: 24ch;
+  }
+
+  .cl-lede {
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.55;
+    max-width: 54ch;
+    margin: 0;
+  }
+
+  /* ── How to use ─────────────────────────────────────────────────── */
+
+  .cl-how {
+    padding: 0 0 64px;
+  }
+
+  .cl-how-inner {
+    border-top: 0.5px solid var(--rule);
+    border-bottom: 0.5px solid var(--rule);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .cl-how-label {
+    padding-top: 3px;
+    line-height: 1.8;
+  }
+
+  .cl-how-body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0;
+    max-width: 64ch;
+  }
+
+  /* ── Pattern cards ──────────────────────────────────────────────── */
+
+  .cl-patterns {
+    padding-bottom: 56px;
+  }
+
+  .pattern-card {
+    border-top: 0.5px solid var(--rule);
+    padding: 48px 0;
+  }
+
+  .pattern-card:last-child {
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .pattern-card-header {
+    margin-bottom: 32px;
+  }
+
+  .pattern-card-meta {
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+
+  .pattern-card-num {
+    color: var(--muted);
+  }
+
+  .pattern-card-cat {
+    color: var(--accent);
+  }
+
+  .pattern-card-name {
+    font-size: clamp(24px, 3vw, 38px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0 0 14px;
+  }
+
+  .pattern-card-desc {
+    font-size: clamp(16px, 1.5vw, 18px);
+    line-height: 1.6;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* ── Dimensions ─────────────────────────────────────────────────── */
+
+  .pattern-card-dims {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 0.5px solid var(--rule);
+    margin-bottom: 28px;
+  }
+
+  .dim-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px 32px;
+    padding: 14px 0;
+    border-bottom: 0.5px solid var(--rule);
+    align-items: baseline;
+  }
+
+  .dim-key {
+    color: var(--muted);
+    margin: 0;
+    padding-top: 2px;
+  }
+
+  .dim-val {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 72ch;
+  }
+
+  /* ── Card footer ────────────────────────────────────────────────── */
+
+  .pattern-card-footer {
+    margin-top: 4px;
+  }
+
+  .pattern-card-link {
+    color: var(--accent);
+    text-decoration: none;
+    transition: text-decoration-color 0.15s;
+    text-decoration-color: transparent;
+  }
+  .pattern-card-link:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+  }
+
+  /* ── Closing ────────────────────────────────────────────────────── */
+
+  .cl-closing {
+    text-align: center;
+    min-height: 0;
+    padding: 80px 0;
+  }
+
+  .cl-closing-h {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 12px 0 20px;
+  }
+
+  .cl-closing-sub {
+    font-size: clamp(16px, 1.6vw, 19px);
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0 auto 36px;
+    max-width: 50ch;
+  }
+
+  .cl-ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cl-cta-main {
+    font-size: 20px;
+    color: var(--accent);
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s;
+  }
+  .cl-cta-main:hover { text-decoration-color: var(--accent); }
+
+  .cl-cta-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: var(--fs-label-tracking);
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .cl-cta-sub:hover { color: var(--ink); }
+
+  .cl-closing-mark {
+    display: block;
+    color: var(--muted);
+    margin-top: 48px;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────── */
+
+  @media (max-width: 900px) {
+    .cl-how-inner {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .dim-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .dim-key { padding-top: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .cl-hero { padding-top: 100px; }
+    .pattern-card { padding: 36px 0; }
+  }
+</style>

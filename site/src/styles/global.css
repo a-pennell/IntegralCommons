@@ -12,6 +12,7 @@ html, body {
   line-height: var(--fs-body-lh);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  text-wrap: pretty;
 }
 
 body {
@@ -26,6 +27,7 @@ h1, h2, h3, h4 {
   font-weight: 500;
   letter-spacing: -0.01em;
   margin: 0;
+  text-wrap: balance;
 }
 
 a {

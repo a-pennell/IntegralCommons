@@ -1,0 +1,269 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+import Narrative from './Narrative.astro';
+---
+
+<Narrative title={title}>
+  <div class="pattern-page">
+    <slot />
+  </div>
+</Narrative>
+
+<style is:global>
+  /* ── Hero ──────────────────────────────────────────────────────── */
+
+  .pattern-page .hero {
+    padding-top: 100px;
+    align-items: flex-start;
+  }
+
+  .pattern-page .hero-tag {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .pattern-page .headline {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5.5vw, 76px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    max-width: 22ch;
+  }
+
+  .pattern-page .lede {
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.55;
+    max-width: 52ch;
+    margin: 0 0 36px;
+  }
+
+  .pattern-page .ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .pattern-page .cta-main {
+    font-size: 20px;
+    color: var(--accent);
+    text-decoration-color: transparent;
+    width: fit-content;
+    transition: text-decoration-color 0.2s;
+  }
+  .pattern-page .cta-main:hover { text-decoration-color: var(--accent); }
+
+  .pattern-page .cta-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: var(--fs-label-tracking);
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    width: fit-content;
+  }
+  .pattern-page .cta-sub:hover { color: var(--ink); }
+
+  /* ── Content sections ──────────────────────────────────────────── */
+
+  .pattern-page .content-scene {
+    padding: 56px 0;
+    min-height: 0;
+  }
+
+  .pattern-page .two-col {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--gutter);
+    align-items: start;
+  }
+
+  .pattern-page .aside-label {
+    line-height: 1.8;
+    padding-top: 6px;
+  }
+
+  /* ── Prose ─────────────────────────────────────────────────────── */
+
+  .pattern-page .prose h2 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0 0 28px;
+  }
+
+  .pattern-page .prose p {
+    margin: 0 0 20px;
+    max-width: 58ch;
+  }
+
+  .pattern-page .prose blockquote {
+    border-left: 2px solid var(--accent);
+    padding-left: 24px;
+    margin: 36px 0 0;
+    font-style: italic;
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.5;
+    max-width: 50ch;
+    color: var(--ink);
+  }
+
+  /* ── List ──────────────────────────────────────────────────────── */
+
+  .pattern-page .list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pattern-page .list li {
+    display: flex;
+    gap: 12px;
+    line-height: 1.55;
+  }
+
+  .pattern-page .bullet {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+
+  /* ── Pattern quad ──────────────────────────────────────────────── */
+
+  .pattern-page .quad {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 28px;
+    margin-top: 36px;
+  }
+
+  .pattern-page .quad-item .label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .pattern-page .quad-item p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 28ch;
+  }
+
+  /* ── Steps ─────────────────────────────────────────────────────── */
+
+  .pattern-page .steps {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+  }
+
+  .pattern-page .steps li {
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 0.5px solid var(--rule);
+    align-items: flex-start;
+  }
+
+  .pattern-page .step-n {
+    flex-shrink: 0;
+    padding-top: 3px;
+    color: var(--accent);
+  }
+
+  .pattern-page .steps strong {
+    display: block;
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .pattern-page .steps p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    max-width: 40ch;
+  }
+
+  /* ── Stories ───────────────────────────────────────────────────── */
+
+  .pattern-page .stories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px 48px;
+    margin-top: 40px;
+  }
+
+  .pattern-page .story { margin: 0; }
+
+  .pattern-page .pullquote {
+    font-size: clamp(20px, 2.4vw, 30px);
+    font-style: italic;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+    padding: 0;
+    border: none;
+    color: var(--ink);
+  }
+
+  .pattern-page .attrib { color: var(--muted); }
+
+  /* ── Closing CTA ───────────────────────────────────────────────── */
+
+  .pattern-page .closing-h {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 12px 0 20px;
+  }
+
+  .pattern-page .closing-sub {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 20px;
+    margin: 0 0 32px;
+  }
+
+  .pattern-page .closing-mark {
+    display: block;
+    color: var(--muted);
+    margin-top: 48px;
+  }
+
+  /* ── Responsive ────────────────────────────────────────────────── */
+
+  @media (max-width: 900px) {
+    .pattern-page .two-col {
+      grid-template-columns: 1fr;
+    }
+    .pattern-page .aside-label {
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .pattern-page .quad {
+      grid-template-columns: 1fr;
+    }
+    .pattern-page .stories {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pattern-page .hero { padding-top: 100px; }
+    .pattern-page .content-scene { padding: 64px 0; }
+  }
+</style>

@@ -1,0 +1,581 @@
+---
+import Narrative from '../layouts/Narrative.astro';
+
+const patterns = [
+  { slug: 'great-feast',        name: 'The Great Feast',          category: 'Food Commons' },
+  { slug: 'great-repair',       name: 'The Great Repair',         category: 'Skill Commons' },
+  { slug: 'commons-garden',     name: 'Commons Garden',           category: 'Ecological Commons' },
+  { slug: 'civic-fires',        name: 'Civic Fires',              category: 'Seasonal Ritual' },
+  { slug: 'night-commons',      name: 'The Night Commons',        category: 'Civic Space' },
+  { slug: 'story-archive',      name: 'The Story Archive',        category: 'Oral History' },
+  { slug: 'wandering-workshop', name: 'The Wandering Workshop',   category: 'Mobile Learning' },
+];
+---
+
+<Narrative title="Start Here — ICOS">
+
+  <!-- 1. Hero -->
+  <section class="scene sh-hero">
+    <div class="grid">
+      <div class="col-wide">
+        <p class="label sh-tag" data-reveal>ICOS · How To Begin Locally</p>
+        <h1 class="sh-headline" data-reveal>
+          The commons starts with<br>
+          one conversation.
+        </h1>
+        <p class="sh-lede" data-reveal>
+          You don't need permission, a budget, or a plan. You need a place,
+          a few neighbors, and a recurring commitment. Everything else follows
+          from showing up.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Choose a Pattern -->
+  <section class="sh-section">
+    <div class="grid">
+      <div class="col-wide">
+        <div class="two-col">
+          <div class="sh-aside">
+            <p class="label aside-label" data-reveal>Choose<br>a Pattern</p>
+          </div>
+          <div class="sh-body">
+            <h2 data-reveal>Seven forms. Pick one.</h2>
+            <p data-reveal>
+              Each pattern is a proven, adaptable form for civic gathering.
+              You don't have to invent anything. Choose the one that fits
+              your neighborhood's need and start there.
+            </p>
+            <ul class="pattern-list">
+              {patterns.map((p) => (
+                <li class="pattern-list-item" data-reveal>
+                  <a href={`/patterns/${p.slug}`} class="pattern-link">
+                    <span class="label pattern-cat">{p.category}</span>
+                    <span class="pattern-name">{p.name} →</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid"><div class="col-wide"><hr class="sh-rule" /></div></div>
+
+  <!-- 3. The Host Guide -->
+  <section class="sh-section">
+    <div class="grid">
+      <div class="col-wide">
+        <div class="two-col">
+          <div class="sh-aside">
+            <p class="label aside-label" data-reveal>The Host<br>Guide</p>
+          </div>
+          <div class="sh-body">
+            <h2 data-reveal>A simple structure for any gathering.</h2>
+            <p data-reveal>
+              These six steps work for every commons pattern. They're not
+              a rulebook — they're what experienced hosts have found matters most.
+            </p>
+            <ol class="steps">
+              <li data-reveal>
+                <span class="step-n label">01</span>
+                <div>
+                  <strong>Find 3–5 people who care</strong>
+                  <p>You don't need a committee. You need a small group with a shared conviction that your neighborhood deserves this. Three is enough to start.</p>
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="step-n label">02</span>
+                <div>
+                  <strong>Choose a recurring time — not a one-off event</strong>
+                  <p>A rhythm is what makes it a commons. The third Saturday of every month. Every solstice. Commit to the pattern before you plan the first gathering.</p>
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="step-n label">03</span>
+                <div>
+                  <strong>Claim a public space</strong>
+                  <p>Parks, plazas, church halls, library rooms, vacant lots with owner permission. Public space belongs to everyone — use it for something that serves everyone.</p>
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="step-n label">04</span>
+                <div>
+                  <strong>Invite neighbors — low-tech is best</strong>
+                  <p>Paper flyers. Word of mouth. A chalk message on the pavement. The invitation should feel like a neighbor knocking, not a brand announcement.</p>
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="step-n label">05</span>
+                <div>
+                  <strong>Share responsibility — no one person does everything</strong>
+                  <p>Cooking, setup, logistics, cleanup, music — let people contribute what they have. The shared labor is part of the ritual. It's what makes it a commons, not an event.</p>
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="step-n label">06</span>
+                <div>
+                  <strong>Document and share</strong>
+                  <p>Photos, short notes, what worked, what didn't. This becomes the institutional memory of your commons. Share it with your group and, when you're ready, with the broader network.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid"><div class="col-wide"><hr class="sh-rule" /></div></div>
+
+  <!-- 4. First Event Playbook -->
+  <section class="sh-section">
+    <div class="grid">
+      <div class="col-wide">
+        <div class="two-col">
+          <div class="sh-aside">
+            <p class="label aside-label" data-reveal>First Event<br>Playbook</p>
+          </div>
+          <div class="sh-body">
+            <h2 data-reveal>Starting a Neighborhood Feast: a walkthrough.</h2>
+            <p data-reveal>
+              This is one path. Your path will differ in the details — but the
+              shape of it will look something like this. The important thing is
+              to begin, and then to show up again.
+            </p>
+            <div class="playbook">
+              <div class="playbook-item" data-reveal>
+                <p class="label playbook-week">Week One</p>
+                <p class="playbook-title">Find your five.</p>
+                <p class="playbook-body">Have individual conversations. Not a group chat — actual conversations. Ask: "Would you want to help start a monthly neighborhood dinner?" You're looking for a yes and a why.</p>
+              </div>
+              <div class="playbook-item" data-reveal>
+                <p class="label playbook-week">Week Two</p>
+                <p class="playbook-title">Pick the date and the space.</p>
+                <p class="playbook-body">Meet in person (even briefly). Agree on a recurring slot and a location. The decision should take twenty minutes. Write it down and share it in a group message.</p>
+              </div>
+              <div class="playbook-item" data-reveal>
+                <p class="label playbook-week">Week Three</p>
+                <p class="playbook-title">Get the permit if needed, then spread the word.</p>
+                <p class="playbook-body">Most cities have a simple parks permit for gatherings under 75 people. Get it. Then: a simple flyer, posted in the immediate neighborhood. No social media required. Your network of five can personally invite twenty people each.</p>
+              </div>
+              <div class="playbook-item" data-reveal>
+                <p class="label playbook-week">Day Of</p>
+                <p class="playbook-title">Arrive early, set up together, let it flow, clean up together.</p>
+                <p class="playbook-body">Your group arrives an hour before. You set up tables end to end — long tables, mixed seating, no reserved spots. When people arrive, someone greets them. When it ends, everyone stays to clean. The cleanup is part of it.</p>
+              </div>
+              <div class="playbook-item" data-reveal>
+                <p class="label playbook-week">After</p>
+                <p class="playbook-title">Note what worked, invite more people, commit to the next one.</p>
+                <p class="playbook-body">Within a week, write a brief note as a group: what went well, what you'd change, who showed up that you'd like to invite into the stewardship circle. Then set the date for the next gathering. That commitment is the most important thing you can do.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid"><div class="col-wide"><hr class="sh-rule" /></div></div>
+
+  <!-- 5. Governance-lite -->
+  <section class="sh-section">
+    <div class="grid">
+      <div class="col-wide">
+        <div class="two-col">
+          <div class="sh-aside">
+            <p class="label aside-label" data-reveal>When It<br>Grows</p>
+          </div>
+          <div class="sh-body">
+            <h2 data-reveal>What happens when it grows?</h2>
+            <p data-reveal>
+              At some point — if the commons takes root — it will outgrow
+              the informal arrangement you started with. That's a good problem
+              to have. Here's a simple structure that works:
+            </p>
+            <ul class="govlist">
+              <li data-reveal>
+                <span class="govlist-marker label">—</span>
+                <div>
+                  <strong>Stewards, not rulers.</strong> The people who do the work hold the decisions. There is no permanent chair, no board. Stewardship rotates as people arrive and step back.
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="govlist-marker label">—</span>
+                <div>
+                  <strong>Rotating responsibility.</strong> No single person should carry the commons indefinitely. After each cycle, ask: who is ready to take on more? Actively recruit the next steward before you need them.
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="govlist-marker label">—</span>
+                <div>
+                  <strong>Informal consensus for small decisions.</strong> Where you set up, what you cook, when you meet — decide these in the group, casually. Most decisions in a healthy commons are small. Reserve formal process for things that actually change the character of what you're doing.
+                </div>
+              </li>
+              <li data-reveal>
+                <span class="govlist-marker label">—</span>
+                <div>
+                  <strong>Documented norms.</strong> Write down the things that matter most to your group — the values, the non-negotiables, the habits that make it what it is. Not a constitution. A living document, one page, in plain language. Review it annually.
+                </div>
+              </li>
+            </ul>
+            <p class="sh-aside-note" data-reveal>
+              When your commons grows enough to need more structure, visit
+              the <a href="/docs">Docs</a> for deeper governance resources.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid"><div class="col-wide"><hr class="sh-rule" /></div></div>
+
+  <!-- 6. Closing CTA -->
+  <section class="scene sh-closing">
+    <div class="grid">
+      <div class="col-center">
+        <p class="label" data-reveal>An invitation</p>
+        <h2 class="sh-closing-h" data-reveal>
+          Start a commons in<br>your neighborhood.
+        </h2>
+        <p class="sh-closing-sub" data-reveal>
+          You already have what you need. So does the place where you live.
+          Find your five people and begin.
+        </p>
+        <nav class="sh-ctas" data-reveal>
+          <a href="/chapters" class="sh-cta-main">Register as a Chapter →</a>
+          <a href="/patterns" class="sh-cta-sub">Explore the Commons Patterns</a>
+        </nav>
+        <p class="label sh-closing-mark" data-reveal>Start Here · ICOS · Commons Operating System</p>
+      </div>
+    </div>
+  </section>
+
+</Narrative>
+
+<style>
+  /* ── Hero ───────────────────────────────────────────────────────── */
+
+  .sh-hero {
+    padding-top: 100px;
+    min-height: 0;
+    align-items: flex-start;
+  }
+
+  .sh-tag {
+    display: block;
+    margin-bottom: 24px;
+  }
+
+  .sh-headline {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5.5vw, 76px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    max-width: 22ch;
+  }
+
+  .sh-lede {
+    font-size: clamp(17px, 1.8vw, 21px);
+    line-height: 1.55;
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  /* ── Sections ───────────────────────────────────────────────────── */
+
+  .sh-section {
+    padding: 56px 0;
+  }
+
+  .sh-rule {
+    border: 0;
+    border-top: 0.5px solid var(--rule);
+    margin: 0;
+  }
+
+  /* ── Two-col layout ─────────────────────────────────────────────── */
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .aside-label {
+    line-height: 1.8;
+    padding-top: 6px;
+  }
+
+  /* ── Body prose ─────────────────────────────────────────────────── */
+
+  .sh-body h2 {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0 0 28px;
+  }
+
+  .sh-body p {
+    margin: 0 0 20px;
+    max-width: 58ch;
+  }
+
+  .sh-aside-note {
+    font-size: 16px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 36px !important;
+  }
+
+  /* ── Pattern list ───────────────────────────────────────────────── */
+
+  .pattern-list {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 0.5px solid var(--rule);
+  }
+
+  .pattern-list-item {
+    border-bottom: 0.5px solid var(--rule);
+  }
+
+  .pattern-link {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: baseline;
+    padding: 16px 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+  .pattern-link:hover { color: var(--accent); }
+  .pattern-link:hover .pattern-cat { color: var(--accent); }
+
+  .pattern-cat {
+    color: var(--muted);
+    transition: color 0.15s;
+  }
+
+  .pattern-name {
+    font-size: 19px;
+    font-weight: 500;
+  }
+
+  /* ── Steps ──────────────────────────────────────────────────────── */
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+  }
+
+  .steps li {
+    display: flex;
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 0.5px solid var(--rule);
+    align-items: flex-start;
+  }
+
+  .step-n {
+    flex-shrink: 0;
+    padding-top: 3px;
+    color: var(--accent);
+  }
+
+  .steps strong {
+    display: block;
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .steps p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  /* ── Playbook ───────────────────────────────────────────────────── */
+
+  .playbook {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 0.5px solid var(--rule);
+  }
+
+  .playbook-item {
+    padding: 28px 0;
+    border-bottom: 0.5px solid var(--rule);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px 28px;
+    align-items: start;
+  }
+
+  .playbook-week {
+    color: var(--accent);
+    margin: 0;
+    padding-top: 4px;
+  }
+
+  .playbook-title {
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0 0 8px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .playbook-body {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0;
+    max-width: 52ch;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* ── Gov list ───────────────────────────────────────────────────── */
+
+  .govlist {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 0.5px solid var(--rule);
+  }
+
+  .govlist li {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 0.5px solid var(--rule);
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 56ch;
+  }
+
+  .govlist-marker {
+    flex-shrink: 0;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+
+  .govlist strong {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  /* ── Closing ────────────────────────────────────────────────────── */
+
+  .sh-closing {
+    text-align: center;
+    min-height: 0;
+    padding: 80px 0;
+  }
+
+  .sh-closing-h {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4.5vw, 58px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 12px 0 20px;
+  }
+
+  .sh-closing-sub {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 20px;
+    margin: 0 0 36px;
+    max-width: 44ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sh-ctas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .sh-cta-main {
+    font-size: 20px;
+    color: var(--accent);
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s;
+  }
+  .sh-cta-main:hover { text-decoration-color: var(--accent); }
+
+  .sh-cta-sub {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: var(--fs-label-tracking);
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .sh-cta-sub:hover { color: var(--ink); }
+
+  .sh-closing-mark {
+    display: block;
+    color: var(--muted);
+    margin-top: 48px;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────────────── */
+
+  @media (max-width: 900px) {
+    .two-col {
+      grid-template-columns: 1fr;
+    }
+    .aside-label {
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .playbook-item {
+      grid-template-columns: 1fr;
+    }
+    .playbook-title {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .playbook-body {
+      grid-column: 1;
+      grid-row: 3;
+    }
+    .playbook-week {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .sh-hero { padding-top: 100px; }
+    .sh-section { padding: 64px 0; }
+    .pattern-cat { display: none; }
+  }
+</style>

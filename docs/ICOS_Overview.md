@@ -30,47 +30,10 @@ These are not a hierarchy. They are nested holons — each is a whole in itself 
 
 ---
 
-## The Constitutional Foundation
-
-All Integral Commons layers share seven inviolable principles from the CommonGround Constitution:
-
-1. **Revocability** — All delegations of authority are revocable. No delegation may be made permanent.
-2. **Due Process** — Members subject to removal are entitled to transparent process.
-3. **Commons Protection** — No decision may privatize shared infrastructure or restrict exit rights. Supreme principle.
-4. **Forkability** — Any community may fork its governance and leave with its data.
-5. **Holonic Nesting** — Higher-level holons cannot override the sovereignty of lower-level holons.
-6. **Deliberation** — No decision proceeds without structured deliberation.
-7. **Framework Accountability** — The constitutional framework is governed by a federated body drawn from active communities, not by the Integral Commons organization. No change to Tier 1 principles is valid without a supermajority of active community holons.
-
-These seven principles are the grammar of the system. Individual layers add vocabulary; none may contradict the grammar.
-
----
-
 ## What Integral Commons Is Not
 
 - **Not a platform.** Platforms aggregate users to extract network effects. Integral Commons disperses power to communities.
 - **Not complete.** Several layers are in concept stage. This is a direction and a commitment, not a finished product.
 - **Not a solution to political problems.** Integral Commons creates infrastructure; it cannot compel institutions to share power.
-- **Not neutral.** Integral Commons makes specific choices about what counts and who matters. Those choices are documented and contestable.
+- **Not neutral.** Integral Commons makes specific choices about what counts. Those choices are documented and contestable.
 
----
-
-## Documentation Map
-
-| Document | What it covers |
-|---|---|
-| [icos-architecture.md](icos-architecture.md) | Full layer model, holonic principle, interoperability, shared principles |
-| [lcos-prd.md](lcos-prd.md) | Layer 1: Local Commons — neighborhood coordination |
-| [flow-engine-prd.md](flow-engine-prd.md) | Layer 2: Flow Engine (Synapse, Equip, Kindred) — resource flow |
-| [eil-prd.md](eil-prd.md) | Layer 3: Ecological Impact Layer — ecological awareness infrastructure |
-| [cip-prd.md](cip-prd.md) | Layer 4: Care Integration Platform — relational care |
-| [commonground-prd.md](commonground-prd.md) | Layer 5: CommonGround — group-scale governance |
-| [mcs-prd.md](mcs-prd.md) | Layer 5: Modular Civic Stack — civic/municipal governance |
-| [intelligence-layer-prd.md](intelligence-layer-prd.md) | Layer 6: Intelligence Layer — cross-layer synthesis and legibility |
-| [governance-layer-relationships.md](governance-layer-relationships.md) | How Local Commons governance, CommonGround, and MCS relate |
-| [commonground-constitution-v3.md](commonground-constitution-v3.md) | Constitutional framework shared across all layers |
-| [manifesto.md](manifesto.md) | Principles and commitments |
-
----
-
-*The full system architecture is in [icos-architecture.md](icos-architecture.md). Start there.*
